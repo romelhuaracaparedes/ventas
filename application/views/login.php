@@ -1,141 +1,69 @@
 <!DOCTYPE html>
-<html lang="es">
 
-<head>
-    <meta charset="utf-8">
-    <base href=""/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>CITAS VIRTUALES - MININTER</title>
-    <!-- Bootstrap Core CSS -->
-    <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!-- page css -->
-    <link href="<?php echo base_url(); ?>assets/css/pages/login-register-lock.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
-
-    <!-- You can change the theme colors from here -->
-    <link href="<?php echo base_url(); ?>assets/css/colors/default-dark.css" id="theme" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
-</head>
-
-<body class="card-no-border">
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
-    <div class="preloader">
-        <div class="loader">
-            <div class="loader__figure"></div>
-            <p class="loader__label">Admin Pro</p>
-        </div>
-    </div>
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
-    <section id="wrapper">
-        <div class="login-register" style="background-image:url(https://comexa.com.bo/wp-content/uploads/2015/09/Abstract-Background-White.jpg);">
-            <div class="login-box card">
-                <div class="card-body">
-                    <form class="form-horizontal form-material" id="loginform" method="post" autocomplete="off">
-                        <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
-                        <center>
-                            <img src="https://mininter.nec.pe/wp-content/uploads/2021/03/LogoMININTER.png" alt="" width="350px">
-                        </center>
-                        <br>
-                        <h3 class="box-title m-b-20">MÓDULO DE CITAS VIRTUALES</h3>
-
-                        <div class="form-group ">
-                            <div class="col-xs-12">
-                                <input id="txtUsuario" name="usr_codigo" class="form-control" type="text" required="" placeholder="Usuario"> </div>
+<html lang="es" class="light">
+    <head>
+        <meta charset="utf-8">
+        <base href=""/>
+        <link href="<?=base_url()?>assets/images/logo.svg" rel="shortcut icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login - Midone - Tailwind HTML Admin Template</title>
+        <!-- BEGIN: CSS Assets-->
+        <link rel="stylesheet" href="<?=base_url()?>assets/css/app.css">
+        <!-- END: CSS Assets-->
+    </head>
+    <!-- END: Head -->
+    <body class="login">
+        <div class="container sm:px-10">
+            <div class="block xl:grid grid-cols-2 gap-4">
+                <!-- BEGIN: Login Info -->
+                <div class="hidden xl:flex flex-col min-h-screen">
+                    <a href="" class="-intro-x flex items-center pt-5">
+                        <img alt="Midone Tailwind HTML Admin Template" class="w-6" src="<?=base_url()?>assets/images/logo.svg">
+                        <span class="text-white text-lg ml-3"> Mid<span class="font-medium">One</span> </span>
+                    </a>
+                    <div class="my-auto">
+                        <img alt="Midone Tailwind HTML Admin Template" class="-intro-x w-1/2 -mt-16" src="<?=base_url()?>assets/images/illustration.svg">
+                        <div class="-intro-x text-white font-medium text-4xl leading-tight mt-10">
+                            A few more clicks to 
+                            <br>
+                            sign in to your account.
                         </div>
-                        <div class="form-group">
-                            <div class="col-xs-12">
-                                <input id="txtClave" name="usr_clave" class="form-control" type="password" required="" placeholder="Contraseña"> </div>
-                        </div>
-                        <!-- <div class="form-group row">
-                            <div class="col-md-12">
-                                <div class="checkbox checkbox-info float-left p-t-0">
-                                    <input id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
-                                    <label for="checkbox-signup"> Recordar credenciales </label>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="form-group text-center">
-                            <div class="col-xs-12 p-b-20">
-                                <button class="btn btn-block btn-info btn-rounded" type="submit">Ingresar</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
-                                <div class="social">
-                                    <a href="javascript:void(0)" class="btn btn-primary" data-toggle="tooltip" title="Login with Facebook"> Crear Cuenta</a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="form-group m-b-0">
-                            <div class="col-sm-12 text-center">
-                                ¿Olvidaste tu contraseña?
-                                <a href="pages-register.html" class="text-info m-l-5"><br><b>Recuprar Contraseña</b></a>
-                            </div>
-                        </div> -->
-                    </form>
+                        <div class="-intro-x mt-5 text-lg text-white dark:text-gray-500">Manage all your e-commerce accounts in one place</div>
+                    </div>
                 </div>
+                <!-- END: Login Info -->
+                <!-- BEGIN: Login Form -->
+                <div class="h-screen xl:h-auto flex py-5 xl:py-0 my-10 xl:my-0">
+                    <div class="my-auto mx-auto xl:ml-20 bg-white xl:bg-transparent px-5 sm:px-8 py-8 xl:p-0 rounded-md shadow-md xl:shadow-none w-full sm:w-3/4 lg:w-2/4 xl:w-auto">
+                        <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
+                            Sign In
+                        </h2>
+                        <div class="intro-x mt-2 text-gray-500 xl:hidden text-center">A few more clicks to sign in to your account. Manage all your e-commerce accounts in one place</div>
+                        <div class="intro-x mt-8">
+                            <input type="text" class="intro-x login__input input input--lg border border-gray-300 block" placeholder="Email">
+                            <input type="password" class="intro-x login__input input input--lg border border-gray-300 block mt-4" placeholder="Password">
+                        </div>
+                        <div class="intro-x flex text-gray-700 dark:text-gray-600 text-xs sm:text-sm mt-4">
+                            <div class="flex items-center mr-auto">
+                                <input type="checkbox" class="input border mr-2" id="remember-me">
+                                <label class="cursor-pointer select-none" for="remember-me">Remember me</label>
+                            </div>
+                            <a href="">Forgot Password?</a> 
+                        </div>
+                        <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
+                            <button class="button button--lg w-full xl:w-32 text-white bg-theme-1 xl:mr-3 align-top">Login</button>
+                            <button class="button button--lg w-full xl:w-32 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 mt-3 xl:mt-0 align-top">Sign up</button>
+                        </div>
+                        <div class="intro-x mt-10 xl:mt-24 text-gray-700 dark:text-gray-600 text-center xl:text-left">
+                            By signin up, you agree to our 
+                            <br>
+                            <a class="text-theme-1 dark:text-theme-10" href="">Terms and Conditions</a> & <a class="text-theme-1 dark:text-theme-10" href="">Privacy Policy</a> 
+                        </div>
+                    </div>
+                </div>
+                <!-- END: Login Form -->
             </div>
         </div>
-    </section>
-
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="<?php echo base_url(); ?>assets/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!--Custom JavaScript -->
-    <script type="text/javascript">
-        $(function() {
-            $(".preloader").fadeOut();
-        });
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip()
-        });
-        // ============================================================== 
-        // Login and Recover Password 
-        // ============================================================== 
-        $('form#loginform').submit(function(ev){
-            ev.preventDefault();
-            $.post('login/validar', $(this).serialize(), function(resp){
-                console.log(resp);
-                if(resp.status == 'success'){
-                    document.location.href = 'acceso/home';
-                } else{
-                    alert(resp.msg);
-                }
-            }, 'json').fail(function(err){
-                alert(err);
-            });
-        });
-
-        $('#to-recover').on("click", function() {
-            $("#loginform").slideUp();
-            $("#recoverform").fadeIn();
-        });
-    </script>
-
-</body>
-
+        <script src="<?=base_url()?>assets/js/app.js"></script>
+    </body>
 </html>
