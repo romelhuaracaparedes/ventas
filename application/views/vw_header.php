@@ -835,6 +835,3 @@
         <!-- Mobile-header closed -->
         <!-- Main Content-->
         <div class="main-content side-content pt-0">
-
-            <div class="container-fluid">
-                <div class="inner-body">
