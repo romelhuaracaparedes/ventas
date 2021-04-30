@@ -43,8 +43,11 @@
     <link href="<?=base_url()?>assets/switcher/css/switcher.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/switcher/demo.css" rel="stylesheet">
 
-    <!-- Mutipleselect css-->
-    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/multipleselect/multiple-select.css">
+    <!-- Internal DataTables css-->
+    <link href="<?=base_url()?>assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="<?=base_url()?>assets/plugins/datatable/responsivebootstrap4.min.css" rel="stylesheet" />
+    <link href="<?=base_url()?>assets/plugins/datatable/fileexport/buttons.bootstrap4.min.css" rel="stylesheet" />
+
 
 </head>
 

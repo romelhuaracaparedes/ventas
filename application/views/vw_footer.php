@@ -65,6 +65,12 @@
     <!-- Internal Dashboard js-->
     <script src="<?=base_url()?>assets/js/index.js"></script>
 
+    <script src="<?=base_url()?>assets/plugins/datatable/jquery.dataTables.min.js"></script>
+    <script src="<?=base_url()?>assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
+    <script src="<?=base_url()?>assets/plugins/datatable/dataTables.responsive.min.js"></script>
+    <script src="<?=base_url()?>assets/plugins/datatable/fileexport/dataTables.buttons.min.js"></script>
+    <script src="<?=base_url()?>assets/js/table-data.js"></script>
+
 </body>
 
 
