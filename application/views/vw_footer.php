@@ -59,11 +59,10 @@
     <script src="<?=base_url()?>assets/plugins/morris.js/morris.min.js"></script>
 
     <!-- Circle Progress js-->
-    <script src="<?=base_url()?>assets/js/circle-progress.min.js"></script>
-    <script src="<?=base_url()?>assets/js/chart-circle.js"></script>
+    <!-- <script src="<?=base_url()?>assets/js/circle-progress.min.js"></script>
+    <script src="<?=base_url()?>assets/js/chart-circle.js"></script> -->
 
     <!-- Internal Dashboard js-->
-    <script src="<?=base_url()?>assets/js/index.js"></script>
 
     <script src="<?=base_url()?>assets/plugins/datatable/jquery.dataTables.min.js"></script>
     <script src="<?=base_url()?>assets/plugins/datatable/dataTables.bootstrap4.min.js"></script>
