@@ -32,24 +32,14 @@ class Sys_Controller extends CI_Controller {
 
 	protected function sys_render($view, $data = array(), $datah = array(), $dataf = array()){
 		$data_header = array();
-		//$data_header['obj_usuario'] = $this->usuario_login;//$this->getUsuarioLogin();
-        // $data_header['sidebar']        = @$_COOKIE['sidebar'];
 		$data_header = array_merge($data_header, $datah);
-
-		// $data_header['menu'] = $this->get_menu($data_header['obj_usuario']['idusuario']);
-
 		$data_footer = array();
 		$data_footer = array_merge($data_footer, $dataf);
-
-		// $data_footer['ses_duracion'] = $this->m_sesion->_get_duracion($data_header['obj_usuario']['idusuario']);
-
-	//	$data['obj_usuario'] = $this->usuario_login;//$this->getUsuarioLogin();
-		// $data['obj_modulo'] = $this->modulo_base;
 
 		$this->load->view('vw_header', $data_header);
 		$this->load->view($view, $data);
 		$this->load->view('vw_footer', $data_footer);
-	}
+	} 
 
 	public function index(){
 
