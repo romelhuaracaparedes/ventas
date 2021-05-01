@@ -69,6 +69,14 @@
     <script src="<?=base_url()?>assets/plugins/datatable/dataTables.responsive.min.js"></script>
     <script src="<?=base_url()?>assets/plugins/datatable/fileexport/dataTables.buttons.min.js"></script>
     <script src="<?=base_url()?>assets/js/table-data.js"></script>
+ 
+    <?php 
+    if(isset($jslib)){
+        foreach ($jslib as $kjs=>$js) {
+            echo '<script src="'.base_url() . $js.'"></script>';
+        }
+    }
+    ?>
 
 </body>
 

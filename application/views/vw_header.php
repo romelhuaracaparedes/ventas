@@ -5,11 +5,8 @@
 <head>
 
     <meta charset="utf-8">
+    <base href="" />
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta name="description" content="Spruha - Codeigniter Admin & Dashboard Template">
-    <meta name="author" content="Spruko Technologies Private Limited">
-    <meta name="keywords" content="admin template, admin dashboard, bootstrap dashboard template, bootstrap 4 admin template, codeigniter 4 admin panel, template codeigniter bootstrap, php, codeigniter, php framework, web template, html5 template, php code, php html, codeigniter 4, codeigniter mvc">
-
     <!-- Favicon -->
     <link rel="icon" href="<?=base_url()?>assets/img/brand/favicon.ico" type="image/x-icon" />
 
@@ -34,11 +31,11 @@
     <link id="theme" rel="stylesheet" type="text/css" media="all" href="<?=base_url()?>assets/css/colors/color.css" />
 
     <!-- Select2 css-->
-    <link href="<?=base_url()?>assets/plugins/select2/css/select2.min.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 
     <!-- Sidemenu css-->
-    <link href="<?=base_url()?>assets/css/sidemenu/sidemenu.css" rel="stylesheet">
-    <link href="<?=base_url()?>assets/css/sidemenu/sidemenu-closed.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/css/sidemenu/sidemenu.css" rel="stylesheet"/>
+    <link href="<?=base_url()?>assets/css/sidemenu/sidemenu-closed.css" rel="stylesheet"/>
 
     <!-- Switcher css-->
     <link href="<?=base_url()?>assets/switcher/css/switcher.css" rel="stylesheet">
@@ -76,7 +73,7 @@
             </div>
             <div class="main-sidebar-body">
                 <ul class="nav">
-                    <li class="nav-header"><span class="nav-label">Dashboard</span></li>
+                    <li class="nav-header"><span class="nav-label">Menu</span></li>
                     <li class="nav-item active">
                         <a class="nav-link" href="tipousuario/">
                             <span class="shape1">
@@ -85,32 +82,79 @@
                             <span class="sidemenu-label">Dashboard</span>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link with-sub" href="#"><span class="shape1"></span><span class="shape2"></span><i class="ti-shopping-cart-full sidemenu-icon"></i><span class="sidemenu-label">E-Commerce</span><i class="angle fe fe-chevron-right"></i></a>
+                        <a class="nav-link" href="tipousuario/">
+                            <span class="shape1">
+                            </span><span class="shape2">
+                            </span><i class="ti-user sidemenu-icon"></i>
+                            <span class="sidemenu-label">Clientes</span>
+                        </a>
+                    </li>
+                       
+                    <li class="nav-item">
+                        <a class="nav-link with-sub" href="#">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-shopping-cart-full sidemenu-icon"></i>
+                            <span class="sidemenu-label">Pedido</span>
+                            <i class="angle fe fe-chevron-right"></i></a>
                         <ul class="nav-sub">
                             <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="ecommerce-dashboard.html">Dashboard</a>
+                                <a class="nav-sub-link" href="#">Pedidos</a>
                             </li>
                             <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="ecommerce-products.html">Products</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="ecommerce-product-details.html">Product Details</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="ecommerce-cart.html">Cart</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="ecommerce-checkout.html">Checkout</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="ecommerce-orders.html">Orders</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="ecommerce-account.html">Account</a>
+                                <a class="nav-sub-link" href="#">Proformas</a>
                             </li>
                         </ul>
                     </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link with-sub" href="#">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-package sidemenu-icon"></i>
+                            <span class="sidemenu-label">Almacen</span>
+                            <i class="angle fe fe-chevron-right"></i></a>
+                        <ul class="nav-sub">
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="#">Categoría</a>
+                            </li>
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="#">Presentación</a>
+                            </li>
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="#">Marca</a>
+                            </li>
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="#">Producto</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link with-sub" href="#">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-money sidemenu-icon"></i>
+                            <span class="sidemenu-label">Deudas</span>
+                            <i class="angle fe fe-chevron-right"></i></a>
+                        <ul class="nav-sub">
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="#">Historial de Deudas</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="tipousuario/">
+                            <span class="shape1">
+                            </span><span class="shape2">
+                            </span><i class="ti-wallet sidemenu-icon"></i>
+                            <span class="sidemenu-label">Precios</span>
+                        </a>
+                    </li>
+                    
               
                 </ul>
             </div>
@@ -207,8 +251,8 @@
                         </a>
                     </div>
                     <button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-								<i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
-							</button>
+                        <i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
+                    </button>
                     <!-- Navresponsive closed -->
                 </div>
             </div>
