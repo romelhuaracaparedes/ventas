@@ -38,12 +38,9 @@ class Categoria extends Sys_Controller {
 
     public function registrarCategoria(){
 
-        $nombre_caterogia = @$_POST['nombre_caterogia'];
-		$flg_estado = (@$_POST['flg_estado'])? 1: 0;
+        $nombre_caterogia = @$_POST['nombre_caterogia'];       
+		$flg_estado = @$_POST['flg_estado'];    
         $data = $this->t_categoria->_insert_categoria($nombre_caterogia,$flg_estado);
-
-        // var_dump($data);
-        // exit();
 
         if($data){
             $result['status'] = 'success';
