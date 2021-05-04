@@ -74,13 +74,13 @@ $(document).ready(function() {
             {
 
                 title: 'NOMBRE DE CATEGORIA',
-                data: 'id_categoria',
+                data: 'nombre_categoria',
             },
 
             {
 
                 title: 'ESTADO',
-                data: 'id_categoria',
+                data: 'flg_estado',
             },
             {
                 title: 'OPCIONES',
@@ -100,8 +100,43 @@ $(document).ready(function() {
                             <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
                             `;
                 },
-            }
+            },
+            {
+                targets: 2,
+                render: function(data) {
+                    var estado = {
+                        0: { 'title': 'Inactivo', 'class': 'badge-primary-light' },
+                        1: { 'title': 'Activo', 'class': 'badge-warning-light' },
+
+                    };
+                    if (typeof estado[data] === 'undefined') {
+                        return data;
+                    }
+
+                    return '<span class="badge badge-pill ' + estado[data].class + ' ">' + estado[data].title + '</span>';
+                },
+            },
 
         ]
     });
 });
+
+
+// <
+// td > < span class = "badge badge-pill badge-primary-light" > Activo < /span></td >
+//     <
+//     td >
+//     <
+//     button class = "btn btn-primary btn-sm" > < i class = "fas fa-edit" > < /i></button >
+//     <
+//     button class = "btn btn-danger btn-sm" > < i class = "fas fa-trash" > < /i></button >
+//     <
+//     /td> <
+//     /tr> <
+//     tr style = "text-align: center;" >
+//     <
+//     td > 2 < /td> <
+//     td > Categoría 2 < /td> <
+//     td >
+//     <
+//     span class = "badge badge-pill badge-warning-light" > Inactivo < /span>
