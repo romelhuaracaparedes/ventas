@@ -63,13 +63,14 @@ $('#tablacategorias').DataTable({
 
 $("#btn-cancelar").click(function() {
 
-
+    $("#agregar-categoria").modal("hide");
+    categoriaJS.limpiar_formulario();
 });
 
 $("#btn-guardar").click(function() {
 
     var nombre = $.trim($('#nombre_categoria').val());
-    var estado = $('#estado_categoria').is(":checked");
+    var estado = ($('#estado_categoria').is(":checked")) ? 1 : 0;
 
 
     var msj_error = '';
@@ -77,7 +78,6 @@ $("#btn-guardar").click(function() {
     if (nombre == '') {
         msj_error += 'Ingresar Nombre de Categoría <br>';
     }
-
 
     if (msj_error == '') {
         categoriaJS.agregar_categoria(nombre, estado, function(data) {
