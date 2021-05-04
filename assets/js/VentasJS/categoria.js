@@ -45,4 +45,14 @@ var categoriaJS = {
 
     }
 
+
 };
+
+
+$('#tablacategorias').DataTable({
+    responsive: true,
+    language: {
+        sSearch: '',
+        lengthMenu: 'Mostrar _MENU_ entradas',
+    }
+});

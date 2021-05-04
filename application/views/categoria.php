@@ -104,13 +104,3 @@
 </div>
 <!--End usuario Modal -->
 
-
-<script>
-        $('#tablacategorias').DataTable({
-            responsive: true,
-            language: {
-                sSearch: '',
-                lengthMenu: 'Mostrar _MENU_ entradas',
-            }
-        });
-</script>
