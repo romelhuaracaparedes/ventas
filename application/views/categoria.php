@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
     <div class="inner-body">
 
@@ -26,7 +27,7 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="example2">
+                            <table class="table" id="tablacategorias">
                                 <thead>
                                     <tr style="text-align: center;">
                                         <th class="wd-10p">N°</th>
@@ -102,3 +103,14 @@
     </div>
 </div>
 <!--End usuario Modal -->
+
+
+<script>
+        $('#tablacategorias').DataTable({
+            responsive: true,
+            language: {
+                sSearch: '',
+                lengthMenu: 'Mostrar _MENU_ entradas',
+            }
+        });
+</script>
