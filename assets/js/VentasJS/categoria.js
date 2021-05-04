@@ -48,11 +48,60 @@ var categoriaJS = {
 
 };
 
+// $('#tablacategorias').DataTable({
+//     responsive: true,
 
-$('#tablacategorias').DataTable({
-    responsive: true,
-    language: {
-        sSearch: '',
-        lengthMenu: 'Mostrar _MENU_ entradas',
-    }
+// });
+
+$(document).ready(function() {
+
+
+    var tblEntidad = $('#tablacategorias').DataTable({
+        responsive: true,
+
+        ajax: {
+            url: 'categoria/listarCategorias',
+            type: 'POST',
+            dataSrc: ""
+        },
+        columns: [
+
+            {
+
+                title: 'N°',
+                data: 'id_categoria',
+            },
+            {
+
+                title: 'NOMBRE DE CATEGORIA',
+                data: 'id_categoria',
+            },
+
+            {
+
+                title: 'ESTADO',
+                data: 'id_categoria',
+            },
+            {
+                title: 'OPCIONES',
+                responsivePriority: -1,
+
+            },
+        ],
+        columnDefs: [
+
+            {
+                targets: -1,
+                title: 'OPCIONES',
+                orderable: false,
+                render: function(value, type, row) {
+                    return `
+                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button>
+                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
+                            `;
+                },
+            }
+
+        ]
+    });
 });
