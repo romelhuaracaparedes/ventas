@@ -75,6 +75,21 @@ var ventasJS = {
                 loaderBg: '#9EC600',
             });
         },
+        warning: function(titulo, mensaje) {
+            $.toast().reset('all');
+            $.toast({
+                text: mensaje,
+                heading: titulo,
+                icon: 'warning',
+                showHideTransition: 'fade',
+                allowToastClose: true,
+                hideAfter: 3000,
+                position: 'top-right',
+                textAlign: 'left',
+                loader: true,
+                loaderBg: '#9EC600',
+            });
+        },
         confirm: function(titulo, mensaje, kallback) {
             // bootbox.confirm({
             //     title: titulo,

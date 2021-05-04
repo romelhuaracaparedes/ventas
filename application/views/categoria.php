@@ -51,6 +51,8 @@
             <div class="modal-body">
                 <form>
                     <div class="row py-2">
+
+                        <input type="hidden" id="id_categoria">
                         <div class="col-md-6">
                             <label for="tipo-usuario">Nombre de Categoría</label>
                             <input type="text" class="form-control" id="nombre_categoria" placeholder="">
@@ -58,7 +60,7 @@
                         <div class="col-md-6 pt-md-0 pt-3">
                             <p class="mb-2">Estado</p>
                             <label class="custom-switch">
-                                <input type="checkbox" name="estado" class="custom-switch-input">
+                                <input type="checkbox" name="estado" id="estado_categoria" class="custom-switch-input" checked>
                                 <span class="custom-switch-indicator"></span>
                                 <span class="custom-switch-description">Activo</span>
                             </label>
@@ -67,8 +69,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Cancelar</button>
-                <button class="btn ripple btn-primary" type="button">Guardar</button>
+                <button class="btn ripple btn-secondary" type="button" id="btn-cancelar">Cancelar</button>
+                <button class="btn ripple btn-primary" type="button" id="btn-guardar">Guardar</button>
             </div>
         </div>
     </div>

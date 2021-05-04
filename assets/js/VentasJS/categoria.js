@@ -21,13 +21,9 @@ var categoriaJS = {
         obj.nombre_caterogia = nombre;
         obj.flg_estado = flg;
         $.post('categoria/registrarCategoria', obj, function(data) {
-
-            // if
-
-
             // console.log(data);
             if (callback) {
-                callback({ resp: 'ok', status: '1' });
+                callback(data);
             }
 
         }, 'json').fail(function(err) {
@@ -43,6 +39,13 @@ var categoriaJS = {
 
     eliminar_categoria: function() {
 
+    },
+
+    limpiar_formulario: function() {
+
+        $('#id_categoria').val('');
+        $('#nombre_categoria').val('');
+        $('#estado_categoria').prop('checked', true);
     }
 
 
@@ -96,10 +99,11 @@ $(document).ready(function() {
                 orderable: false,
                 render: function(value, type, row) {
                     return `
-                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
-                            `;
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button>
+                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
+                        `;
                 },
+<<<<<<< HEAD
             },
             {
                 targets: 2,
@@ -140,3 +144,47 @@ $(document).ready(function() {
 //     td >
 //     <
 //     span class = "badge badge-pill badge-warning-light" > Inactivo < /span>
+=======
+            }
+        ]
+    });
+
+
+    $("#btn-cancelar").click(function() {
+
+        $("#agregar-categoria").modal("hide");
+        categoriaJS.limpiar_formulario();
+    });
+
+    $("#btn-guardar").click(function() {
+
+        var nombre = $.trim($('#nombre_categoria').val());
+        var estado = ($('#estado_categoria').is(":checked")) ? 1 : 0;
+
+
+        var msj_error = '';
+
+        if (nombre == '') {
+            msj_error += 'Ingresar Nombre de Categoría <br>';
+        }
+
+        if (msj_error == '') {
+            categoriaJS.agregar_categoria(nombre, estado, function(data) {
+                if (data.status == 'success') {
+                    ventasJS.msj.success('Aviso:', data.msg);
+                } else {
+                    ventasJS.msj.warning('Aviso:', data.msg);
+                }
+
+                $("#agregar-categoria").modal("hide");
+                categoriaJS.limpiar_formulario();
+            });
+
+        } else {
+            ventasJS.msj.warning('Aviso:', msj_error);
+        }
+
+    });
+
+});
+>>>>>>> f1824495594adc175bce81fb660fff1e1427d548
