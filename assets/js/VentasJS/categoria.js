@@ -51,49 +51,97 @@ var categoriaJS = {
 
 };
 
+// $('#tablacategorias').DataTable({
+//     responsive: true,
 
-$('#tablacategorias').DataTable({
-    responsive: true,
-    language: {
-        sSearch: '',
-        lengthMenu: 'Mostrar _MENU_ entradas',
-    }
-});
+// });
+
+$(document).ready(function() {
 
 
-$("#btn-cancelar").click(function() {
+    var tblEntidad = $('#tablacategorias').DataTable({
+        responsive: true,
 
-    $("#agregar-categoria").modal("hide");
-    categoriaJS.limpiar_formulario();
-});
+        ajax: {
+            url: 'categoria/listarCategorias',
+            type: 'POST',
+            dataSrc: ""
+        },
+        columns: [
 
-$("#btn-guardar").click(function() {
+            {
 
-    var nombre = $.trim($('#nombre_categoria').val());
-    var estado = ($('#estado_categoria').is(":checked")) ? 1 : 0;
+                title: 'N°',
+                data: 'id_categoria',
+            },
+            {
 
+                title: 'NOMBRE DE CATEGORIA',
+                data: 'id_categoria',
+            },
 
-    var msj_error = '';
+            {
 
-    if (nombre == '') {
-        msj_error += 'Ingresar Nombre de Categoría <br>';
-    }
+                title: 'ESTADO',
+                data: 'id_categoria',
+            },
+            {
+                title: 'OPCIONES',
+                responsivePriority: -1,
 
-    if (msj_error == '') {
-        categoriaJS.agregar_categoria(nombre, estado, function(data) {
-            if (data.status == 'success') {
-                ventasJS.msj.success('Aviso:', data.msg);
-            } else {
-                ventasJS.msj.warning('Aviso:', data.msg);
+            },
+        ],
+        columnDefs: [
+
+            {
+                targets: -1,
+                title: 'OPCIONES',
+                orderable: false,
+                render: function(value, type, row) {
+                    return `
+                        <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button>
+                        <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
+                        `;
+                },
             }
+        ]
+    });
 
-            $("#agregar-categoria").modal("hide");
-            categoriaJS.limpiar_formulario();
-        });
 
-    } else {
-        ventasJS.msj.warning('Aviso:', msj_error);
-    }
+    $("#btn-cancelar").click(function() {
 
+        $("#agregar-categoria").modal("hide");
+        categoriaJS.limpiar_formulario();
+    });
+
+    $("#btn-guardar").click(function() {
+
+        var nombre = $.trim($('#nombre_categoria').val());
+        var estado = ($('#estado_categoria').is(":checked")) ? 1 : 0;
+
+
+        var msj_error = '';
+
+        if (nombre == '') {
+            msj_error += 'Ingresar Nombre de Categoría <br>';
+        }
+
+        if (msj_error == '') {
+            categoriaJS.agregar_categoria(nombre, estado, function(data) {
+                if (data.status == 'success') {
+                    ventasJS.msj.success('Aviso:', data.msg);
+                } else {
+                    ventasJS.msj.warning('Aviso:', data.msg);
+                }
+
+                $("#agregar-categoria").modal("hide");
+                categoriaJS.limpiar_formulario();
+            });
+
+        } else {
+            ventasJS.msj.warning('Aviso:', msj_error);
+        }
+
+    });
 
 });

@@ -28,36 +28,7 @@
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table" id="tablacategorias">
-                                <thead>
-                                    <tr style="text-align: center;">
-                                        <th class="wd-10p">N°</th>
-                                        <th class="wd-20p">Nombre de Categoría</th>
-                                        <th class="wd-15p">Estado</th>
-                                        <th class="wd-20p">Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="text-align: center;">
-                                        <td> 1</td>
-                                        <td> Categoría 1</td>
-                                        <td><span class="badge badge-pill badge-primary-light">Activo</span></td>
-                                        <td> 
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button> 
-                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
-                                         </td>
-                                    </tr>
-                                    <tr style="text-align: center;">
-                                        <td> 2</td>
-                                        <td> Categoría 2</td>
-                                        <td>
-                                            <span class="badge badge-pill badge-warning-light">Inactivo</span>
-                                        </td>
-                                        <td> 
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button>  
-                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                
                             </table>
                         </div>
                     </div>
