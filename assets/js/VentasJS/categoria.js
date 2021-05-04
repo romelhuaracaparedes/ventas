@@ -77,7 +77,7 @@ $(document).ready(function() {
             {
 
                 title: 'NOMBRE DE CATEGORIA',
-                data: 'id_categoria',
+                data: 'nombre_categoria',
             },
 
             {
