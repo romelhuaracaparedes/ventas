@@ -46,6 +46,8 @@
     <!-- Switcher js -->
     <script src="<?=base_url()?>assets/switcher/js/switcher.js"></script>
 
+   <!-- Toast js -->
+   <script src="<?=base_url()?>assets/js/jquery.toast.js"></script>
 
 
     <!-- Internal Chart.Bundle js-->
@@ -57,6 +59,8 @@
     <!-- Internal Morris js -->
     <script src="<?=base_url()?>assets/plugins/raphael/raphael.min.js"></script>
     <script src="<?=base_url()?>assets/plugins/morris.js/morris.min.js"></script>
+
+    <script src="<?=base_url()?>assets/js/VentasJS/VentasJS.js"></script>
 
     <!-- Circle Progress js-->
     <!-- <script src="<?=base_url()?>assets/js/circle-progress.min.js"></script>

@@ -26,7 +26,9 @@
     <link href="<?=base_url()?>assets/css/skins.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/css/dark-style.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/css/colors/default.css" rel="stylesheet" />
+    <link href="<?=base_url()?>assets/css/jquery.toast.css" rel="stylesheet">
 
+    
     <!-- Color css-->
     <link id="theme" rel="stylesheet" type="text/css" media="all" href="<?=base_url()?>assets/css/colors/color.css" />
 
@@ -40,6 +42,9 @@
     <!-- Switcher css-->
     <link href="<?=base_url()?>assets/switcher/css/switcher.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/switcher/demo.css" rel="stylesheet">
+
+
+
 
     <!-- Internal DataTables css-->
     <link href="<?=base_url()?>assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
