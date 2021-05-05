@@ -11522,7 +11522,8 @@ textarea.parsley-success:focus {
     border: 1px solid #19b159;
 }
 
-.parsley-errors-list {
+.parsley-errors-list,
+.parsley-error {
     color: #f16d75;
     list-style: none;
     font-size: 12px;

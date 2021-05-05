@@ -85,11 +85,11 @@
                                             <br>
                                             <div class="form-group text-left">
                                                 <label>Usuario</label>
-                                                <input class="form-control" placeholder="Ingrese su usuario" type="text" name="usuario" required>
+                                                <input class="form-control" placeholder="Ingrese su usuario" type="text" name="usuario">
                                             </div>
                                             <div class="form-group text-left">
                                                 <label>Contraseña</label>
-                                                <input class="form-control" placeholder="Ingrese su contraseña" type="password" name="contrasena" required>
+                                                <input class="form-control" placeholder="Ingrese su contraseña" type="password" name="contrasena">
                                             </div>
                                             <button id="ingresar" type="button" class="btn ripple btn-main-primary btn-block">Iniciar sesión</button>
                                         </form>
@@ -124,6 +124,7 @@
     <script src="<?=base_url()?>assets/js/custom.js"></script>
 
     <script src="<?=base_url()?>assets/js/jquery.validate.js"></script>
+    <script src="<?=base_url()?>assets/js/messages_es.js"></script>
     <script src="<?=base_url()?>assets/js/VentasJS/usuario.js"></script>
 
 </body>
