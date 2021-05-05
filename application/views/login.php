@@ -125,6 +125,7 @@
 
     <script src="<?=base_url()?>assets/js/jquery.validate.js"></script>
     <script src="<?=base_url()?>assets/js/VentasJS/usuario.js"></script>
+    <script src="<?=base_url()?>assets/js/messages_es.js"></script>
 
 </body>
 

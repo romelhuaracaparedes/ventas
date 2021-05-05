@@ -11522,7 +11522,8 @@ textarea.parsley-success:focus {
     border: 1px solid #19b159;
 }
 
-.parsley-errors-list {
+.parsley-errors-list,
+.parsley-error {
     color: #f16d75;
     list-style: none;
     font-size: 12px;
@@ -60756,19 +60757,16 @@ a.tag-addon:hover {
     border-bottom-left-radius: 0;
 }
 
-.listgroup-tablacategorias ul ul,
 .listgroup-example2 ul ul {
     list-style-type: circle;
     margin: 10px 0 0 0;
 }
 
-.listgroup-tablacategorias ul,
 .listgroup-example ul,
 .listgroup-example2 ul {
     list-style-type: none;
 }
 
-.listgroup-tablacategorias ul li,
 .listgroup-example ul li,
 .listgroup-example2 ul li {
     padding: 5px 5px;
