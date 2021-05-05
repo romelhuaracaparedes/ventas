@@ -36,6 +36,18 @@ class Categoria extends Sys_Controller {
         $this->json_output($data);
     }
 
+    public function obtenerCategoria(){
+        $result['status'] = 'success';
+        $result['msg'] = 'Se listó correctamente...';
+        
+        $id_categoria = @$_POST['id'];       
+
+        $data= $this->t_categoria->_get_categoria_by_id($id_categoria);
+        $result['data'] =$data;
+
+        $this->json_output($data);
+    }
+
     public function registrarCategoria(){
 
         $nombre_caterogia = @$_POST['nombre_caterogia'];       
@@ -57,8 +69,9 @@ class Categoria extends Sys_Controller {
 
         $id_categoria = @$_POST['id_categoria'];
         $nombre_categoria = @$_POST['nombre_caterogia'];
+        $flg_estado = @$_POST['flg_estado'];
 
-        $data = $this->t_categoria->_update_categoria($id_categoria,$nombre_categoria);
+        $data = $this->t_categoria->_update_categoria($id_categoria,$nombre_categoria,$flg_estado);
 
         if($data){
             $result['status'] = 'success';
@@ -74,11 +87,9 @@ class Categoria extends Sys_Controller {
     public function eliminarCategoria(){
 
         $id_categoria = @$_POST['id_categoria'];
-		$flg_estado = @$_POST['flg_estado'];
-
         
 
-        $data = $this->t_categoria->_delete_categoria($id_categoria,$flg_estado);
+        $data = $this->t_categoria->_delete_categoria($id_categoria);
 
         if($data){
             $result['status'] = 'success';
