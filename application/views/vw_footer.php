@@ -37,6 +37,9 @@
     <!-- Select2 js-->
     <script src="<?=base_url()?>assets/plugins/select2/js/select2.min.js"></script>
 
+    <!-- Sweet Alert-->
+    <script src="<?=base_url()?>assets/plugins/sweet-alert/sweetalert.min.js"></script>
+
     <!-- Sticky js -->
     <script src="<?=base_url()?>assets/js/sticky.js"></script>
 

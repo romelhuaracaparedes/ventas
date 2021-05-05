@@ -35,6 +35,9 @@
     <!-- Select2 css-->
     <link href="<?=base_url()?>assets/plugins/select2/css/select2.min.css" rel="stylesheet"/>
 
+    <!-- SweetAlert css-->
+    <link href="<?=base_url()?>assets/plugins/sweet-alert/sweetalert.css" rel="stylesheet"/>
+
     <!-- Sidemenu css-->
     <link href="<?=base_url()?>assets/css/sidemenu/sidemenu.css" rel="stylesheet"/>
     <link href="<?=base_url()?>assets/css/sidemenu/sidemenu-closed.css" rel="stylesheet"/>
@@ -42,7 +45,6 @@
     <!-- Switcher css-->
     <link href="<?=base_url()?>assets/switcher/css/switcher.css" rel="stylesheet">
     <link href="<?=base_url()?>assets/switcher/demo.css" rel="stylesheet">
-
 
 
 

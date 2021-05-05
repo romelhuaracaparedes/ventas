@@ -13,9 +13,9 @@
             </div>
             <div class="d-flex">
                 <div class="justify-content-center">
-                    <a class="btn ripple btn-primary" data-target="#agregar-categoria" data-toggle="modal" href="#">
+                    <button class="btn ripple btn-primary" id="agregar-categoria">
                         <i class="fe fe-plus mr-2"></i> Agregar nuevo
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -39,11 +39,11 @@
     </div>
 </div>
 <!-- usuario Modal -->
-<div class="modal" id="agregar-categoria">
+<div class="modal" id="modal-categoria">
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">Registro de Categoría</h6>
+                <h6 class="modal-title" id="titulo_modal"></h6>
                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
