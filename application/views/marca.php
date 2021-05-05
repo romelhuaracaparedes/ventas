@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
     <div class="inner-body">
 
@@ -12,11 +13,8 @@
             </div>
             <div class="d-flex">
                 <div class="justify-content-center">
-                    <a class="btn ripple btn-primary" data-target="#agregar-marca" data-toggle="modal" href="#">
+                    <button class="btn ripple btn-primary" id="agregar-marca">
                         <i class="fe fe-plus mr-2"></i> Agregar nuevo
-                    </a>
-
-
                     </button>
                 </div>
             </div>
@@ -29,35 +27,8 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="example2">
-                                <thead>
-                                    <tr style="text-align: center;">
-                                        <th class="wd-10p">N°</th>
-                                        <th class="wd-20p">Nombre de Marca</th>
-                                        <th class="wd-15p">Estado</th>
-                                        <th class="wd-20p">Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="text-align: center;">
-                                        <td> 1</td>
-                                        <td> Marca 1</td>
-                                        <td><span class="badge badge-pill badge-primary-light">Activo</span></td>
-                                        <td> 
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button> 
-                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
-                                         </td>
-                                    </tr>
-                                    <tr style="text-align: center;">
-                                        <td> 2</td>
-                                        <td> Marca 2</td>
-                                        <td><span class="badge badge-pill badge-primary-light">Activo</span></td>
-                                        <td> 
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button> 
-                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
-                                         </td>
-                                    </tr>
-                                </tbody>
+                            <table class="table" id="tablamarcas">
+                                
                             </table>
                         </div>
                     </div>
@@ -68,11 +39,11 @@
     </div>
 </div>
 <!-- usuario Modal -->
-<div class="modal" id="agregar-marca">
+<div class="modal" id="modal-marca">
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">Registro de Marca</h6>
+                <h6 class="modal-title" id="titulo_modal"></h6>
                 <button aria-label="Close" class="close" data-dismiss="modal" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -80,14 +51,16 @@
             <div class="modal-body">
                 <form>
                     <div class="row py-2">
+
+                        <input type="hidden" id="id_marca">
                         <div class="col-md-6">
-                            <label for="tipo-usuario">Nombre de Marca</label>
-                            <input type="text" class="form-control" id="tipo-usuario" placeholder="">
+                            <label for="nombre_marca">Nombre de Marca</label>
+                            <input type="text" class="form-control" id="nombre_marca" placeholder="">
                         </div>
                         <div class="col-md-6 pt-md-0 pt-3">
                             <p class="mb-2">Estado</p>
                             <label class="custom-switch">
-                                <input type="checkbox" name="estado" class="custom-switch-input">
+                                <input type="checkbox" name="estado" id="estado_marca" class="custom-switch-input" checked>
                                 <span class="custom-switch-indicator"></span>
                                 <span class="custom-switch-description">Activo</span>
                             </label>
@@ -96,10 +69,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Cancelar</button>
-                <button class="btn ripple btn-primary" type="button">Guardar</button>
+                <button class="btn ripple btn-secondary" type="button" id="btn-cancelar">Cancelar</button>
+                <button class="btn ripple btn-primary" type="button" id="btn-guardar">Guardar</button>
             </div>
         </div>
     </div>
 </div>
 <!--End usuario Modal -->
+
