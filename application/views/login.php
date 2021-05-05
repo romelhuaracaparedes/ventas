@@ -80,18 +80,18 @@
                                 <div class="row row-sm">
                                     <div class="card-body mt-2 mb-2">
 
-                                        <form>
+                                        <form id="form-login">
                                             <h5 class="text-left mb-2">Iniciar sesión en su cuenta</h5>
                                             <br>
                                             <div class="form-group text-left">
                                                 <label>Usuario</label>
-                                                <input class="form-control" placeholder="Ingrese su usuario" type="text">
+                                                <input class="form-control" placeholder="Ingrese su usuario" type="text" name="usuario" required>
                                             </div>
                                             <div class="form-group text-left">
                                                 <label>Contraseña</label>
-                                                <input class="form-control" placeholder="Ingrese su contraseña" type="password">
+                                                <input class="form-control" placeholder="Ingrese su contraseña" type="password" name="contrasena" required>
                                             </div>
-                                            <button class="btn ripple btn-main-primary btn-block">Iniciar sesión</button>
+                                            <button id="ingresar" type="button" class="btn ripple btn-main-primary btn-block">Iniciar sesión</button>
                                         </form>
                                         <div class="text-left mt-5 ml-0">
                                             <div class="mb-1"><a href="forgot.html">¿Olvidaste tu contraseña?</a></div>
@@ -122,6 +122,9 @@
 
     <!-- Custom js -->
     <script src="<?=base_url()?>assets/js/custom.js"></script>
+
+    <script src="<?=base_url()?>assets/js/jquery.validate.js"></script>
+    <script src="<?=base_url()?>assets/js/VentasJS/usuario.js"></script>
 
 </body>
 

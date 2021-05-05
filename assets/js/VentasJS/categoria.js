@@ -89,9 +89,10 @@ var categoriaJS = {
                     orderable: false,
                     render: function(value, type, row) {
                         return `
-                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
+                            <button class="btn btn-primary btn-sm" onclick="getCategoriaById(` + row.id_categoria + `)"><i class="fas fa-edit" ></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="eliminarCategoria(` + row.id_categoria + `)"><i class="fas fa-trash" ></i></button>
                             `;
+
                     },
 
                 },
