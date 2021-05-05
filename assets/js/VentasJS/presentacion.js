@@ -2,13 +2,9 @@ var presentacionJS = {
 
     obtener_presentacion: function(id, callback) {
 
-        $.post('presentacion/obtenerPresentacion', { id: id }, function(data) {
+        ventasJS.post('presentacion/obtenerPresentacion', { id: id }, function(data) {
             if (callback) {
                 callback(data[0]);
-            }
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
             }
         });
     },
@@ -18,16 +14,12 @@ var presentacionJS = {
         var obj = {};
         obj.nombre_presentacion = nombre;
         obj.flg_estado = flg;
-        $.post('presentacion/registrarPresentacion', obj, function(data) {
+        ventasJS.post('presentacion/registrarPresentacion', obj, function(data) {
             // console.log(data);
             if (callback) {
                 callback(data);
             }
 
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
-            }
         });
     },
 
@@ -37,15 +29,11 @@ var presentacionJS = {
         obj.nombre_presentacion = nombre;
         obj.flg_estado = flg;
 
-        $.post('presentacion/actualizarPresentacion', obj, function(data) {
+        ventasJS.post('presentacion/actualizarPresentacion', obj, function(data) {
             if (callback) {
                 callback(data);
             }
 
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
-            }
         });
     },
 
@@ -53,15 +41,11 @@ var presentacionJS = {
 
         var obj = {};
         obj.id_presentacion = id;
-        $.post('presentacion/eliminarPresentacion', obj, function(data) {
+        ventasJS.post('presentacion/eliminarPresentacion', obj, function(data) {
             if (callback) {
                 callback(data);
             }
 
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
-            }
         });
     },
 
@@ -79,6 +63,7 @@ var presentacionJS = {
             ajax: {
                 url: 'presentacion/listarPresentaciones',
                 type: 'POST',
+                data: { csrf_patbin_tkn: ventasJS.tk_v },
                 dataSrc: ""
             },
             columns: [

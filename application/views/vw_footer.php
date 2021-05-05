@@ -21,6 +21,7 @@
     <!-- Jquery js-->
     <script src="<?=base_url()?>assets/plugins/jquery/jquery.min.js"></script>
 
+
     <!-- Bootstrap js-->
     <script src="<?=base_url()?>assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="<?=base_url()?>assets/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -77,8 +78,10 @@
     <script src="<?=base_url()?>assets/plugins/datatable/fileexport/dataTables.buttons.min.js"></script>
     <script src="<?=base_url()?>assets/js/table-data.js"></script>
     
-	
- 
+	<script>
+    ventasJS.init('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+    </script>
+    
     <?php 
     if(isset($jslib)){
         foreach ($jslib as $kjs=>$js) {

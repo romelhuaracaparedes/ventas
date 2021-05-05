@@ -2,13 +2,9 @@ var marcaJS = {
 
     obtener_marca: function(id, callback) {
 
-        $.post('marca/obtenerMarca', { id: id }, function(data) {
+        ventasJS.post('marca/obtenerMarca', { id: id }, function(data) {
             if (callback) {
                 callback(data[0]);
-            }
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
             }
         });
     },
@@ -18,16 +14,12 @@ var marcaJS = {
         var obj = {};
         obj.nombre_marca = nombre;
         obj.flg_estado = flg;
-        $.post('marca/registrarMarca', obj, function(data) {
+        ventasJS.post('marca/registrarMarca', obj, function(data) {
             // console.log(data);
             if (callback) {
                 callback(data);
             }
 
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
-            }
         });
     },
 
@@ -37,15 +29,11 @@ var marcaJS = {
         obj.nombre_marca = nombre;
         obj.flg_estado = flg;
 
-        $.post('marca/actualizarMarca', obj, function(data) {
+        ventasJS.post('marca/actualizarMarca', obj, function(data) {
             if (callback) {
                 callback(data);
             }
 
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
-            }
         });
     },
 
@@ -53,15 +41,11 @@ var marcaJS = {
 
         var obj = {};
         obj.id_marca = id;
-        $.post('marca/eliminarMarca', obj, function(data) {
+        ventasJS.post('marca/eliminarMarca', obj, function(data) {
             if (callback) {
                 callback(data);
             }
 
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
-            }
         });
     },
 
@@ -78,6 +62,7 @@ var marcaJS = {
             retrieve: true,
             ajax: {
                 url: 'marca/listarMarcas',
+                data: { csrf_patbin_tkn: ventasJS.tk_v },
                 type: 'POST',
                 dataSrc: ""
             },
