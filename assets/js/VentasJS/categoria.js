@@ -2,31 +2,25 @@ var categoriaJS = {
 
     obtener_categoria: function(id, callback) {
 
-        $.post('categoria/obtenerCategoria', { id: id }, function(data) {
+        ventasJS.post('categoria/obtenerCategoria', { id: id }, function(data) {
             if (callback) {
                 callback(data[0]);
             }
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
-            }
         });
     },
+
+
 
     agregar_categoria: function(nombre, flg, callback) {
 
         var obj = {};
         obj.nombre_caterogia = nombre;
         obj.flg_estado = flg;
-        $.post('categoria/registrarCategoria', obj, function(data) {
+
+        ventasJS.post('categoria/registrarCategoria', obj, function(data) {
             // console.log(data);
             if (callback) {
                 callback(data);
-            }
-
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
             }
         });
     },
@@ -37,15 +31,11 @@ var categoriaJS = {
         obj.nombre_caterogia = nombre;
         obj.flg_estado = flg;
 
-        $.post('categoria/actualizarCategoria', obj, function(data) {
+        ventasJS.post('categoria/actualizarCategoria', obj, function(data) {
             if (callback) {
                 callback(data);
             }
 
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
-            }
         });
     },
 
@@ -53,14 +43,9 @@ var categoriaJS = {
 
         var obj = {};
         obj.id_categoria = id;
-        $.post('categoria/eliminarCategoria', obj, function(data) {
+        ventasJS.post('categoria/eliminarCategoria', obj, function(data) {
             if (callback) {
                 callback(data);
-            }
-
-        }, 'json').fail(function(err) {
-            if (callback) {
-                callback({ err: err, status: '0' });
             }
         });
     },
@@ -79,6 +64,7 @@ var categoriaJS = {
             ajax: {
                 url: 'categoria/listarCategorias',
                 type: 'POST',
+                data: { csrf_patbin_tkn: ventasJS.tk_v },
                 dataSrc: ""
             },
             columns: [

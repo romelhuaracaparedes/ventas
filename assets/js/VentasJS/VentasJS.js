@@ -127,19 +127,21 @@ var ventasJS = {
 
     post: function(ruta, parametros, callback, callBackError) {
 
-        // parametros[this.tk_k] = this.tk_v;
+        parametros[this.tk_k] = this.tk_v;
 
         $.post(ruta, parametros, function(data) {
             //SipcopJS.log(data);
             if (callback) {
                 callback(data);
             }
-        }, 'json').error(function(err) {
+        }, 'json').fail(function(err) {
             ventasJS.validarError(err);
             if (callBackError) {
                 callBackError(err);
             }
         });
+
+
     },
 
 };
