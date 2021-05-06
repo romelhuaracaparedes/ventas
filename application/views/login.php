@@ -85,12 +85,16 @@
                                             <br>
                                             <div class="form-group text-left">
                                                 <label>Usuario</label>
-                                                <input class="form-control" placeholder="Ingrese su usuario" type="text" name="usuario" required>
+                                                <input class="form-control" placeholder="Ingrese su usuario" type="text" name="usuario" id="usuario" required>
                                             </div>
                                             <div class="form-group text-left">
                                                 <label>Contraseña</label>
-                                                <input class="form-control" placeholder="Ingrese su contraseña" type="password" name="contrasena" required>
+                                                <input class="form-control" placeholder="Ingrese su contraseña" type="password" name="contrasena" id="contrasena" required>
                                             </div>
+                                            <div class="mensaje-login">
+
+                                            </div>
+                                            
                                             <button id="ingresar" type="button" class="btn ripple btn-main-primary btn-block">Iniciar sesión</button>
                                         </form>
                                         <div class="text-left mt-5 ml-0">
