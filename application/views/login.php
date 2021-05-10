@@ -83,13 +83,19 @@
                                         <form id="form-login">
                                             <h5 class="text-left mb-2">Iniciar sesión en su cuenta</h5>
                                             <br>
+                                            
+                                            <div class="form-group text-left">
+                                                <input type="hidden" id="token"  value="<?php echo $this->security->get_csrf_hash(); ?>">
+                                                
+                                                
+                                            </div>
                                             <div class="form-group text-left">
                                                 <label>Usuario</label>
-                                                <input class="form-control" placeholder="Ingrese su usuario" type="text" name="usuario" id="usuario" required>
+                                                <input class="form-control" placeholder="Ingrese su usuario" type="text" name="usuario" id="usuario" >
                                             </div>
                                             <div class="form-group text-left">
                                                 <label>Contraseña</label>
-                                                <input class="form-control" placeholder="Ingrese su contraseña" type="password" name="contrasena" id="contrasena" required>
+                                                <input class="form-control" placeholder="Ingrese su contraseña" type="password" name="contrasena" id="contrasena" >
                                             </div>
                                             <div class="mensaje-login">
 

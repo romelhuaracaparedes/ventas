@@ -24,6 +24,22 @@ class Usuario_model extends Base_model {
         }else{
             return array();
         }
+    }
+    
+
+    public function _get_perfil($usuario){
+        $this->db->select('u.nombres, u.apellido_paterno, u.apellido_materno, u.tipo_documento,u.numero_documento,u.correo, u.telefono, p.nombre as perfil');
+        $this->db->from($this->model_name.' u');
+        $this->db->join('perfiles p', 'u.id_perfil = p.id_perfil');
+        $this->db->where('numero_documento =\''.$usuario.'\'');
+        
+        $query = $this->db->get();
+        
+        if($query){
+            return $query->result_array();
+        }else{
+            return array();
+        }
 	}
 
 	public function _get_categoria(){

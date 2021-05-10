@@ -10,7 +10,7 @@ class Usuario extends Sys_Controller {
     function __construct()
     {
     	parent::__construct();
-        // $this->load->model('usuario_model', 't_usuario');
+        $this->load->model('usuario_model', 't_usuario');
 
         session_write_close();
     }
@@ -35,6 +35,12 @@ class Usuario extends Sys_Controller {
         $data = array();
         $parametroFooter = array();
         $data_header = array();
+
+        
+        
+        $data= $this->t_usuario->_get_perfil(87654321);   
+        print_r($data);
+        exit();
         $this->sys_render('perfil', $data, $data_header, $parametroFooter);
     }
 

@@ -2,6 +2,7 @@ $('#ingresar').click(function(e) {
     var obj = {};
     obj.usuario = $("#usuario").val();
     obj.clave = $("#contrasena").val();
+    obj.csrf_patbin_tkn = $("#token").val();
 
     var form = $('#form-login');
     var formulario = form.validate({

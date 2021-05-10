@@ -29,20 +29,43 @@ class Login extends Sys_Controller  {
     public function validar(){
         $usuario = $this->input->post('usuario');
         $clave= $this->input->post('clave');
-        $result['status'] = 'error';
-        $result['msg'] = 'Error de servidor';
-		
 
         $result = array();
+        $result['status'] = 'error';
+        $result['msg'] = 'Error de servidor';		
+
+        
 		if(isset($usuario) && trim($usuario)!='' && isset($clave) && trim($clave)!=''){
 
             $data= $this->t_usuario->_get_usuario($usuario, md5($clave));
+            
+            
             if(!empty($data)){
                 
                 if($data[0]["flg_estado"]==1){
                     $result['status'] = 'success';
                     $result['msg'] = 'Inicio correctamente';
-                    $this->session->set_userdata('usuario_login', $data);
+
+                    
+                    $sess_array = array(                        
+                        'numero_documento' =>$data[0]["numero_documento"],
+                        'nombres' =>$data[0]["nombres"],
+                        'apellido_paterno' =>$data[0]["apellido_paterno"],
+                        'apellido_materno' =>$data[0]["apellido_materno"],
+                        'perfil' =>$data[0]["perfil"],
+                        'flg_estado' =>$data[0]["flg_estado"],
+                        'logged_in' => TRUE);
+                    
+                    
+
+                    $this->session->set_userdata('sitio', 'http://tutsplus.com');
+                    
+                        
+                    $this->session->set_userdata($sess_array);
+                    
+                    
+                    
+                    
 
                 }
                 else{

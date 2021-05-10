@@ -4,7 +4,8 @@
                     <!-- Page Header -->
                     <div class="page-header">
                         <div>
-                            <h2 class="main-content-title tx-24 mg-b-5">Perfil de suario</h2>
+                            <h2 class="main-content-title tx-24 mg-b-5">Perfil de usuario</h2>
+                            
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Usuario</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">perfil</li>
@@ -66,8 +67,8 @@
                                                         <input type="text" class="form-control" id="ape-materno">
                                                     </div>
                                                     <div class="col-md-6 pt-md-0 pt-3">
-                                                        <label for="direccion">Dirección</label>
-                                                        <input type="text" class="form-control" id="direccion">
+                                                        <label for="correo">Correo</label>
+                                                        <input type="text" class="form-control" id="correo">
                                                     </div>
                                                 </div>
                                                 <div class="row py-2">
