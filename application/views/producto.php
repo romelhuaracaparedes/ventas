@@ -12,9 +12,9 @@
             </div>
             <div class="d-flex">
                 <div class="justify-content-center">
-                    <a class="btn ripple btn-primary" data-target="#agregar-producto" data-toggle="modal" href="#">
+                    <button class="btn ripple btn-primary" id="agregar-producto">
                         <i class="fe fe-plus mr-2"></i> Agregar nuevo
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -26,50 +26,8 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="example2">
-                                <thead>
-                                    <tr style="text-align: center;">
-                                        <th class="wd-10p">N°</th>
-                                        <th class="wd-20p">Nombre de Producto</th>
-                                        <th class="wd-15p">Marca</th>
-                                        <th class="wd-15p">Presentación</th>
-                                        <th class="wd-15p">Stock Min</th>
-                                        <th class="wd-15p">Stock</th>
-                                        <th class="wd-15p">Precio Compra</th>
-                                        <th class="wd-15p">Precio Venta</th>
-                                        <th class="wd-20p">Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="text-align: center;">
-                                        <td> 1</td>
-                                        <td> Nombre de Producto 1</td>
-                                        <td> Marca 1</td>
-                                        <td> Presentación 1</td>
-                                        <td> 10</td>
-                                        <td> 50</td>
-                                        <td> 5</td>
-                                        <td> 6</td>
-                                        <td> 
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button> 
-                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
-                                         </td>
-                                    </tr>
-                                    <tr style="text-align: center;">
-                                        <td> 2</td>
-                                        <td> Nombre de Producto 2</td>
-                                        <td> Marca 2</td>
-                                        <td> Presentación 2</td>
-                                        <td> 10</td>
-                                        <td> 50</td>
-                                        <td> 5</td>
-                                        <td> 6</td>
-                                        <td> 
-                                            <button class="btn btn-primary btn-sm"><i class="fas fa-edit" ></i></button> 
-                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash" ></i></button>
-                                         </td>
-                                    </tr>
-                                </tbody>
+                            <table class="table" id="tablaproductos">
+                                
                             </table>
                         </div>
                     </div>
@@ -80,7 +38,7 @@
     </div>
 </div>
 <!-- usuario Modal -->
-<div class="modal" id="agregar-producto">
+<div class="modal" id="modal-producto">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
@@ -91,55 +49,64 @@
             </div>
             <div class="modal-body">
                 <form>
+                    <input type="hidden" id="id_producto">
                     <div class="row py-2">
-                        <div class="col-md-6">
-                            <label for="tipo-usuario">Nombre de Producto:</label>
+                        <div class="col-md-12">
+                            <label for="nombre_producto">Nombre de Producto:</label>
                             <input type="text" class="form-control" id="nombre_producto" placeholder="">
                         </div>
-                        <div class="col-md-6">
-                            <label for="tipo-usuario">Nombre de Marca:</label>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-md-3">
+                            <label for="stock_producto">Stock:</label>
+                            <input type="text" class="form-control" id="stock_producto" placeholder="">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="stockmin_producto">Stock Min:</label>
+                            <input type="text" class="form-control" id="stockmin_producto" placeholder="">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="precio_producto">Precio Compra:</label>
+                            <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend"> 
+                                        <span class="input-group-text">S/.</span> 
+                                    </div>
+                                <input class="form-control" id="precio_producto" type="text"> 
+                            </div> 
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="precio_venta_producto">Precio Venta:</label>
+                            <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend"> 
+                                        <span class="input-group-text">S/.</span> 
+                                    </div>
+                                <input class="form-control" id="precio_venta_producto" type="text"> 
+                            </div> 
+                        </div>
+                    
+
+                    </div>
+                    <div class="row py-2">
+
+                        <div class="col-md-4">
+                            <label for="nombre_categoria">Categoría:</label>
+                            <select class="form-control" id="nombre_categoria">
+                                <option value="0">SELECCIONE</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="nombre_marca">Marca:</label>
                             <select class="form-control" id="nombre_marca">
                                 <option value="0">SELECCIONE</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="row py-2">
-                        <div class="col-md-3">
-                            <label for="tipo-usuario">Stock:</label>
-                            <input type="text" class="form-control" id="stock_producto" placeholder="">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="tipo-usuario">Stock Min:</label>
-                            <input type="text" class="form-control" id="stockmin_producto" placeholder="">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="tipo-usuario">Precio Compra:</label>
-                            <input type="text" class="form-control" id="precio_producto" placeholder="">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="tipo-usuario">Precio Venta:</label>
-                            <input type="text" class="form-control" id="precio_venta_producto" placeholder="">
-                        </div>
-                    </div>
-                    <div class="row py-2">
 
                         <div class="col-md-4">
-                            <label for="tipo-usuario">Categoría:</label>
-                            <select class="form-control" id="nombre_categoria">
-                                <option value="0">SELECCIONE</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="tipo-usuario">Marca:</label>
-                            <select class="form-control" id="nombre_categoria">
-                                <option value="0">SELECCIONE</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="tipo-usuario">Presentación:</label>
-                            <select class="form-control" id="nombre_categoria">
+                            <label for="nombre_presentacion">Presentación:</label>
+                            <select class="form-control" id="nombre_presentacion">
                                 <option value="0">SELECCIONE</option>
                             </select>
                         </div>
@@ -148,8 +115,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Cancelar</button>
-                <button class="btn ripple btn-primary" type="button">Guardar</button>
+                <button class="btn ripple btn-secondary" type="button" id="btn-cancelar">Cancelar</button>
+                <button class="btn ripple btn-primary" type="button" id="btn-guardar">Guardar</button>
             </div>
         </div>
     </div>
