@@ -42,26 +42,25 @@ class Usuario_model extends Base_model {
         }
 	}
 
-	public function _get_categoria(){
-        $this->db->select('id_categoria, nombre_categoria,flg_estado');
-        $this->db->from($this->model_name); 
+	public function _get_tipos_usuario(){
+        $this->db->select('id_tipo_usuario, tipo_usuario,flg_estado');
+        $this->db->from('tipo_usuario'); 
         $this->db->where('flg_situacion = 1');
-        // $this->db->where('"idubigeo" like \''.substr($ubigeo,0,4).'%\'');
-        $this->db->order_by('nombre_categoria', 'asc');
+        $this->db->order_by('tipo_usuario', 'asc');
         $query = $this->db->get();
         if($query){
             return $query->result_array();
         }else{
             return array();
         }
-	}
-
-    public function _get_categoria_by_id($id_categoria){
-        $this->db->select('id_categoria, nombre_categoria,flg_estado');
-        $this->db->from($this->model_name); 
-        $this->db->where('id_categoria= '.$id_categoria.' ');
+    }
+    
+    public function _get_tipo_usuario_by_id($id_tipo_usuario){
+        $this->db->select('id_tipo_usuario, tipo_usuario,flg_estado');
+        $this->db->from('tipo_usuario'); 
+        $this->db->where('id_tipo_usuario= '.$id_tipo_usuario.' ');
         $this->db->where('flg_situacion = 1');
-        $this->db->order_by('nombre_categoria', 'asc');
+        $this->db->order_by('tipo_usuario', 'asc');
         $query = $this->db->get();
         if($query){
             return $query->result_array();
@@ -70,27 +69,23 @@ class Usuario_model extends Base_model {
         }
 	}
     
-    public function _insert_categoria($nombre_categoria=null,$flg_estado=null){
+
+    public function _insert_tipo_usuario($id_tipo_usuario=0,$nombre_tipo_usuario=null,$flg_estado=null){
+
+
         $data = array(
-            'nombre_categoria' => $nombre_categoria,
+            'tipo_usuario' => $nombre_tipo_usuario,
             'flg_estado' => $flg_estado
         );
+        if($id_tipo_usuario==0){
+            $query = $this->db->insert('tipo_usuario', $data);
+
+        }
+        else{
+            $this->db->where('id_tipo_usuario', $id_tipo_usuario);
+            $query =  $this->db->update('tipo_usuario', $data);
+        }
         
-        $query = $this->db->insert($this->model_name, $data);
-
-        return $query;
-
-
-    }
-
-    public function _update_categoria($id_categoria=0,$nombre_categoria=null,$flg_estado=null){
-        $data = array(
-            'nombre_categoria' => $nombre_categoria,
-            'flg_estado' => $flg_estado
-        );
-        
-        $this->db->where('id_categoria', $id_categoria);
-        $query =  $this->db->update($this->model_name, $data);
 
         return $query;
     }

@@ -44,7 +44,7 @@
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
                 <h6 class="modal-title" id="titulo_modal"></h6>
-                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                <button aria-label="Close" class="close" id="btn-cancelar" type="button">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

@@ -81,18 +81,6 @@ class Login extends Sys_Controller  {
             }
             
             
-            // if($codigo == 'JMEJIA' && $clave='123'){
-            //     $result['status'] = 'success';
-            //     $result['msg'] = 'Datos de accesos correctos...';	
-            //     $login['idusuario'] = '1';
-            //     $login['usuario'] = $codigo;
-            //     $login['clave'] = $clave;
-            //     $this->session->set_userdata('usuario_login', $login);
-            //     $this->session->set_userdata('usuario_sesion', 'ses1');
-            // } else{
-            //     $result['status'] = 'error';
-            //     $result['msg'] = 'Credenciales incorrectas';
-            // }
 
         } else{
             $result['status'] = 'error';

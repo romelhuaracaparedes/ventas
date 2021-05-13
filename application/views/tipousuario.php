@@ -12,9 +12,9 @@
             </div>
             <div class="d-flex">
                 <div class="justify-content-center">
-                    <a class="btn ripple btn-primary" data-target="#agregar-tipo-usuario" data-toggle="modal" href="#">
+                    <button class="btn ripple btn-primary" id="agregar-tipo-usuario">
                         <i class="fe fe-plus mr-2"></i> Agregar nuevo
-                    </a>
+                    </button>
 
 
                     </button>
@@ -29,110 +29,9 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table" id="example2">
-                                <thead>
-                                    <tr>
-                                        <th class="wd-20p">Name</th>
-                                        <th class="wd-25p">Position</th>
-                                        <th class="wd-20p">Office</th>
-                                        <th class="wd-15p">Age</th>
-                                        <th class="wd-20p">Salary</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    <tr>
-                                        <td>Thor Walton</td>
-                                        <td>Developer</td>
-                                        <td>New York</td>
-                                        <td>61</td>
-                                        <td>$98,540</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Finn Camacho</td>
-                                        <td>Support Engineer</td>
-                                        <td>San Francisco</td>
-                                        <td>47</td>
-                                        <td>$87,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Serge Baldwin</td>
-                                        <td>Data Coordinator</td>
-                                        <td>Singapore</td>
-                                        <td>64</td>
-                                        <td>$138,575</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Zenaida Frank</td>
-                                        <td>Software Engineer</td>
-                                        <td>New York</td>
-                                        <td>63</td>
-                                        <td>$125,250</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Zorita Serrano</td>
-                                        <td>Software Engineer</td>
-                                        <td>San Francisco</td>
-                                        <td>56</td>
-                                        <td>$115,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jennifer Acosta</td>
-                                        <td>Junior Javascript Developer</td>
-                                        <td>Edinburgh</td>
-                                        <td>43</td>
-                                        <td>$75,650</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cara Stevens</td>
-                                        <td>Sales Assistant</td>
-                                        <td>New York</td>
-                                        <td>46</td>
-                                        <td>$145,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hermione Butler</td>
-                                        <td>Regional Director</td>
-                                        <td>London</td>
-                                        <td>47</td>
-                                        <td>$356,250</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Lael Greer</td>
-                                        <td>Systems Administrator</td>
-                                        <td>London</td>
-                                        <td>21</td>
-                                        <td>$103,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Jonas Alexander</td>
-                                        <td>Developer</td>
-                                        <td>San Francisco</td>
-                                        <td>30</td>
-                                        <td>$86,500</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shad Decker</td>
-                                        <td>Regional Director</td>
-                                        <td>Edinburgh</td>
-                                        <td>51</td>
-                                        <td>$183,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Michael Bruce</td>
-                                        <td>Javascript Developer</td>
-                                        <td>Singapore</td>
-                                        <td>29</td>
-                                        <td>$183,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Donna Snider</td>
-                                        <td>Customer Support</td>
-                                        <td>New York</td>
-                                        <td>27</td>
-                                        <td>$112,000</td>
-                                    </tr>
-                                </tbody>
+                            
+                            <table class="table" id="tablatipousuarios">
+                                
                             </table>
                         </div>
                     </div>
@@ -145,25 +44,28 @@
     </div>
 </div>
 <!-- usuario Modal -->
-<div class="modal" id="agregar-tipo-usuario">
+<div class="modal" id="modal-tipo-usuario">
     <div class="modal-dialog" role="document">
         <div class="modal-content modal-content-demo">
             <div class="modal-header">
-                <h6 class="modal-title">Registro de tipo de usuario</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                <h6 class="modal-title" id="titulo_modal"></h6>
+                <button aria-label="Close" class="close btn-cancelar"  type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <form>
 
-
                     <div class="row py-2">
+                        <input type="hidden" id="id_tipo_usuario">
                         <div class="col-md-6">
-                            <label for="tipo-usuario">Tipo de usuario</label>
-                            <input type="text" class="form-control" id="tipo-usuario" placeholder="Escribir el tipo de usario">
+                            <label for="tipo_usuario">Tipo de usuario</label>
+                            <input type="text" class="form-control" id="tipo_usuario" placeholder="Escribir el tipo de usario">
                         </div>
                         <div class="col-md-6 pt-md-0 pt-3">
                             <p class="mb-2">Estado</p>
                             <label class="custom-switch">
-                                <input type="checkbox" name="estado" class="custom-switch-input">
+                                <input type="checkbox" name="estado_tipo_usuario" class="custom-switch-input" checked>
                                 <span class="custom-switch-indicator"></span>
                                 <span class="custom-switch-description">Activo</span>
                             </label>
@@ -175,8 +77,8 @@
             </div>
             <div class="modal-footer">
 
-                <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Cancelar</button>
-                <button class="btn ripple btn-primary" type="button">Guardar</button>
+                <button class="btn ripple btn-secondary btn-cancelar" type="button" >Cancelar</button>
+                <button class="btn ripple btn-primary" type="button" id="guardar-tipo-usuario">Guardar</button>
             </div>
         </div>
     </div>

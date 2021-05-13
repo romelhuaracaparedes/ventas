@@ -18,14 +18,9 @@ class Usuario extends Sys_Controller {
     public function index(){
         $data = array();
         $parametroFooter = array(
-            // 'jslib' => array(
-
-            //     'assets/plugins/datatable/jquery.dataTables.min.js',
-            //     'assets/plugins/datatable/dataTables.bootstrap4.min.js',
-            //     'assets/plugins/datatable/dataTables.responsive.min.js',
-            //     'assets/plugins/datatable/fileexport/dataTables.buttons.min.js',
-            //     'assets/js/table-data.js'
-            // ),
+            'jslib' => array(
+                'assets/js/VentasJS/usuario.js'
+            ),
         );
         $data_header = array();
         $this->sys_render('usuarios', $data, $data_header, $parametroFooter);
@@ -39,8 +34,7 @@ class Usuario extends Sys_Controller {
         
         
         $data= $this->t_usuario->_get_perfil(87654321);   
-        print_r($data);
-        exit();
+        
         $this->sys_render('perfil', $data, $data_header, $parametroFooter);
     }
 
@@ -53,10 +47,62 @@ class Usuario extends Sys_Controller {
 
     public function tipousuario(){
         $data = array();
-        $parametroFooter = array();
+        $parametroFooter = array(
+            'jslib' => array(
+                'assets/js/VentasJS/usuario.js'
+            ),
+        );
         $data_header = array();
         $this->sys_render('tipousuario', $data, $data_header, $parametroFooter);
     }
+
+    public function registrarTipoUsuario(){
+
+
+        $id_tipo_usuario = $this->input->post('id_tipo_usuario');
+        $nombre_tipo_usuario= $this->input->post('nombre_tipo_usuario');
+        $flg_estado= $this->input->post('flg_estado');
+
+        
+
+        $data = $this->t_usuario->_insert_tipo_usuario($id_tipo_usuario,$nombre_tipo_usuario,$flg_estado);
+
+        if($data){
+            $result['status'] = 'success';
+            $result['msg'] = 'Se registró correctamente';	
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al registrar';	
+        }
+
+        $this->json_output($result);
+    }
+
+    public function listarTiposUsuario(){
+        $result['status'] = 'success';
+        $result['msg'] = 'Se listó correctamente...';	
+
+        $data= $this->t_usuario->_get_tipos_usuario();
+        $result['data'] =$data;
+
+        $this->json_output($data);
+    }
+
+
+    public function obtenerTipoUsuario(){
+        $result['status'] = 'success';
+        $result['msg'] = 'Se listó correctamente...';
+        
+        $id_tipo_usuario = $this->input->post('id');
+          
+
+        $data= $this->t_usuario->_get_tipo_usuario_by_id($id_tipo_usuario);
+        $result['data'] =$data;
+
+        $this->json_output($data);
+    }
+
+
 
     public function listarUsuario(){
         $result['status'] = 'success';
