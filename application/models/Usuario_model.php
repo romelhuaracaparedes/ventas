@@ -11,9 +11,9 @@ class Usuario_model extends Base_model {
     }
 
     public function _get_usuario($usuario, $clave){
-        $this->db->select('u.numero_documento, u.nombres, u.apellido_paterno, u.apellido_materno, p.nombre as perfil, u.flg_estado');
+        $this->db->select('u.numero_documento, u.nombres, u.apellido_paterno, u.apellido_materno, t.tipo_usuario, u.flg_estado');
         $this->db->from($this->model_name.' u');
-        $this->db->join('perfiles p', 'u.id_perfil = p.id_perfil');
+        $this->db->join('tipo_usuario t', 'u.id_tipo_usuario = t.id_tipo_usuario');
         $this->db->where('numero_documento =\''.$usuario.'\' and clave=\''.$clave.'\'');
         // $this->db->where('"idubigeo" like \''.substr($ubigeo,0,4).'%\'');
         
@@ -28,9 +28,9 @@ class Usuario_model extends Base_model {
     
 
     public function _get_perfil($usuario){
-        $this->db->select('u.nombres, u.apellido_paterno, u.apellido_materno, u.tipo_documento,u.numero_documento,u.correo, u.telefono, p.nombre as perfil');
+        $this->db->select('u.nombres, u.apellido_paterno, u.apellido_materno, u.tipo_documento,u.numero_documento,u.correo, u.telefono, t.tipo_usuario');
         $this->db->from($this->model_name.' u');
-        $this->db->join('perfiles p', 'u.id_perfil = p.id_perfil');
+        $this->db->join('tipo_usuario t', 'u.id_tipo_usuario = t.id_tipo_usuario');
         $this->db->where('numero_documento =\''.$usuario.'\'');
         
         $query = $this->db->get();
@@ -90,17 +90,63 @@ class Usuario_model extends Base_model {
         return $query;
     }
     
-    public function _delete_categoria($id_categoria=0){
+    public function _delete_tipo_usuario($id_tipo_usuario=0){
         $data = array(
             'flg_situacion' => 0
         );
         
-        $this->db->where('id_categoria', $id_categoria);
-        $query =  $this->db->update($this->model_name, $data);
+        $this->db->where('id_tipo_usuario', $id_tipo_usuario);
+        $query =  $this->db->update('tipo_usuario', $data);
 
         return $query;
     }
 
+
+
+
+
+    public function _insert_usuario($obj){
+    
+        $data = array(
+            'id_tipo_usuario' => $obj["tipo_usuario"],
+            'nombres' => $obj["nombres"],
+            'apellido_paterno' => $obj["apellido_paterno"],
+            'apellido_materno' => $obj["apellido_materno"],
+            'tipo_documento' => $obj["tipo_documento"],
+            'numero_documento' => $obj["num_documento"],
+            'correo' => $obj["correo"],
+            'telefono' => $obj["celular"],
+            'clave' => md5($obj["num_documento"]),
+            'flg_estado' => $obj["estado"]
+        );
+
+
+        if(!$obj["id_usuario"]){
+            $query = $this->db->insert($this->model_name, $data);
+
+        }
+        else{
+            $this->db->where('id_usuario', $obj["id_usuario"]);
+            $query =  $this->db->update($this->model_name, $data);
+        }
+        
+
+        return $query;
+    }
+
+    public function _get_usuarios(){
+        $this->db->select('u.id_usuario, u.numero_documento, u.nombres as usuario, u.telefono, t.tipo_usuario, u.flg_estado');
+        $this->db->from($this->model_name.' u');
+        $this->db->join('tipo_usuario t', 'u.id_tipo_usuario = t.id_tipo_usuario');
+        $this->db->where('u.flg_estado = 1');
+        $this->db->order_by('u.nombres', 'asc');
+        $query = $this->db->get();
+        if($query){
+            return $query->result_array();
+        }else{
+            return array();
+        }
+    }
 
 
   

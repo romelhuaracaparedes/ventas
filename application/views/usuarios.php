@@ -12,9 +12,9 @@
                         </div>
                         <div class="d-flex">
                             <div class="justify-content-center">
-                                <a class="btn ripple btn-primary" data-target="#agregar-usuario" data-toggle="modal" href="#">
-                                    <i class="fe fe-plus mr-2"></i> Agregar nuevo
-                                </a>
+                            <button class="btn ripple btn-primary" id="agregar-usuario">
+                                <i class="fe fe-plus mr-2"></i> Agregar nuevo
+                            </button>
 
 
                                 </button>
@@ -29,29 +29,8 @@
                             <div class="card custom-card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table" id="example2">
-                                            <thead>
-                                                <tr>
-                                                    <th >Nombre</th>
-                                                    <th >Apellido paterno</th>
-                                                    <th >Apelido materno</th>
-                                                    <th >Celular</th>
-                                                    <th >Perfil</th>
-                                                    <th >Estado</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                <tr>
-                                                    <td>Romel</td>
-                                                    <td>Huaraca</td>
-                                                    <td>Paredes</td>
-                                                    <td>999001270</td>
-                                                    <td>Administrador</td>
-                                                    <td>Activo</td>
-                                                </tr>
-                                               
-                                            </tbody>
+                                        <table class="table" id="tablausuarios">
+                                    
                                         </table>
                                     </div>
                                 </div>
@@ -64,27 +43,33 @@
                 </div>
             </div>
             <!-- usuario Modal -->
-            <div class="modal" id="agregar-usuario">
+            <div class="modal" id="modal-usuario">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content modal-content-demo">
                         <div class="modal-header">
-                            <h6 class="modal-title">Registro de usuario</h6><button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                            
+                        <h6 class="modal-title" id="titulo_modal-usuario"></h6>
+                        <button aria-label="Close" class="close btn-cancelar-usuario"  type="button">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form id="form-usuario">
 
                                 <div class="row py-2">
+                                    <input type="hidden" id="id_usuario">
                                     <div class="col-md-4">
                                         <label for="nombres">Nombres</label>
-                                        <input type="text" class="form-control" id="nombres">
+                                        <input type="text" class="form-control" id="nombres" name="nombres">
                                     </div>
                                     <div class="col-md-4 pt-md-0 pt-3">
-                                        <label for="apelldio-paterno">Apellido paterno</label>
-                                        <input type="text" class="form-control" id="apellio-materno">
+                                        <label for="apelldio_paterno">Apellido paterno</label>
+                                        <input type="text" class="form-control" id="apellido_paterno" name="apellio_paterno">
                                     </div>
                                     <div class="col-md-4 pt-md-0 pt-3">
-                                        <label for="apellido-materno">Apellido materno</label>
-                                        <input type="text" class="form-control" id="apellido-materno">
+                                        <label for="apellido_materno">Apellido materno</label>
+                                        <input type="text" class="form-control" id="apellido_materno" name="apellido_materno">
                                     </div>
                                 </div>
 
@@ -92,40 +77,37 @@
                                 <div class="row py-2">
                                     <div class="col-md-4 pt-md-0 pt-3">
                                         <label for="correo">Correo</label>
-                                        <input type="text" class="form-control" id="correo">
+                                        <input type="text" class="form-control" id="correo" name="correo">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="celular">Celular</label>
-                                        <input type="text" class="form-control" id="celular">
+                                        <input type="text" class="form-control" id="celular" name="celular">
                                     </div>
                                     <div class="col-md-4 pt-md-0 pt-3">
-                                        <label for="tipo-documento">Tipo de documento</label>
-                                        <select name="tipo-documento" id="tipo-documento" class="select2-no-search">
+                                        <label for="tipo_documento">Tipo de documento</label>
+                                        <select class="form-control" name="tipo_documento" id="tipo_documento" >
 											<option value="1" selected>DNI</option>
 											<option value="2">Carnet de extranjería</option>
 										</select>
                                     </div>
                                     
-                                    
+                                    <!-- class="select2-no-search" -->
                                 </div>
                                 <div class="row py-2">
                                     <div class="col-md-4">
-                                        <label for="num-documento">N° de documento</label>
-                                        <input type="text" class="form-control" id="num-documento">
+                                        <label for="num_documento">N° de documento</label>
+                                        <input type="text" class="form-control" id="num_documento" name="num_documento">
                                     </div>
                                     <div class="col-md-4 pt-md-0 pt-3">
-                                        <label for="tipo-usuario">Tipo de usuario</label>
-                                        <select name="tipo-usuario" id="tipo-usuario" class="select2-no-search">
-											<option value="1" selected>Seleccione</option>
-                                            <option value="2">Administrador</option>
-                                            <option value="2">Vendedor</option>
-                                            <option value="3">Almacen</option>
-										</select>
+                                        <label for="tipo_usuario">Tipo de usuario:</label>
+                                        <select class="form-control" id="tipo_usuario" name="tipo_usuario">
+                                            <option value="">SELECCIONE</option>
+                                        </select>
                                     </div>
                                     <div class="col-md-4 pt-md-0 pt-3">
                                         <p class="mb-2">Estado</p>
                                         <label class="custom-switch">
-                                            <input type="checkbox" name="estado" class="custom-switch-input">
+                                            <input type="checkbox" name="estado_usuario" id="estado_usuario" class="custom-switch-input" checked>
                                             <span class="custom-switch-indicator"></span>
                                             <span class="custom-switch-description">Activo</span>
                                         </label>
@@ -137,8 +119,8 @@
                         </div>
                         <div class="modal-footer">
 
-                            <button class="btn ripple btn-secondary" data-dismiss="modal" type="button">Cancelar</button>
-                            <button class="btn ripple btn-primary" type="button">Guardar</button>
+                            <button class="btn ripple btn-secondary btn-cancelar-usuario" type="button">Cancelar</button>
+                            <button class="btn ripple btn-primary" id="guardar-usuario" type="button">Guardar</button>
                         </div>
                     </div>
                 </div>

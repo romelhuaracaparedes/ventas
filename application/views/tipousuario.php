@@ -65,7 +65,7 @@
                         <div class="col-md-6 pt-md-0 pt-3">
                             <p class="mb-2">Estado</p>
                             <label class="custom-switch">
-                                <input type="checkbox" name="estado_tipo_usuario" class="custom-switch-input" checked>
+                                <input type="checkbox" name="estado_tipo_usuario" id="estado_tipo_usuario" class="custom-switch-input" checked>
                                 <span class="custom-switch-indicator"></span>
                                 <span class="custom-switch-description">Activo</span>
                             </label>

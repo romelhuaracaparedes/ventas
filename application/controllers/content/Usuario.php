@@ -19,7 +19,9 @@ class Usuario extends Sys_Controller {
         $data = array();
         $parametroFooter = array(
             'jslib' => array(
-                'assets/js/VentasJS/usuario.js'
+                'assets/js/jquery.validate.js',
+                'assets/js/VentasJS/usuario.js',
+                'assets/js/messages_es.js'
             ),
         );
         $data_header = array();
@@ -32,8 +34,7 @@ class Usuario extends Sys_Controller {
         $data_header = array();
 
         
-        
-        $data= $this->t_usuario->_get_perfil(87654321);   
+        $data= $this->t_usuario->_get_perfil(87654321); 
         
         $this->sys_render('perfil', $data, $data_header, $parametroFooter);
     }
@@ -103,6 +104,25 @@ class Usuario extends Sys_Controller {
     }
 
 
+    public function eliminarTipoUsuario(){
+
+        $id_tipo_usuario = $this->input->post('id_tipo_usuario');
+        
+
+        $data = $this->t_usuario->_delete_tipo_usuario($id_tipo_usuario);
+
+        if($data){
+            $result['status'] = 'success';
+            $result['msg'] = 'Se eliminó correctamente';	
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al eliminar';	
+        }
+
+        $this->json_output($result);
+    }
+
+
 
     public function listarUsuario(){
         $result['status'] = 'success';
@@ -110,6 +130,37 @@ class Usuario extends Sys_Controller {
 
         $data= $this->t_usuario->_get_usuario();
 
+
+        $this->json_output($data);
+    }
+
+
+    public function registrarUsuario(){
+
+
+        $obj = $this->input->post();        
+
+        $data = $this->t_usuario->_insert_usuario($obj);
+
+        if($data){
+            $result['status'] = 'success';
+            $result['msg'] = 'Se registró correctamente';	
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al registrar';	
+        }
+
+        $this->json_output($result);
+    }
+
+    public function listarUsuarios(){
+        $result['status'] = 'success';
+        $result['msg'] = 'Se listó correctamente...';	
+
+        $data= $this->t_usuario->_get_usuarios();
+        $result['data'] =$data;
+
+        
 
         $this->json_output($data);
     }

@@ -18,13 +18,9 @@ class Venta extends Sys_Controller {
     public function index(){
         $data = array();
         $parametroFooter = array(
-            // 'jslib' => array(
-            //     'assets/js/advanced-datatable/js/jquery.dataTables.js',
-            //     'assets/js/data-tables/DT_bootstrap.js',
-            //     'assets/js/advanced-datatable/js/dataTables.fixedColumns.min.js',
-            //     'assets/js/highcharts/highcharts.js',
-            //     'assets/js/highcharts/highcharts.exporting.js'
-            // ),
+            'jslib' => array(
+                'assets/js/VentasJS/venta.js'
+            ),
         );
         $data_header = array();
         $this->sys_render('venta', $data, $data_header, $parametroFooter);

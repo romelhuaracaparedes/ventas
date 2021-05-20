@@ -52,13 +52,9 @@ class Login extends Sys_Controller  {
                         'nombres' =>$data[0]["nombres"],
                         'apellido_paterno' =>$data[0]["apellido_paterno"],
                         'apellido_materno' =>$data[0]["apellido_materno"],
-                        'perfil' =>$data[0]["perfil"],
+                        'tipo_usuario' =>$data[0]["tipo_usuario"],
                         'flg_estado' =>$data[0]["flg_estado"],
                         'logged_in' => TRUE);
-                    
-                    
-
-                    $this->session->set_userdata('sitio', 'http://tutsplus.com');
                     
                         
                     $this->session->set_userdata($sess_array);
