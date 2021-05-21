@@ -5,12 +5,12 @@ ini_set('display_errors', 1);
 ini_set('memory_limit', '-1');
 set_time_limit(0);
 
-class Producto extends Sys_Controller {
+class Precio extends Sys_Controller {
     
     function __construct()
     {
     	parent::__construct();
-        $this->load->model('producto_model', 't_producto');
+        $this->load->model('precio_model', 't_precio');
         session_write_close();
     }
 
@@ -18,18 +18,18 @@ class Producto extends Sys_Controller {
         $data = array();
         $parametroFooter = array(
             'jslib' => array(
-                'assets/js/VentasJS/producto.js',
+                'assets/js/VentasJS/precio.js',
             ),
         );
         $data_header = array();
-        $this->sys_render('producto', $data, $data_header, $parametroFooter);
+        $this->sys_render('precio', $data, $data_header, $parametroFooter);
     }
 
     public function listarProductos(){
         $result['status'] = 'success';
         $result['msg'] = 'Se listó correctamente...';	
 
-        $data= $this->t_producto->_get_producto();
+        $data= $this->t_precio->_get_producto();
         $result['data'] =$data;
 
         $this->json_output($data);
@@ -40,13 +40,15 @@ class Producto extends Sys_Controller {
         $nombre = @$_POST['nombre'];       
 		$stock = @$_POST['stock'];    
         $stockmin = @$_POST['stockmin'];    
-        $precio = @$_POST['precio'];    
-        $precio_venta = @$_POST['precio_venta'];    
+        $precio_venta_unit = @$_POST['precio_venta_unit'];    
+        $precio_venta_mayorista = @$_POST['precio_venta_mayorista'];    
+        $precio_venta_distribuidor = @$_POST['precio_venta_distribuidor'];    
+        $precio_compra = @$_POST['precio_compra'];    
         $categoria = @$_POST['categoria'];    
         $presentacion = @$_POST['presentacion'];    
         $marca = @$_POST['marca'];    
 
-        $data = $this->t_producto->_insert_producto($nombre,$stock,$stockmin,$precio,$precio_venta,$categoria,$presentacion,$marca);
+        $data = $this->t_precio->_insert_producto($nombre,$stock,$stockmin,$precio_venta_unit,$precio_venta_mayorista,$precio_venta_distribuidor,$precio_compra,$categoria,$presentacion,$marca);
 
         if($data){
             $result['status'] = 'success';
@@ -66,7 +68,7 @@ class Producto extends Sys_Controller {
         
         $id_producto = @$_POST['id'];       
 
-        $data= $this->t_producto->_get_producto_by_id($id_producto);
+        $data= $this->t_precio->_get_producto_by_id($id_producto);
         $result['data'] =$data;
 
         $this->json_output($data);
@@ -79,13 +81,15 @@ class Producto extends Sys_Controller {
         $nombre = @$_POST['nombre'];       
 		$stock = @$_POST['stock'];    
         $stockmin = @$_POST['stockmin'];    
-        $precio = @$_POST['precio'];    
-        $precio_venta = @$_POST['precio_venta'];    
+        $precio_venta_unit = @$_POST['precio_venta_unit'];    
+        $precio_venta_mayorista = @$_POST['precio_venta_mayorista'];    
+        $precio_venta_distribuidor = @$_POST['precio_venta_distribuidor'];    
+        $precio_compra = @$_POST['precio_compra'];    
         $categoria = @$_POST['categoria'];    
         $presentacion = @$_POST['presentacion'];    
         $marca = @$_POST['marca'];    
 
-        $data = $this->t_producto->_update_producto($id_producto,$nombre,$stock,$stockmin,$precio,$precio_venta,$categoria,$presentacion,$marca);
+        $data = $this->t_precio->_update_producto($id_producto,$nombre,$stock,$stockmin,$precio_venta_unit,$precio_venta_mayorista,$precio_venta_distribuidor,$precio_compra,$categoria,$presentacion,$marca);
 
         if($data){
             $result['status'] = 'success';
@@ -103,7 +107,7 @@ class Producto extends Sys_Controller {
         $id_producto = @$_POST['id_producto'];
         
 
-        $data = $this->t_producto->_delete_producto($id_producto);
+        $data = $this->t_precio->_delete_producto($id_producto);
 
         if($data){
             $result['status'] = 'success';

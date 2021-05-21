@@ -1,8 +1,8 @@
-var productoJS = {
+var precioJS = {
 
     obtener_producto: function(id, callback) {
 
-        ventasJS.post('producto/obtenerProducto', { id: id }, function(data) {
+        ventasJS.post('obtenerProducto', { id: id }, function(data) {
             if (callback) {
                 callback(data[0]);
             }
@@ -11,7 +11,7 @@ var productoJS = {
 
     agregar_producto: function(obj, callback) {
 
-        ventasJS.post('producto/registrarProducto', obj, function(data) {
+        ventasJS.post('registrarProducto', obj, function(data) {
             // console.log(data);
             if (callback) {
                 callback(data);
@@ -21,7 +21,7 @@ var productoJS = {
     },
 
     editar_producto: function(obj, callback) {
-        ventasJS.post('producto/actualizarProducto', obj, function(data) {
+        ventasJS.post('actualizarProducto', obj, function(data) {
             if (callback) {
                 callback(data);
             }
@@ -33,7 +33,7 @@ var productoJS = {
 
         var obj = {};
         obj.id_producto = id;
-        ventasJS.post('producto/eliminarProducto', obj, function(data) {
+        ventasJS.post('eliminarProducto', obj, function(data) {
             if (callback) {
                 callback(data);
             }
@@ -46,6 +46,10 @@ var productoJS = {
         $('#nombre_producto').val('');
         $('#stock_producto').val('');
         $('#stockmin_producto').val('');
+        $('#precio_compra').val('');
+        $('#precio_venta_unit_producto').val('');
+        $('#precio_venta_mayorista_producto').val('');
+        $('#precio_venta_distribuidor_producto').val('');
         $('#nombre_categoria').val('0');
         $('#nombre_marca').val('0');
         $('#nombre_presentacion').val('0');
@@ -56,7 +60,7 @@ var productoJS = {
             responsive: true,
             retrieve: true,
             ajax: {
-                url: 'producto/listarProductos',
+                url: 'listarProductos',
                 data: { csrf_patbin_tkn: ventasJS.tk_v },
                 type: 'POST',
                 dataSrc: ""
@@ -91,6 +95,22 @@ var productoJS = {
 
                     title: 'STOCK MINIMO',
                     data: 'stock_minimo',
+                }, {
+
+                    title: 'PRECIO VENTA UNIDAD',
+                    data: 'precio_venta_unit',
+                }, {
+
+                    title: 'PRECIO VENTA MAYORISTA',
+                    data: 'precio_venta_mayorista',
+                }, {
+
+                    title: 'PRECIO VENTA DISTRIBUIDOR',
+                    data: 'precio_venta_distribuidor',
+                }, {
+
+                    title: 'PRECIO COMPRA',
+                    data: 'precio_compra',
                 },
                 {
                     title: 'OPCIONES',
@@ -119,7 +139,7 @@ var productoJS = {
     },
 
     listarCategorias: function(select, selected, callback) {
-        ventasJS.post('categoria/listarCategorias', {}, function(data) {
+        ventasJS.post('../categoria/listarCategorias', {}, function(data) {
             $(select).html('<option value="0">-- Seleccione --</option>');
             $.each(data, function(index, obj) {
                 var seleccionado = "";
@@ -137,7 +157,7 @@ var productoJS = {
     },
 
     listarMarcas: function(select, selected, callback) {
-        ventasJS.post('marca/listarMarcas', {}, function(data) {
+        ventasJS.post('../marca/listarMarcas', {}, function(data) {
             $(select).html('<option value="0">-- Seleccione --</option>');
             $.each(data, function(index, obj) {
                 var seleccionado = "";
@@ -155,7 +175,7 @@ var productoJS = {
     },
 
     listarPresentaciones: function(select, selected, callback) {
-        ventasJS.post('presentacion/listarPresentaciones', {}, function(data) {
+        ventasJS.post('../presentacion/listarPresentaciones', {}, function(data) {
             $(select).html('<option value="0">-- Seleccione --</option>');
             $.each(data, function(index, obj) {
                 var seleccionado = "";
@@ -180,10 +200,10 @@ var productoJS = {
 // });
 
 $(document).ready(function() {
-    productoJS.listarProductos();
-    productoJS.listarCategorias("#nombre_categoria");
-    productoJS.listarMarcas("#nombre_marca");
-    productoJS.listarPresentaciones("#nombre_presentacion");
+    precioJS.listarProductos();
+    precioJS.listarCategorias("#nombre_categoria");
+    precioJS.listarMarcas("#nombre_marca");
+    precioJS.listarPresentaciones("#nombre_presentacion");
 });
 
 
@@ -191,7 +211,7 @@ $(document).ready(function() {
 
 $("#btn-cancelar").click(function() {
     $("#modal-producto").modal("hide");
-    productoJS.limpiar_formulario();
+    precioJS.limpiar_formulario();
 });
 
 $("#btn-guardar").click(function() {
@@ -200,6 +220,11 @@ $("#btn-guardar").click(function() {
     var nombre = $.trim($('#nombre_producto').val());
     var stock = $.trim($('#stock_producto').val());
     var stockmin = $.trim($('#stockmin_producto').val());
+    var precio_compra = $.trim($('#precio_compra').val());
+    var precio_venta_unit = $.trim($('#precio_venta_unit_producto').val());
+    var precio_venta_mayorista = $.trim($('#precio_venta_mayorista_producto').val());
+    var precio_venta_distribuidor = $.trim($('#precio_venta_distribuidor_producto').val());
+
     var categoria = $.trim($('#nombre_categoria').val());
     var marca = $.trim($('#nombre_marca').val());
     var presentacion = $.trim($('#nombre_presentacion').val());
@@ -209,6 +234,10 @@ $("#btn-guardar").click(function() {
     obj.nombre = nombre;
     obj.stock = stock;
     obj.stockmin = stockmin;
+    obj.precio_compra = precio_compra;
+    obj.precio_venta_unit = precio_venta_unit;
+    obj.precio_venta_mayorista = precio_venta_mayorista;
+    obj.precio_venta_distribuidor = precio_venta_distribuidor;
     obj.categoria = categoria;
     obj.presentacion = presentacion;
     obj.marca = marca;
@@ -223,6 +252,18 @@ $("#btn-guardar").click(function() {
     if (stockmin == '') {
         msj_error += 'Ingresar Stock Minimo. <br>';
     }
+    if (precio_compra == '') {
+        msj_error += 'Ingresar Precio Compra. <br>';
+    }
+    if (precio_venta_unit == '') {
+        msj_error += 'Ingresar Precio Venta Unidad. <br>';
+    }
+    if (precio_venta_mayorista == '') {
+        msj_error += 'Ingresar Precio Venta Mayorista. <br>';
+    }
+    if (precio_venta_distribuidor == '') {
+        msj_error += 'Ingresar Precio Venta Distribuidor. <br>';
+    }
     if (categoria == '0') {
         msj_error += 'Ingresar Categoría. <br>';
     }
@@ -236,30 +277,30 @@ $("#btn-guardar").click(function() {
     if (msj_error == '') {
 
         if (id_producto == '') {
-            productoJS.agregar_producto(obj, function(data) {
+            precioJS.agregar_producto(obj, function(data) {
                 if (data.status == 'success') {
                     ventasJS.msj.success('Aviso:', data.msg);
                     $('#tablaproductos').DataTable().destroy();
 
-                    productoJS.listarProductos();
+                    precioJS.listarProductos();
                 } else {
                     ventasJS.msj.warning('Aviso:', data.msg);
                 }
                 $("#modal-producto").modal("hide");
-                productoJS.limpiar_formulario();
+                precioJS.limpiar_formulario();
             });
         } else {
-            productoJS.editar_producto(obj, function(data) {
+            precioJS.editar_producto(obj, function(data) {
                 if (data.status == 'success') {
                     ventasJS.msj.success('Aviso:', data.msg);
                     $('#tablaproductos').DataTable().destroy();
 
-                    productoJS.listarProductos();
+                    precioJS.listarProductos();
                 } else {
                     ventasJS.msj.warning('Aviso:', data.msg);
                 }
                 $("#modal-producto").modal("hide");
-                productoJS.limpiar_formulario();
+                precioJS.limpiar_formulario();
             });
         }
 
@@ -276,7 +317,7 @@ $("#agregar-producto").click(function() {
 
 
 function getProductoById(id) {
-    productoJS.obtener_producto(id, function(data) {
+    precioJS.obtener_producto(id, function(data) {
 
         $("#modal-producto").modal("show");
         $("#titulo_modal").html('Editar de Producto');
@@ -286,6 +327,10 @@ function getProductoById(id) {
         $('#nombre_producto').val(data.nombre_producto);
         $('#stock_producto').val(data.stock);
         $('#stockmin_producto').val(data.stock_minimo);
+        $('#precio_compra').val(data.precio_compra);
+        $('#precio_venta_unit_producto').val(data.precio_venta_unit);
+        $('#precio_venta_mayorista_producto').val(data.precio_venta_mayorista);
+        $('#precio_venta_distribuidor_producto').val(data.precio_venta_distribuidor);
         $('#nombre_categoria').val(data.id_categoria);
         $('#nombre_marca').val(data.id_marca);
         $('#nombre_presentacion').val(data.id_presentacion);
@@ -309,11 +354,11 @@ function eliminarProducto(id) {
         },
         function(isConfirm) {
             if (isConfirm) {
-                productoJS.eliminar_producto(id, function(data) {
+                precioJS.eliminar_producto(id, function(data) {
                     if (data.status == 'success') {
                         ventasJS.msj.success('Aviso:', data.msg);
                         $('#tablaproductos').DataTable().destroy();
-                        productoJS.listarProductos();
+                        precioJS.listarProductos();
                     } else {
                         ventasJS.msj.warning('Aviso:', data.msg);
                     }

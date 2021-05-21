@@ -57,32 +57,52 @@
                         </div>
                     </div>
                     <div class="row py-2">
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label for="stock_producto">Stock:</label>
                             <input type="text" class="form-control" id="stock_producto" placeholder="">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label for="stockmin_producto">Stock Min:</label>
                             <input type="text" class="form-control" id="stockmin_producto" placeholder="">
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label for="precio_producto">Precio Compra:</label>
                             <div class="input-group mb-3"> 
                                     <div class="input-group-prepend"> 
                                         <span class="input-group-text">S/.</span> 
                                     </div>
-                                <input class="form-control" id="precio_producto" type="text"> 
+                                <input class="form-control" id="precio_compra" type="text"> 
                             </div> 
                         </div>
 
-                        <div class="col-md-3">
-                            <label for="precio_venta_producto">Precio Venta:</label>
+                        <div class="col-md-4">
+                            <label for="precio_venta_unit_producto">Precio Venta Unitario:</label>
                             <div class="input-group mb-3"> 
                                     <div class="input-group-prepend"> 
                                         <span class="input-group-text">S/.</span> 
                                     </div>
-                                <input class="form-control" id="precio_venta_producto" type="text"> 
+                                <input class="form-control" id="precio_venta_unit_producto" type="text"> 
+                            </div> 
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="precio_venta_mayorista_producto">Precio Venta Mayorista:</label>
+                            <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend"> 
+                                        <span class="input-group-text">S/.</span> 
+                                    </div>
+                                <input class="form-control" id="precio_venta_mayorista_producto" type="text"> 
+                            </div> 
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="precio_venta_distribuidor_producto">Precio Venta Distribuidor:</label>
+                            <div class="input-group mb-3"> 
+                                    <div class="input-group-prepend"> 
+                                        <span class="input-group-text">S/.</span> 
+                                    </div>
+                                <input class="form-control" id="precio_venta_distribuidor_producto" type="text"> 
                             </div> 
                         </div>
                     
