@@ -60,7 +60,7 @@ var precioJS = {
             responsive: true,
             retrieve: true,
             ajax: {
-                url: 'listarProductos',
+                url: 'precio/listarProductos',
                 data: { csrf_patbin_tkn: ventasJS.tk_v },
                 type: 'POST',
                 dataSrc: ""
@@ -139,7 +139,7 @@ var precioJS = {
     },
 
     listarCategorias: function(select, selected, callback) {
-        ventasJS.post('../categoria/listarCategorias', {}, function(data) {
+        ventasJS.post('categoria/listarCategorias', {}, function(data) {
             $(select).html('<option value="0">-- Seleccione --</option>');
             $.each(data, function(index, obj) {
                 var seleccionado = "";
@@ -157,7 +157,7 @@ var precioJS = {
     },
 
     listarMarcas: function(select, selected, callback) {
-        ventasJS.post('../marca/listarMarcas', {}, function(data) {
+        ventasJS.post('marca/listarMarcas', {}, function(data) {
             $(select).html('<option value="0">-- Seleccione --</option>');
             $.each(data, function(index, obj) {
                 var seleccionado = "";
@@ -175,7 +175,7 @@ var precioJS = {
     },
 
     listarPresentaciones: function(select, selected, callback) {
-        ventasJS.post('../presentacion/listarPresentaciones', {}, function(data) {
+        ventasJS.post('presentacion/listarPresentaciones', {}, function(data) {
             $(select).html('<option value="0">-- Seleccione --</option>');
             $.each(data, function(index, obj) {
                 var seleccionado = "";
