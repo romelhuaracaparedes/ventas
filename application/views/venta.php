@@ -20,7 +20,7 @@
                             <div class="col-md-4">
                                 <label for="cliente">Seleccionar Cliente</label>
                                 <div class="input-group">
-                                    <input class="form-control" placeholder="Digitar cliente..." type="text">
+                                    <input class="form-control" placeholder="Digitar cliente..." type="text" id="clientes">
                                     <span class="input-group-btn">
                                         <button class="btn ripple btn-primary" type="button" id="agregar-cliente">
                                             <span class="input-group-btn"><i class="fa fa-plus"></i></span>
@@ -67,7 +67,7 @@
                             </div> -->
                             <div class="col-md-8 pb-4">                                            
                                     <label for="producto">Producto</label>
-                                    <input class="form-control" id="producto" placeholder="Digitar producto..." type="text">                                           
+                                    <input class="form-control"  placeholder="Digitar producto..." type="text" id="productos">                                           
                             </div>
                             <div class="col-md-1 pb-4">
                                 
@@ -177,71 +177,65 @@
 
 <!-- cliente Modal -->
 <div class="modal" id="modal-cliente">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content modal-content-demo">
-                        <div class="modal-header">
-                            
-                        <h6 class="modal-title" id="titulo-modal-cliente"></h6>
-                        <button aria-label="Close" class="close btn-cancelar"  type="button">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
 
+                <h6 class="modal-title" id="titulo-modal-cliente"></h6>
+                <button aria-label="Close" class="close btn-cancelar"  type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-usuario">
+                    <div class="row py-2">
+                        <input type="hidden" id="id_usuario">
+                        <div class="col-md-4">
+                            <label for="nombres">Nombres</label>
+                            <input type="text" class="form-control" id="nombres" name="nombres">
                         </div>
-                        <div class="modal-body">
-                            <form id="form-usuario">
-
-                                <div class="row py-2">
-                                    <input type="hidden" id="id_usuario">
-                                    <div class="col-md-4">
-                                        <label for="nombres">Nombres</label>
-                                        <input type="text" class="form-control" id="nombres" name="nombres">
-                                    </div>
-                                    <div class="col-md-4 pt-md-0 pt-3">
-                                        <label for="apelldio_paterno">Apellido paterno</label>
-                                        <input type="text" class="form-control" id="apellido_paterno" name="apellio_paterno">
-                                    </div>
-                                    <div class="col-md-4 pt-md-0 pt-3">
-                                        <label for="apellido_materno">Apellido materno</label>
-                                        <input type="text" class="form-control" id="apellido_materno" name="apellido_materno">
-                                    </div>
-                                </div>
-
-
-                                <div class="row py-2">
-                                    <div class="col-md-4 pt-md-0 pt-3">
-                                        <label for="direccion">Dirección</label>
-                                        <input type="text" class="form-control" id="cireccion" name="direccion">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label for="celular">Celular</label>
-                                        <input type="text" class="form-control" id="celular" name="celular">
-                                    </div>
-                                    <div class="col-md-4 pt-md-0 pt-3">
-                                        <label for="tipo_documento">Tipo de documento</label>
-                                        <select class="form-control" name="tipo_documento" id="tipo_documento" >
-											<option value="1" selected>DNI</option>
-											<option value="2">Carnet de extranjería</option>
-										</select>
-                                    </div>
-                                    
-                                    <!-- class="select2-no-search" -->
-                                </div>
-                                <div class="row py-2">
-                                    <div class="col-md-4">
-                                        <label for="num_documento">N° de documento</label>
-                                        <input type="text" class="form-control" id="num_documento" name="num_documento">
-                                    </div>
-                                    
-                                </div>
-
-                            </form>
+                        <div class="col-md-4 pt-md-0 pt-3">
+                            <label for="apelldio_paterno">Apellido paterno</label>
+                            <input type="text" class="form-control" id="apellido_paterno" name="apellio_paterno">
                         </div>
-                        <div class="modal-footer">
-
-                            <button class="btn ripple btn-secondary btn-cancelar" type="button">Cancelar</button>
-                            <button class="btn ripple btn-primary" id="guardar-cliente" type="button">Guardar</button>
+                        <div class="col-md-4 pt-md-0 pt-3">
+                            <label for="apellido_materno">Apellido materno</label>
+                            <input type="text" class="form-control" id="apellido_materno" name="apellido_materno">
                         </div>
                     </div>
-                </div>
+                    <div class="row py-2">
+                        <div class="col-md-4 pt-md-0 pt-3">
+                            <label for="direccion">Dirección</label>
+                            <input type="text" class="form-control" id="cireccion" name="direccion">
+                        </div>
+                        <div class="col-md-4">
+                            <label for="celular">Celular</label>
+                            <input type="text" class="form-control" id="celular" name="celular">
+                        </div>
+                        <div class="col-md-4 pt-md-0 pt-3">
+                            <label for="tipo_documento">Tipo de documento</label>
+                            <select class="form-control" name="tipo_documento" id="tipo_documento" >
+    							<option value="1" selected>DNI</option>
+    							<option value="2">Carnet de extranjería</option>
+    						</select>
+                        </div>
+
+                        <!-- class="select2-no-search" -->
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-md-4">
+                            <label for="num_documento">N° de documento</label>
+                            <input type="text" class="form-control" id="num_documento" name="num_documento">
+                        </div>
+
+                    </div>
+                </form>
             </div>
-            <!--End usuario Modal -->
+            <div class="modal-footer">
+                <button class="btn ripple btn-secondary btn-cancelar" type="button">Cancelar</button>
+                <button class="btn ripple btn-primary" id="guardar-cliente" type="button">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End usuario Modal -->

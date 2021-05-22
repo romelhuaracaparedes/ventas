@@ -91,14 +91,79 @@ var usuarioJS = {
     //     });
     // },
 
+    listarClientes: function(callback) {
+
+        ventasJS.post('cliente/listarClientes', {}, function(data) {
+            var clientes = [];
+            $.each(data, function(index, obj) {
+                clientes.push(obj.nombres);
+            });
+
+            $("#clientes").autocomplete({
+                source: clientes
+            });
+            if (callback) {
+                callback();
+            }
+        });
+
+    },
+    listarProductos: function(callback) {
+
+        ventasJS.post('producto/listarProductos', {}, function(data) {
+            var productos = [];
+            $.each(data, function(index, obj) {
+                productos.push(obj.nombre_producto);
+            });
+
+            $("#productos").autocomplete({
+                source: productos
+            });
+            if (callback) {
+                callback();
+            }
+        });
+
+    },
+
+
+
 
 
 
 };
 
 $(document).ready(function() {
-    // usuarioJS.listarUsuarios();
+    usuarioJS.listarClientes();
+    usuarioJS.listarProductos();
 });
+
+
+var availableTags = [
+    "ActionScript",
+    "AppleScript",
+    "Asp",
+    "BASIC",
+    "C",
+    "C++",
+    "Clojure",
+    "COBOL",
+    "ColdFusion",
+    "Erlang",
+    "Fortran",
+    "Groovy",
+    "Haskell",
+    "Java",
+    "JavaScript",
+    "Lisp",
+    "Perl",
+    "PHP",
+    "Python",
+    "Ruby",
+    "Scala",
+    "Scheme"
+];
+
 
 
 

@@ -19,6 +19,7 @@ class Venta extends Sys_Controller {
         $data = array();
         $parametroFooter = array(
             'jslib' => array(
+                'assets/plugins/jquery-ui/ui/widgets/jquery-ui.js',
                 'assets/js/VentasJS/venta.js'
             ),
         );
