@@ -1,3 +1,4 @@
+
 <div class="container-fluid">
     <div class="inner-body">
         <!-- Page Header -->
@@ -19,8 +20,17 @@
                         <div class="row py-2">
                             <div class="col-md-4">
                                 <label for="cliente">Seleccionar Cliente</label>
-                                <div class="input-group">
-                                    <input class="form-control" placeholder="Digitar cliente..." type="text" id="clientes">
+                                
+                                <div class="input-group" style="flex-wrap:nowrap;">
+                                    <select class="form-control select2" name="cliente" id="cliente" >
+                                        <option></option>
+                                        <?php if ($clientes) { ?>
+                                            <?php foreach ($clientes as $dist) { ?>
+                                                <option value="<?php echo $dist['id_cliente']; ?>"><?php echo utf8_encode($dist['nombres']); ?></option>
+                                            <?php } ?>
+                                        <?php } ?>
+											
+                                    </select> 
                                     <span class="input-group-btn">
                                         <button class="btn ripple btn-primary" type="button" id="agregar-cliente">
                                             <span class="input-group-btn"><i class="fa fa-plus"></i></span>
@@ -67,7 +77,17 @@
                             </div> -->
                             <div class="col-md-8 pb-4">                                            
                                     <label for="producto">Producto</label>
-                                    <input class="form-control"  placeholder="Digitar producto..." type="text" id="productos">                                           
+                                    
+                                    <select class="form-control select2" name="producto" id="producto" >
+                                        <option></option>
+                                        <?php if ($productos) { ?>
+                                            <?php foreach ($productos as $dist) { ?>
+                                                <option value="<?php echo $dist['id_producto']; ?>"><?php echo utf8_encode($dist['nombre_producto']); ?></option>
+                                            <?php } ?>
+                                        <?php } ?>
+											
+											
+									</select>                                         
                             </div>
                             <div class="col-md-1 pb-4">
                                 

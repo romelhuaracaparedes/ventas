@@ -1,4 +1,4 @@
-var usuarioJS = {
+var ventaJS = {
 
 
     // listarUsuarios: function() {
@@ -94,14 +94,7 @@ var usuarioJS = {
     listarClientes: function(callback) {
 
         ventasJS.post('cliente/listarClientes', {}, function(data) {
-            var clientes = [];
-            $.each(data, function(index, obj) {
-                clientes.push(obj.nombres);
-            });
 
-            $("#clientes").autocomplete({
-                source: clientes
-            });
             if (callback) {
                 callback();
             }
@@ -125,6 +118,10 @@ var usuarioJS = {
         });
 
     },
+    llenarCampos: function(data) {
+
+        console.log(data);
+    }
 
 
 
@@ -134,35 +131,25 @@ var usuarioJS = {
 };
 
 $(document).ready(function() {
-    usuarioJS.listarClientes();
-    usuarioJS.listarProductos();
+    ventaJS.listarClientes();
+    ventaJS.listarProductos();
 });
 
 
-var availableTags = [
-    "ActionScript",
-    "AppleScript",
-    "Asp",
-    "BASIC",
-    "C",
-    "C++",
-    "Clojure",
-    "COBOL",
-    "ColdFusion",
-    "Erlang",
-    "Fortran",
-    "Groovy",
-    "Haskell",
-    "Java",
-    "JavaScript",
-    "Lisp",
-    "Perl",
-    "PHP",
-    "Python",
-    "Ruby",
-    "Scala",
-    "Scheme"
-];
+$('#producto').select2({
+    language: {
+        noResults: () => "No se encontraron resultados"
+    },
+    placeholder: "Digita el nombre del producto"
+});
+
+
+$('#cliente').select2({
+    language: {
+        noResults: () => "No se encontraron resultados"
+    },
+    placeholder: "Digita el nombre del cliente"
+});
 
 
 

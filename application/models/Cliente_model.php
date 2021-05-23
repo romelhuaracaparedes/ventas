@@ -11,7 +11,7 @@ class Cliente_model extends Base_model {
 	}
 
 	public function _get_clientes(){
-        $this->db->select('nombres');
+        $this->db->select('*');
         $this->db->from($this->model_name); 
         $this->db->where('flg_estado = 1');
         $this->db->order_by('nombres', 'asc');
