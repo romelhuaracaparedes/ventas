@@ -19,14 +19,16 @@
                     <div class="card-body">
                         <div class="row py-2">
                             <div class="col-md-4">
+
+                                <input type="hidden" id="txtIdVenta">
                                 <label for="cliente">Seleccionar Cliente</label>
                                 
                                 <div class="input-group" style="flex-wrap:nowrap;">
-                                    <select class="form-control select2" name="cliente" id="cliente" >
+                                    <select class="form-control select2" name="cliente" id="slccliente" >
                                         <option></option>
                                         <?php if ($clientes) { ?>
                                             <?php foreach ($clientes as $dist) { ?>
-                                                <option value="<?php echo $dist['id_cliente']; ?>"><?php echo utf8_encode($dist['nombres']); ?></option>
+                                                <option value="<?php echo $dist['id_cliente']; ?>" data-ndocumento="<?php echo $dist['numero_documento']; ?>" data-direccion="<?php echo $dist['direccion']; ?>"  data-celular="<?php echo $dist['celular']; ?>"><?php echo utf8_encode($dist['nombres']); ?></option>
                                             <?php } ?>
                                         <?php } ?>
 											
@@ -53,12 +55,12 @@
                                 <input type="tel" class="form-control" id="telefono">
                             </div>
                             <div class="col-md-4">
-                                <label for="igv">Fecha de pedido</label>
-                                <input class="form-control" id="dateMask" placeholder="MM/DD/YYYY" type="text">
+                                <label for="fecha_pedido">Fecha de pedido</label>
+                                <input class="form-control fc-datepicker" placeholder="DD/MM/YYYY" type="text" id="fecha_pedido">
                             </div>
                             <div class="col-md-4 pt-md-0 pt-3">
                                 <label for="delular">Fecha de entrega</label>
-                                <input class="form-control" id="dateMask2" placeholder="MM/DD/YYYY" type="text">
+                                <input class="form-control" id="dateMask2" placeholder="DD/MM/YYYY" type="text" id="fecha_entrega">
                             </div>
                         </div>
                     </div>
@@ -78,11 +80,11 @@
                             <div class="col-md-8 pb-4">                                            
                                     <label for="producto">Producto</label>
                                     
-                                    <select class="form-control select2" name="producto" id="producto" >
+                                    <select class="form-control select2" name="producto" id="slctproducto" >
                                         <option></option>
                                         <?php if ($productos) { ?>
                                             <?php foreach ($productos as $dist) { ?>
-                                                <option value="<?php echo $dist['id_producto']; ?>"><?php echo utf8_encode($dist['nombre_producto']); ?></option>
+                                                <option value="<?php echo $dist['id_producto']; ?>" data-stock="<?php echo $dist['stock']; ?>" data-preciounit="<?php echo $dist['precio_venta_unit']; ?>"><?php echo utf8_encode($dist['nombre_producto']); ?></option>
                                             <?php } ?>
                                         <?php } ?>
 											
@@ -92,7 +94,7 @@
                             <div class="col-md-1 pb-4">
                                 
                                 <label for="stock">Stock</label>    
-                                <input class="form-control" type="text" disabled>
+                                <input class="form-control" type="text" id="stock" disabled>
                             </div>
                             
                             <div class="col-md-1 pb-4">
@@ -102,7 +104,7 @@
                             </div>
                             <div class="col-md-2 pb-4 ">
                                      <label for="cantidad" class="invisible">.</label>  
-                                    <button class="btn ripple btn-primary btn-block" id="agregar-usuario">
+                                    <button class="btn ripple btn-primary btn-block" id="agregar-producto">
                                         <i class="fe fe-plus mr-2"></i> Agregar
                                     </button>
                                 
@@ -116,39 +118,11 @@
                                                 <th>Descripción</th>
                                                 <th>P.Unit</th>
                                                 <th>Importe</th>
+                                                <th>Eliminar</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <th>1</th>
-                                                <td>Joan Powell</td>
-                                                <td>Associate Developer</td>
-                                                <td>$450,870</td>
-                                            </tr>
-                                            <tr>
-                                                <th>2</th>
-                                                <td>Gavin Gibson</td>
-                                                <td>Account manager</td>
-                                                <td>$230,540</td>
-                                            </tr>
-                                            <tr>
-                                                <th>3</th>
-                                                <td>Julian Kerr</td>
-                                                <td>Senior Javascript Developer</td>
-                                                <td>$55,300</td>
-                                            </tr>
-                                            <tr>
-                                                <th>4</th>
-                                                <td>Cedric Kelly</td>
-                                                <td>Accountant</td>
-                                                <td>$234,100</td>
-                                            </tr>
-                                            <tr>
-                                                <th>5</th>
-                                                <td>Samantha May</td>
-                                                <td>Junior Technical Author</td>
-                                                <td>$43,198</td>
-                                            </tr>
+                                        <tbody id="detalle_venta">
+                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -158,8 +132,8 @@
                             <div class="col-md-3 col-sm-4 col-9 ">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
-                                        <span style="width:80px;" class="input-group-text" id="basic-addon1">Sub total</span>
-                                    </div><input class="form-control" type="text">
+                                        <span style="width:80px;" class="input-group-text" id="basic-addon1" >Sub total</span>
+                                    </div><input class="form-control" type="text" id="sub_total">
                                 </div>
                             </div>
                         </div>
@@ -168,7 +142,7 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span style="width:80px;" class="input-group-text" id="basic-addon1">I.G.V </span>
-                                    </div><input class="form-control" type="text">
+                                    </div><input class="form-control" type="text" value="18%" disabled>
                                 </div>
                             </div>
                         </div>
@@ -176,8 +150,8 @@
                             <div class="col-md-3 col-sm-4 col-9 ">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span style="width:80px;" class="input-group-text" id="basic-addon1">Total </span>
-                                    </div><input class="form-control" type="text">
+                                        <span style="width:80px;" class="input-group-text" >Total </span>
+                                    </div><input class="form-control" type="text" id="total">
                                 </div>
                             </div>
                         </div>
