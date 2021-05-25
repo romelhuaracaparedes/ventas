@@ -20,7 +20,7 @@
 
     <!-- Jquery js-->
     <script src="<?=base_url()?>assets/plugins/jquery/jquery.min.js"></script>
-
+    
 
     <!-- Bootstrap js-->
     <script src="<?=base_url()?>assets/plugins/bootstrap/js/popper.min.js"></script>
@@ -28,6 +28,8 @@
 
     <!-- Perfect-scrollbar js -->
     <script src="<?=base_url()?>assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+    
 
     <!-- Sidemenu js -->
     <script src="<?=base_url()?>assets/plugins/sidemenu/sidemenu.js"></script>

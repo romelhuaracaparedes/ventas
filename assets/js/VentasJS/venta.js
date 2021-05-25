@@ -151,6 +151,13 @@ $('#cliente').select2({
     placeholder: "Digita el nombre del cliente"
 });
 
+$('#fechapedido').datepicker({
+    autoclose: true
+});
+$('#fechaentrega').datepicker({
+    autoclose: true
+});
+
 
 
 

@@ -22,7 +22,9 @@ class Venta extends Sys_Controller {
         $data["productos"]=$this->t_producto->_get_producto();
         $parametroFooter = array(
             'jslib' => array(
+                
                 'assets/plugins/jquery-ui/ui/widgets/jquery-ui.js',
+                'assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js',                
                 'assets/js/VentasJS/venta.js'
             ),
         );

@@ -16,6 +16,8 @@
     <!-- Bootstrap css-->
     <link href="<?=base_url()?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
+    
+
     <!-- Icons css-->
     <link href="<?=base_url()?>assets/plugins/web-fonts/icons.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/plugins/web-fonts/font-awesome/font-awesome.min.css" rel="stylesheet" />
@@ -27,7 +29,7 @@
     <link href="<?=base_url()?>assets/css/dark-style.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/css/colors/default.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/css/jquery.toast.css" rel="stylesheet">
-    <link href="<?=base_url()?>assets/css/jquery-ui.css" rel="stylesheet" />
+    
 
     
     <!-- Color css-->
@@ -53,6 +55,8 @@
     <link href="<?=base_url()?>assets/plugins/datatable/dataTables.bootstrap4.min.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/plugins/datatable/responsivebootstrap4.min.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/plugins/datatable/fileexport/buttons.bootstrap4.min.css" rel="stylesheet" />
+    <link href="<?=base_url()?>assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
+    
     
 
 

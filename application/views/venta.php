@@ -54,11 +54,31 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="igv">Fecha de pedido</label>
-                                <input class="form-control" id="dateMask" placeholder="MM/DD/YYYY" type="text">
+                                
+									<div class="mg-b-20">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<div class="input-group-text">
+													<i class="fe fe-calendar lh--9 op-6"></i>
+												</div>
+                                            </div>
+                                            <input class="form-control" id="fechapedido" placeholder="dd/mm/yyyy" type="text">
+										</div>
+									</div>
+								
                             </div>
                             <div class="col-md-4 pt-md-0 pt-3">
                                 <label for="delular">Fecha de entrega</label>
-                                <input class="form-control" id="dateMask2" placeholder="MM/DD/YYYY" type="text">
+                                <div class="mg-b-20">
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<i class="fe fe-calendar lh--9 op-6"></i>
+											</div>
+                                        </div>
+                                        <input class="form-control" id="fechaentrega" placeholder="dd/mm/yyyy" type="text">
+									</div>
+								</div>
                             </div>
                         </div>
                     </div>
