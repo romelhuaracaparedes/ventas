@@ -121,22 +121,217 @@ var ventaJS = {
     llenarCampos: function(data) {
 
         console.log(data);
+    },
+
+    listarDetalleVenta: function(id, callback) {
+        ventasJS.post('venta/obtenerDetalleVenta', { id: id }, function(data) {
+
+            var html = ``;
+
+            var sub_total = 0;
+
+            $.each(data, function(idx, obj) {
+                html += `<tr>
+                    <th>` + obj.cantidad + `</th>
+                    <td>` + obj.nombre_producto + `</td>
+                    <td>` + obj.precio + `</td>
+                    <td>` + obj.sub_total + `</td>
+                    <td> <button class="btn btn-danger btn-sm" onClick="eliminar_DetalleVenta(` + obj.id_detalle_venta + `)"> <i class="fas fa-trash"></i></button></td>
+                </tr>`;
+
+                sub_total += parseFloat(obj.sub_total);
+            });
+
+
+            console.log(sub_total);
+
+            $("#detalle_venta").html(html);
+            $("#sub_total").val(sub_total);
+
+            var total = sub_total + (sub_total * 0.18);
+            $("#total").val(total);
+
+            if (callback) {
+                callback();
+            }
+        });
+    },
+
+    agregar_DetalleVenta: function(productos, callback) {
+
+        ventasJS.post('venta/registrarDetalleVenta', productos, function(data) {
+            // console.log(data);
+            if (callback) {
+                callback(data);
+            }
+
+        });
+    },
+
+    eliminar_DetalleVenta: function(id, callback) {
+        ventasJS.post('venta/eliminarDetalleVenta', { id: id }, function(data) {
+            // console.log(data);
+            if (callback) {
+                callback(data);
+            }
+
+        });
     }
-
-
-
-
-
 
 };
 
 $(document).ready(function() {
     ventaJS.listarClientes();
     ventaJS.listarProductos();
+
+    ventaJS.listarDetalleVenta(1);
+
+    $('#slccliente').change(function() {
+        var selected = $(this).find('option:selected');
+        var numero_documento = selected.data('ndocumento');
+
+        var direccion = selected.data('direccion');
+        var celular = selected.data('celular');
+
+        $("#documento").val(numero_documento);
+        $("#telefono").val(celular);
+        $("#direccion").val(direccion);
+    });
+
+    $('#slctproducto').change(function() {
+
+        var data = $(this).select2('data');
+        var nombre_producto = data[0].text;
+
+        var selected = $(this).find('option:selected');
+        var stock = selected.data('stock');
+
+        $("#stock").val(stock);
+    });
+
+    $("#agregar-producto").click(function() {
+
+
+
+        // VENTA
+
+        var id_venta = $("#txtIdVenta").val();
+
+        // USUARIO
+        var usuario = $("#slccliente").select2('data');
+        var id_usuario = usuario[0].id;
+
+        var fecha_pedido = $("#fecha_pedido").val();
+        var fecha_entrega = $("#fecha_entrega").val();
+
+
+
+        // PRODUCTOS
+
+
+        var data = $("#slctproducto").select2('data');
+        var nombre_producto = data[0].text;
+        var id_producto = data[0].id;
+
+        var producto = $("#slctproducto").find('option:selected');
+        var precio = producto.data('preciounit');
+
+        var stock = parseInt($("#stock").val());
+
+        var cantidad = parseInt($("#cantidad").val());
+        var msj_error = '';
+
+
+
+
+        if (nombre_producto == '') {
+            msj_error += 'Selecciona un Producto. <br>';
+        }
+
+        if (cantidad == '') {
+            msj_error += 'Ingrese una cantidad. <br>';
+        }
+
+        if (cantidad > stock) {
+            msj_error += 'Ingrese una cantidad no mayor al stock del producto. <br>';
+        }
+
+        var productos = {};
+        productos.id_venta = 1;
+        productos.id_producto = id_producto;
+        // productos.id_cliente = id_usuario;
+        productos.cantidad = cantidad;
+        productos.precio = precio;
+
+        if (msj_error == '') {
+            if (id_venta == '') {
+                ventaJS.agregar_DetalleVenta(productos, function(data) {
+                    if (data.status == 'success') {
+                        ventasJS.msj.success('Aviso:', data.msg);
+                        ventaJS.listarDetalleVenta(1);
+                    } else {
+                        ventasJS.msj.warning('Aviso:', data.msg);
+                    }
+                    // ventaJS.limpiar_formulario();
+                });
+            } else {
+                // productoJS.editar_producto(obj, function(data) {
+                //     if (data.status == 'success') {
+                //         ventasJS.msj.success('Aviso:', data.msg);
+                //         $('#tablaproductos').DataTable().destroy();
+
+                //         productoJS.listarProductos();
+                //     } else {
+                //         ventasJS.msj.warning('Aviso:', data.msg);
+                //     }
+                //     $("#modal-producto").modal("hide");
+                //     productoJS.limpiar_formulario();
+                // });
+            }
+        } else {
+            ventasJS.msj.warning('Aviso:', msj_error);
+        }
+
+        var obj = {};
+
+        // obj.id_cliente = id_usuario;
+        // obj.id_vendedor = 1;
+        // obj.total = total;
+        // obj.tipo_estado = 1;
+        // obj.fecha_registro = total;
+        // obj.fecha_pedido = total;
+        // obj.fecha_entrega = total;
+        // obj.id_usuario_registro = total;
+        // obj.tipo_comprobante = total;
+
+        // $("#txtIdVenta").val();
+
+
+
+
+
+
+    });
+
+    // $('.fc-datepicker').datepicker({
+    //     dateFormat: "mm/dd/yy",
+    //     showOtherMonths: true,
+    //     selectOtherMonths: true,
+    //     autoclose: true,
+    //     changeMonth: true,
+    //     changeYear: true,
+    //     orientation: "auto",
+    // });
+
 });
 
+function eliminar_DetalleVenta(id) {
+    ventaJS.eliminar_DetalleVenta(id, function() {
+        ventaJS.listarDetalleVenta(1);
+    });
+}
 
-$('#producto').select2({
+$('#slctproducto').select2({
     language: {
         noResults: () => "No se encontraron resultados"
     },
@@ -144,7 +339,7 @@ $('#producto').select2({
 });
 
 
-$('#cliente').select2({
+$('#slccliente').select2({
     language: {
         noResults: () => "No se encontraron resultados"
     },
