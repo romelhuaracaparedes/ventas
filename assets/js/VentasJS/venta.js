@@ -1,3 +1,17 @@
+
+//Globals
+
+var documento_dni = '';
+var id_venta_general = $("#txtIdVenta").val();
+
+var data_detalle_esp = '';
+
+var unique_values = [];
+
+var funcionalidades = {
+
+}
+
 var ventaJS = {
 
 
@@ -127,23 +141,49 @@ var ventaJS = {
         ventasJS.post('venta/obtenerDetalleVenta', { id: id }, function(data) {
 
             var html = ``;
-
+            data_detalle_esp = data;
             var sub_total = 0;
 
+
+            unique_values = [];
+            let unique_values_next = [];
+            let map_detalle = new Map();
+            for (const item of data) {
+                if(!map_detalle.has(item.id_producto)){
+                    map_detalle.set(item.id_producto, true);    // set any value to Map
+                    unique_values.push({
+                        id: item.id_producto,
+                        name: item.nombre_producto
+                    });
+
+                }
+            }
+
             $.each(data, function(idx, obj) {
+                audiProduct = obj.id_producto;
                 html += `<tr>
+                    <td><button class="badge badge-pill badge-danger" onClick="eliminar_DetalleVenta(` + obj.id_detalle_venta + `)"> <i class="fas fa-trash fa-xs"></i></button></td>
                     <th>` + obj.cantidad + `</th>
                     <td>` + obj.nombre_producto + `</td>
                     <td>` + obj.precio + `</td>
                     <td>` + obj.sub_total + `</td>
-                    <td> <button class="btn btn-danger btn-sm" onClick="eliminar_DetalleVenta(` + obj.id_detalle_venta + `)"> <i class="fas fa-trash"></i></button></td>
                 </tr>`;
 
                 sub_total += parseFloat(obj.sub_total);
+
             });
 
+            $.each(unique_values, function(idxgen, objgen) {
+                unique_values[idxgen]['cantidad'] = 0;
+                $.each(data, function(idxesp, objesp) {
+                    if (objgen.id.indexOf(objesp.id_producto) != -1 ) {
+                        unique_values[idxgen]['cantidad'] += parseFloat(objesp.cantidad);
+                    } 
 
-            console.log(sub_total);
+                });
+
+             });
+            console.log(unique_values);
 
             $("#detalle_venta").html(html);
             $("#sub_total").val(sub_total);
@@ -156,6 +196,20 @@ var ventaJS = {
             }
         });
     },
+
+
+    agregar_Venta: function(cliente,  callback) {
+        var obj = {header: cliente};
+
+        ventasJS.post('venta/registrarVenta', obj, function(data) {
+            // console.log(data);
+            if (callback) {
+                callback(data);
+            }
+
+        });
+    },
+
 
     agregar_DetalleVenta: function(productos, callback) {
 
@@ -180,11 +234,12 @@ var ventaJS = {
 
 };
 
+
 $(document).ready(function() {
     ventaJS.listarClientes();
     ventaJS.listarProductos();
 
-    ventaJS.listarDetalleVenta(1);
+    ventaJS.listarDetalleVenta(id_venta_general);
 
     $('#slccliente').change(function() {
         var selected = $(this).find('option:selected');
@@ -196,6 +251,8 @@ $(document).ready(function() {
         $("#documento").val(numero_documento);
         $("#telefono").val(celular);
         $("#direccion").val(direccion);
+
+        documento_dni = $('#documento').val();
     });
 
     $('#slctproducto').change(function() {
@@ -209,10 +266,61 @@ $(document).ready(function() {
         $("#stock").val(stock);
     });
 
+    $("#guardar_general").click(function(){
+
+        //USUARIO NEW
+
+        var msj_error = ''; 
+        var slccliente = $("#slccliente").val();
+        var fecha_pedido = $("#fechapedido").val();
+        var fecha_entrega = $("#fechaentrega").val();
+
+        if (slccliente == '') {
+            msj_error += 'Selecciona un Cliente. <br>';
+        }
+
+        if (fecha_pedido == '') {
+            msj_error += 'Ingrese una Fecha de Pêdido. <br>';
+        }
+
+        if (fecha_entrega == '') {
+            msj_error += 'Ingrese una Fecha de Enetrega. <br>';
+        }
+
+        var cliente = {};
+
+        cliente.id_cliente = slccliente;
+        cliente.fecha_pedido = fecha_pedido;
+        cliente.fecha_entrega = fecha_entrega;
+
+        if (msj_error == '') {
+
+            ventaJS.agregar_Venta(cliente, function(data) {
+                if (data.status == 'success') {
+                    ventasJS.msj.success('Aviso:', data.msg);
+                    id_venta_general = data.reg_id;
+                    $("#txtIdVenta").val(data.reg_id)
+                } else {
+                    ventasJS.msj.warning('Aviso:', data.msg);
+                }
+            });
+
+        } else {
+            ventasJS.msj.warning('Aviso:', msj_error);
+        }
+
+    })
+
+
+
     $("#agregar-producto").click(function() {
 
-
-
+        // if(documento_dni == ''){
+        //     return ventasJS.msj.warning('Aviso:', "Seleccione a un cliente");
+        // }
+        if (id_venta_general == '') {
+            return ventasJS.msj.warning('Aviso:', "Seleccione a un cliente");
+        }
         // VENTA
 
         var id_venta = $("#txtIdVenta").val();
@@ -221,10 +329,11 @@ $(document).ready(function() {
         var usuario = $("#slccliente").select2('data');
         var id_usuario = usuario[0].id;
 
-        var fecha_pedido = $("#fecha_pedido").val();
-        var fecha_entrega = $("#fecha_entrega").val();
+        // var fecha_pedido = $("#fecha_pedido").val();
+        // var fecha_entrega = $("#fecha_entrega").val();
 
 
+     
 
         // PRODUCTOS
 
@@ -241,8 +350,7 @@ $(document).ready(function() {
         var cantidad = parseInt($("#cantidad").val());
         var msj_error = '';
 
-
-
+       
 
         if (nombre_producto == '') {
             msj_error += 'Selecciona un Producto. <br>';
@@ -256,19 +364,42 @@ $(document).ready(function() {
             msj_error += 'Ingrese una cantidad no mayor al stock del producto. <br>';
         }
 
+        //validate cantidad detalle
+
+        $.each(unique_values, function(idxgen, objgen) {
+            if (objgen.id == id_producto) {
+                let suma_stock = (objgen.cantidad + parseInt(cantidad));
+                if(suma_stock>stock){
+                   msj_error += 'Ingrese una cantidad no mayor al stock del producto la suma es '+suma_stock+'. <br>'; 
+                }
+            }
+            
+
+         });
+
+
+
         var productos = {};
-        productos.id_venta = 1;
+        var cliente = {};
+
+        // cliente.id_cliente = id_usuario;
+        // cliente.fecha_pedido = fecha_pedido;
+        // cliente.fecha_entrega = fecha_entrega;
+        productos.id_venta = id_venta;
         productos.id_producto = id_producto;
         // productos.id_cliente = id_usuario;
         productos.cantidad = cantidad;
         productos.precio = precio;
 
         if (msj_error == '') {
-            if (id_venta == '') {
+            if (id_venta != '') {
+
                 ventaJS.agregar_DetalleVenta(productos, function(data) {
                     if (data.status == 'success') {
                         ventasJS.msj.success('Aviso:', data.msg);
-                        ventaJS.listarDetalleVenta(1);
+                        ventaJS.listarDetalleVenta(id_venta);
+                        $("#slctproducto").val(null).trigger('change');
+                        $("#cantidad").val('');
                     } else {
                         ventasJS.msj.warning('Aviso:', data.msg);
                     }
@@ -327,7 +458,7 @@ $(document).ready(function() {
 
 function eliminar_DetalleVenta(id) {
     ventaJS.eliminar_DetalleVenta(id, function() {
-        ventaJS.listarDetalleVenta(1);
+        ventaJS.listarDetalleVenta(id_venta_general);
     });
 }
 
@@ -368,108 +499,23 @@ $(".btn-cancelar").click(function() {
 });
 
 
-// $("#guardar-usuario").click(function() {
-
-//     var obj = {};
-//     obj.id_usuario = $.trim($('#id_usuario').val());
-//     obj.nombres = $.trim($('#nombres').val());
-//     obj.apellido_paterno = $('#apellido_paterno').val();
-//     obj.apellido_materno = $('#apellido_materno').val();
-//     obj.correo = $.trim($('#correo').val());
-//     obj.celular = $.trim($('#celular').val());
-//     obj.tipo_documento = $('#tipo_documento').val();
-//     obj.num_documento = $.trim($('#num_documento').val());
-//     obj.tipo_usuario = $.trim($('#tipo_usuario').val());
-//     obj.estado = ($('#estado_usuario').is(":checked")) ? 1 : 0;
-//     obj.csrf_patbin_tkn = $("#token").val();
+$("#realizar-pedido").click(function() {
+    $("#modal-pedido").modal("show");
+    $(".titulo-modal-cliente").html('<center>Registrar pedido</center>');
+});
 
 
-//     var form = $('#form-usuario');
-//     var formulario = form.validate({
-//         errorElement: 'div',
-//         rules: {
-//             nombres: {
-//                 required: true
-//             },
-//             apellio_paterno: {
-//                 required: true
-//             },
-//             apellido_materno: {
-//                 required: true
-//             },
-//             correo: {
-//                 required: true,
-//                 email: true
-//             },
-//             celular: {
-//                 required: true,
-//                 number: true,
-//                 maxlength: 10,
-//                 minlength: 5
-//             },
-//             tipo_documento: {
-//                 required: true
-//             },
-//             num_documento: {
-//                 required: true
-//             },
-//             tipo_usuario: {
-//                 required: true
-//             },
-//             estado: {
-//                 required: true
-//             }
-//         }
-
-//     });
-
-//     if (!formulario.form()) {
-//         return;
-//     } else {
-
-//         usuarioJS.agregar_usuario(obj, function(data) {
-//             if (data.status == 'success') {
-//                 ventasJS.msj.success('Aviso:', data.msg);
-
-//                 $('#tablausuarios').DataTable().destroy();
-//                 usuarioJS.listarUsuarios();
-//             } else {
-//                 ventasJS.msj.warning('Aviso:', data.msg);
-//             }
-//             $("#modal-usuario").modal("hide");
-//             usuarioJS.limpiar_formulario();
-//         });
-//     }
-
-
-// });
+// Exportar PDF
 
 
 
-// function eliminarTipoUsuario(id) {
+$("#generarProforma").click(function(){
+    $url = "/ventas/content/venta/pdfventa?cli="+id_venta_general;
+    window.open($url, "Pedido",'width=702,height=750')
 
-//     swal({
-//             title: "¿Está seguro de Eliminar?",
-//             text: "No podrá revertir los cambios",
-//             type: "warning",
-//             showCancelButton: true,
-//             confirmButtonClass: "btn-danger",
-//             confirmButtonText: "Si, Eliminar",
-//             cancelButtonText: "No, cancelar",
-//             closeOnConfirm: true,
-//             closeOnCancel: true
-//         },
-//         function(isConfirm) {
-//             if (isConfirm) {
-//                 usuarioJS.eliminar_tipo_usuario(id, function(data) {
-//                     if (data.status == 'success') {
-//                         ventasJS.msj.success('Aviso:', data.msg);
-//                         $('#tablatipousuarios').DataTable().destroy();
-//                         usuarioJS.listarTiposUsuario();
-//                     } else {
-//                         ventasJS.msj.warning('Aviso:', data.msg);
-//                     }
-//                 });
-//             }
-//         });
-// }
+
+
+});
+
+
+

@@ -49,5 +49,23 @@ class Detalleventa_model extends Base_model {
     }
 
 
+
+    public function _get_detalle_gen_venta($id_venta=null){
+
+
+        $this->db->select(' v.id_venta,v.id_vendedor,v.id_cliente,v.fecha_entrega,v.fecha_pedido,v.tipo_estado,c.apellido_paterno,c.apellido_materno,c.nombres,c.numero_documento,c.direccion,c.celular');
+        $this->db->from('ventas v'); 
+        $this->db->join('clientes c', 'v.id_cliente = c.id_cliente');
+        $this->db->where('v.id_venta = '.$id_venta.'');
+        $query = $this->db->get();
+
+        if($query){
+            return $query->result_array();
+        }else{
+            return array();
+        }
+    }
+
+
   
 }

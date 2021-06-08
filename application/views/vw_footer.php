@@ -55,6 +55,13 @@
    <!-- Toast js -->
    <script src="<?=base_url()?>assets/js/jquery.toast.js"></script>
 
+   <!-- JSPDF -->
+    
+
+
+    <script src="<?=base_url()?>assets/js/jspdf/jspdf.min.js"></script>
+    <script src="<?=base_url()?>assets/js/jspdf/jspdf.plugin.autotable.js"></script>
+
 
     <!-- Internal Chart.Bundle js-->
     <script src="<?=base_url()?>assets/plugins/chart.js/Chart.bundle.min.js"></script>

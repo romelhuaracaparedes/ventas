@@ -1,4 +1,11 @@
 
+<style type="text/css">
+    .list_eleccion :hover{
+        background-color: white;
+        border-radius: 1em;
+    }
+</style>
+
 <div class="container-fluid">
     <div class="inner-body">
         <!-- Page Header -->
@@ -84,6 +91,11 @@
 								</div>
                             </div>
                         </div>
+                        <div class="row py-2">
+                            <div class="col-md-12 pt-2 d-flex justify-content-end">
+                                <button class="btn ripple btn-primary" type="button" id="guardar_general">Guardar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -135,11 +147,11 @@
                                     <table class="table text-nowrap text-md-nowrap mg-b-0">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>Cant.</th>
                                                 <th>Descripción</th>
                                                 <th>P.Unit</th>
                                                 <th>Importe</th>
-                                                <th>Eliminar</th>
                                             </tr>
                                         </thead>
                                         <tbody id="detalle_venta">
@@ -178,8 +190,8 @@
                         </div>
                         <div class="row py-2">
                             <div class="col-md-12 pt-2 d-flex justify-content-end">
-                                <button class="btn ripple btn-secondary mr-2" type="button">Proforma</button>
-                                <button class="btn ripple btn-primary" type="button">Pedir</button>
+                                <button class="btn ripple btn-secondary mr-2" id="generarProforma" type="button">Imprimir Proforma</button>
+                                <button class="btn ripple btn-primary" id="realizar-pedido" type="button">Hacer Pedido</button>
                             </div>
                         </div>
                     </div>
@@ -254,3 +266,52 @@
     </div>
 </div>
 <!--End usuario Modal -->
+
+
+
+<!-- pedido Modal -->
+<div class="modal" id="modal-pedido">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+
+                <h6 class="modal-title titulo-modal-cliente" id="titulo-modal-cliente"></h6>
+                <button aria-label="Close" class="close btn-cancelar"  type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form-usuario">
+                    <div class="row py-2 ">
+                        <input type="hidden" id="id_usuario">
+                        <div class="col-md-6 col-sm-6 col-xs-6 ">
+                            <div class="list-card list_eleccion">
+                                <div class="card-body text-center">
+                                    <div class="icon-service bg-info-transparent rounded-circle text-info">
+                                        <i class="fe fe-dollar-sign"></i>
+                                    </div>
+                                    <!-- <small class="tx-10 text-primary font-weight-semibold">Pago al Contado</small> -->
+                                    <p class="mb-1 text-muted" style="color: #6259ca !important;"><b> Pago al Contado</b></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6 ">
+                            <div class="list-card list_eleccion">
+                                <div class="card-body text-center">
+                                    <div class="icon-service bg-info-transparent rounded-circle text-info">
+                                        <i class="fe fe-scissors"></i>
+                                    </div>
+                                    <p class="mb-1 text-muted" style="color: #6259ca !important;"> <b>Pago Fraccionado</b></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end pedido  -->
+

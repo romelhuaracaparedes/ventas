@@ -48,22 +48,28 @@ class Venta extends Sys_Controller {
         $this->json_output($data);
     }
     public function registrarVenta(){
+        //print_r($this->session->userdata());exit();
+        // print_r(@$_POST['header']['fecha_pedido']);exit();
 
-        $id_vendedor = @$_POST['id_vendedor'];       
-		$id_cliente = @$_POST['id_cliente'];    
-        $total = @$_POST['total'];    
-        $tipo_estado = @$_POST['tipo_estado'];    
-        $fecha_registro = @$_POST['fecha_registro'];    
-        $fecha_pedido = @$_POST['fecha_pedido'];    
-        $fecha_entrega = @$_POST['fecha_entrega'];    
-        $id_usuario_reg = @$_POST['id_usuario_reg'];    
-        $tipo_comprobante = @$_POST['tipo_comprobante'];    
+        // $id_vendedor = @$_POST['id_vendedor'];       
+        $id_vendedor = 1;       
+		$id_cliente = @$_POST['header']['id_cliente'];    
+        $total = 0;    
+        $tipo_estado = 1;    
+        // $fecha_registro = @$_POST['fecha_registro'];    
+        $fecha_pedido = @$_POST['header']['fecha_pedido'];    
+        $fecha_entrega = @$_POST['header']['fecha_entrega'];    
+        $id_usuario_reg = 1;    
+        $tipo_comprobante = 1;    
+        // $tipo_comprobante = @$_POST['tipo_comprobante'];    
 
-        $data = $this->t_venta->_insert_venta($id_vendedor,$id_cliente,$total,$tipo_estado,$fecha_registro,$fecha_pedido,$fecha_entrega,$id_usuario_reg,$tipo_comprobante);
+        $data = $this->t_venta->_insert_venta($id_vendedor,$id_cliente,$total,$tipo_estado,$fecha_pedido,$fecha_entrega,$id_usuario_reg,$tipo_comprobante);
 
         if($data){
             $result['status'] = 'success';
             $result['msg'] = 'Se registró correctamente';	
+            $result['reg_id'] = $data;
+
         }else{
             $result['status'] = 'error';
             $result['msg'] = 'Ocurrio un error al registrar';	
@@ -123,5 +129,34 @@ class Venta extends Sys_Controller {
         }
 
         $this->json_output($result);
+    }
+
+    public function pdfventa(){
+
+        $clientes = @$_GET['cli'];
+
+        $data = $this->t_detalle_venta->_get_detalle_gen_venta($clientes);
+
+        $dataDell =  $this->t_detalle_venta->_get_detalle_venta($clientes);
+
+
+
+        //print_r($dataDell);exit();
+
+        $viewdata['header'] = $data;
+        $viewdata['detail'] = $dataDell;
+        //$this->load->view('pdf_exports/genera_pdf_muestra', $viewdata);
+       
+        $html = $this->load->view('pdf_exports/genera_pdf_muestra', $viewdata, TRUE);
+        // Cargamos la librería
+        $this->load->library('pdfgenerator');
+        // definamos un nombre para el archivo. No es necesario agregar la extension .pdf
+        $filename = 'Pedido';
+
+        // generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
+        $this->pdfgenerator->generate($html, $filename, true, 'Letter', 'portrait');
+               
+
+
     }
 }
