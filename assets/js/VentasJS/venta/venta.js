@@ -186,10 +186,10 @@ var ventaJS = {
             console.log(unique_values);
 
             $("#detalle_venta").html(html);
-            $("#sub_total").val(sub_total);
+            var total = sub_total - (sub_total * 0.18);
+            $("#sub_total").val(total);
 
-            var total = sub_total + (sub_total * 0.18);
-            $("#total").val(total);
+            $("#total").val(sub_total);
 
             if (callback) {
                 callback();
@@ -238,7 +238,6 @@ var ventaJS = {
 $(document).ready(function() {
     ventaJS.listarClientes();
     ventaJS.listarProductos();
-
     ventaJS.listarDetalleVenta(id_venta_general);
 
     $('#slccliente').change(function() {
@@ -310,8 +309,6 @@ $(document).ready(function() {
         }
 
     })
-
-
 
     $("#agregar-producto").click(function() {
 
@@ -425,34 +422,7 @@ $(document).ready(function() {
 
         var obj = {};
 
-        // obj.id_cliente = id_usuario;
-        // obj.id_vendedor = 1;
-        // obj.total = total;
-        // obj.tipo_estado = 1;
-        // obj.fecha_registro = total;
-        // obj.fecha_pedido = total;
-        // obj.fecha_entrega = total;
-        // obj.id_usuario_registro = total;
-        // obj.tipo_comprobante = total;
-
-        // $("#txtIdVenta").val();
-
-
-
-
-
-
     });
-
-    // $('.fc-datepicker').datepicker({
-    //     dateFormat: "mm/dd/yy",
-    //     showOtherMonths: true,
-    //     selectOtherMonths: true,
-    //     autoclose: true,
-    //     changeMonth: true,
-    //     changeYear: true,
-    //     orientation: "auto",
-    // });
 
 });
 
@@ -499,21 +469,56 @@ $(".btn-cancelar").click(function() {
 });
 
 
+//mmodal pedido
+
 $("#realizar-pedido").click(function() {
     $("#modal-pedido").modal("show");
     $(".titulo-modal-cliente").html('<center>Registrar pedido</center>');
 });
+//
 
 
+function pago(_tipo){
+    var text_l = "";
+    var text_label = "";
+    if (_tipo == 1) {text_l="¿Pagar Pedido?"} else {text_l="¿Fraccionar Pago?"}
+    swal({
+            title: text_l,
+            text: "No podrá revertir los cambios",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+
+                if (_tipo == 1) {text_label=""} else {text_label=" Primer "}
+
+                $('.option').text(text_label);   
+                $('.formulario_pago').removeClass('d-none')
+                $('.formulario_pago').addClass('d-block')
+                $('.opciones').addClass('d-none')
+                $('.opciones').removeClass('d-block');
+            }
+        });
+}
+
+$('.regresar').click(function(){
+    $('.formulario_pago').addClass('d-none');
+    $('.formulario_pago').removeClass('d-block');
+    $('.opciones').removeClass('d-none');
+    $('.opciones').addClass('d-block');
+    $('.c_monto').val("");
+})
 // Exportar PDF
-
-
 
 $("#generarProforma").click(function(){
     $url = "/ventas/content/venta/pdfventa?cli="+id_venta_general;
     window.open($url, "Pedido",'width=702,height=750')
-
-
 
 });
 

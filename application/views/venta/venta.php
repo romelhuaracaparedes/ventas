@@ -17,6 +17,14 @@
                     <li class="breadcrumb-item active" aria-current="page">pedido</li>
                 </ol>
             </div>
+            <div class="d-flex">
+                <div class="justify-content-center">
+
+                    <a href="/ventas/content/venta/listar" type="button" class="btn btn-primary my-2 btn-icon-text">
+                       <i class="fe fe-arrow-left mr-2"></i> Regresar a Lista
+                    </a>
+                </div>
+            </div>
         </div>
         <!-- End Page Header -->
         <!-- Row -->
@@ -276,28 +284,26 @@
             <div class="modal-header">
 
                 <h6 class="modal-title titulo-modal-cliente" id="titulo-modal-cliente"></h6>
-                <button aria-label="Close" class="close btn-cancelar"  type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-                <form id="form-usuario">
+                <div class="opciones">
                     <div class="row py-2 ">
                         <input type="hidden" id="id_usuario">
                         <div class="col-md-6 col-sm-6 col-xs-6 ">
-                            <div class="list-card list_eleccion">
-                                <div class="card-body text-center">
+                            <div class="list-card list_eleccion" onclick="pago(1)">
+                                <div class="card-body text-center contado">
                                     <div class="icon-service bg-info-transparent rounded-circle text-info">
                                         <i class="fe fe-dollar-sign"></i>
                                     </div>
-                                    <!-- <small class="tx-10 text-primary font-weight-semibold">Pago al Contado</small> -->
                                     <p class="mb-1 text-muted" style="color: #6259ca !important;"><b> Pago al Contado</b></p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6 ">
                             <div class="list-card list_eleccion">
-                                <div class="card-body text-center">
+                                <div class="card-body text-center " onclick="pago(2)">
                                     <div class="icon-service bg-info-transparent rounded-circle text-info">
                                         <i class="fe fe-scissors"></i>
                                     </div>
@@ -306,8 +312,34 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="d-none formulario_pago">
+                    <div class="row py-2 ">
+                        <input type="hidden" id="id_usuario">
 
-                </form>
+                        <div class="col-md-12 col-sm-12 col-xs-12 ">
+                            <b>Registrar <span class="option"></span> Pago</b>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-6 col-xs-6 text-center">
+                                    <b>Monto:</b>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 ">
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">S/. </span>
+                                        </div><input aria-describedby="basic-addon1" aria-label="monto" class="form-control c_monto" placeholder="_ _ _ _ _" name="monto"type="text">
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 text-center mt-3">
+                                    <button type="button" class="btn btn-secondary regresar"><i class="fe fe-arrow-left"></i> Regresar</button>
+                                    <button type="button" class="btn btn-primary"><i class="fe fe-save"></i> Guardar</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

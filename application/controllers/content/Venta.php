@@ -18,6 +18,8 @@ class Venta extends Sys_Controller {
         session_write_close();
     }
 
+
+
     public function index(){
         $data= array();
         $data["clientes"]=$this->t_cliente->_get_clientes();
@@ -29,11 +31,34 @@ class Venta extends Sys_Controller {
 
                 'assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js',                
 
-                'assets/js/VentasJS/venta.js'
+                'assets/js/VentasJS/venta/venta.js'
             ),
         );
         $data_header = array();
-        $this->sys_render('venta', $data, $data_header, $parametroFooter);
+        $this->sys_render('venta/venta', $data, $data_header, $parametroFooter);
+    }
+
+    public function listar(){
+
+        $parametroFooter = array(
+            'jslib' => array(
+                'assets/js/VentasJS/venta/ventaListar.js',
+            ),
+        );
+        $data_header = array();
+        $data = array();
+        $this->sys_render('venta/listar', $data, $data_header, $parametroFooter);
+    }
+
+    public function listarpedido(){
+        $result['status'] = 'success';
+        $result['msg'] = 'Se listó correctamente...';   
+
+        $data= $this->t_venta->_get_pedido();
+
+        $result['data'] =$data;
+
+        $this->json_output($data);
     }
 
     public function obtenerVenta(){
@@ -155,8 +180,6 @@ class Venta extends Sys_Controller {
 
         // generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
         $this->pdfgenerator->generate($html, $filename, true, 'Letter', 'portrait');
-               
-
 
     }
 }
