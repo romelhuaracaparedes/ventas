@@ -17,13 +17,15 @@ var pedidoJS = {
                 },
                 {
 
-                    title: 'FECHA DE PEDIDO',
-                    data: 'fecha_entrega',
+                    title: 'FECHA ',
+                    render: function(value, type, row) {
+                        return "Pedido: "+row.fecha_pedido+" <br> Entrega: "+row.fecha_entrega;
+                    }
                 },
                 {
 
-                    title: 'FECHA ENTREGA',
-                    data: 'fecha_pedido',
+                    title: 'TOTAL S/.',
+                    data: 'total',
                 }, {
 
                     title: 'ESTADO',
@@ -41,7 +43,22 @@ var pedidoJS = {
 
                     title: 'DOCUMENTO',
                     data: 'numero_documento',
-                }, {
+                }, 
+                {
+
+                    title: 'PAGO',
+                    render: function(value, type, row) {
+                        var estado = {
+                            0: { 'title': 'Deuda', 'class': 'badge-warning-light' },
+                            1: { 'title': 'Pagado', 'class': 'badge-success-light' },
+
+                        };
+
+                        return '<span class="badge badge-pill ' + estado[row.flg_pago].class + ' ">' + estado[row.flg_pago].title + '</span>';
+                    }
+                    
+                },
+                {
 
                     title: 'CELULAR',
                     data: 'celular',
@@ -61,7 +78,7 @@ var pedidoJS = {
                     render: function(value, type, row) {
                         return `
                             <button class="btn btn-primary btn-sm" onclick="getProductoById(` + row.id_venta + `)"><i class="fas fa-edit" ></i></button>
-                            <button class="btn btn-danger btn-sm" onclick="eliminarProducto(` + row.id_venta + `)"><i class="fas fa-trash" ></i></button>
+                            <a class="btn btn-info btn-sm" href="/ventas/content/venta/pago?venta=`+row.id_venta +`&cliente=`+row.id_cliente +`"><i class="fas fa-money" ></i></a>
                             `;
 
                     },

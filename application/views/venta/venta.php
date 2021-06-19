@@ -196,10 +196,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row py-2">
+                        <div class="row py-2 d-block defa_pedido">
                             <div class="col-md-12 pt-2 d-flex justify-content-end">
-                                <button class="btn ripple btn-secondary mr-2" id="generarProforma" type="button">Imprimir Proforma</button>
+                                <button class="btn ripple btn-secondary mr-2 generarComprobante" id="generarProforma" type="button">Imprimir Proforma</button>
                                 <button class="btn ripple btn-primary" id="realizar-pedido" type="button">Hacer Pedido</button>
+                            </div>
+                        </div>
+                        <div class="row py-2 d-none exit_pedido">
+                            <div class="col-md-12 block-2 d-flex justify-content-end">
+                                <button class="btn ripple btn-info mr-2 generarComprobante" id="generarProforma" type="button">Imprimir Pedido</button>
                             </div>
                         </div>
                     </div>
@@ -326,6 +331,7 @@
                                 <div class="col-md-6 col-sm-6 col-xs-6 ">
 
                                     <div class="input-group mb-3">
+                                        <input type="text" name="" class="tipo_pago">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">S/. </span>
                                         </div><input aria-describedby="basic-addon1" aria-label="monto" class="form-control c_monto" placeholder="_ _ _ _ _" name="monto"type="text">
@@ -333,7 +339,7 @@
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 text-center mt-3">
                                     <button type="button" class="btn btn-secondary regresar"><i class="fe fe-arrow-left"></i> Regresar</button>
-                                    <button type="button" class="btn btn-primary"><i class="fe fe-save"></i> Guardar</button>
+                                    <button type="button" id="guardar_pago" class="btn btn-primary"><i class="fe fe-save"></i> Guardar</button>
                                 </div>
                             </div>
 

@@ -222,8 +222,20 @@ var ventaJS = {
         });
     },
 
+
+    agregar_pago: function(dataGen, callback){
+        console.log(dataGen);
+        ventasJS.post('venta/agregarPago', dataGen, function(data) {
+            // console.log(data);
+            if (callback) {
+                callback(data);
+            }
+
+        });
+    },
+
     eliminar_DetalleVenta: function(id, callback) {
-        ventasJS.post('venta/eliminarDetalleVenta', { id: id }, function(data) {
+        ventasJS.post('venta/eliminarDetalleVenta', { id: id, id_venta:id_venta_general }, function(data) {
             // console.log(data);
             if (callback) {
                 callback(data);
@@ -424,6 +436,51 @@ $(document).ready(function() {
 
     });
 
+    $("#guardar_pago").click(function(){
+        var msj_error = ''; 
+        var genData = {}; 
+
+        var id_venta = id_venta_general;
+        var slccliente = $("#slccliente").val();
+        var slccliente = $("#slccliente").val();
+        var monto = $(".c_monto").val();
+        var tipo =  $('.tipo_pago').val();
+
+
+        if (monto == '') {
+            msj_error += 'Ingrese una monto a pagar. <br>';
+        }
+
+        genData.venta = id_venta;
+        genData.cliente = slccliente;
+        genData.monto = monto;
+        genData.tipo = tipo;
+
+
+        if (msj_error == '') {
+
+            ventaJS.agregar_pago(genData, function(data) {
+                if (data.status == 'success') {
+                    ventasJS.msj.success('Aviso:', data.msg);
+                    $("#modal-pedido").modal("hide");
+
+                    $('.defa_pedido').addClass('d-none');
+                    $('.defa_pedido').removeClass('d-block');
+                    $('.exit_pedido').addClass('d-block');
+                    $('.exit_pedido').removeClass('d-none');
+
+
+                } else {
+                    ventasJS.msj.warning('Aviso:', data.msg);
+                }
+            });
+
+        } else {
+            ventasJS.msj.warning('Aviso:', msj_error);
+        }
+
+    })
+
 });
 
 function eliminar_DetalleVenta(id) {
@@ -484,7 +541,6 @@ function pago(_tipo){
     if (_tipo == 1) {text_l="¿Pagar Pedido?"} else {text_l="¿Fraccionar Pago?"}
     swal({
             title: text_l,
-            text: "No podrá revertir los cambios",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -503,6 +559,10 @@ function pago(_tipo){
                 $('.formulario_pago').addClass('d-block')
                 $('.opciones').addClass('d-none')
                 $('.opciones').removeClass('d-block');
+
+                $('.tipo_pago').val(_tipo);
+
+
             }
         });
 }
@@ -516,7 +576,7 @@ $('.regresar').click(function(){
 })
 // Exportar PDF
 
-$("#generarProforma").click(function(){
+$(".generarComprobante").click(function(){
     $url = "/ventas/content/venta/pdfventa?cli="+id_venta_general;
     window.open($url, "Pedido",'width=702,height=750')
 

@@ -24,7 +24,7 @@ class Venta_model extends Base_model {
 	}
 
     public function _get_pedido(){
-        $this->db->select(' v.id_venta,v.id_vendedor,v.id_cliente,v.fecha_entrega,v.fecha_pedido,v.tipo_estado,c.numero_documento,c.celular');
+        $this->db->select(' v.id_venta,v.id_vendedor,v.id_cliente,v.fecha_entrega,v.fecha_pedido,v.tipo_estado,v.flg_pago,v.total,c.numero_documento,c.celular');
         $this->db->from('ventas v'); 
         $this->db->join('clientes c', 'v.id_cliente = c.id_cliente');
         $this->db->order_by('v.fecha_pedido', 'asc');
@@ -54,6 +54,26 @@ class Venta_model extends Base_model {
         return $this->db->insert_id();
     }
 
+    public function actualizar_pago($id_venta,$opt){
+
+        $data = array(
+            'flg_pago' => $opt
+        );
+
+        $this->db->where('id_venta', $id_venta);
+        $query =  $this->db->update($this->model_name, $data);
+    }
+
+    public function actualizar_pedido($id_venta){
+
+        $data = array(
+            'tipo_estado' => 2
+        );
+
+        $this->db->where('id_venta', $id_venta);
+        $query =  $this->db->update($this->model_name, $data);
+    }
+
     
     public function _delete_venta($id_venta=0){
         $data = array(
@@ -66,6 +86,8 @@ class Venta_model extends Base_model {
         return $query;
     }
 
+
+  
 
   
 }

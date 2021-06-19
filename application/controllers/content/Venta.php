@@ -14,6 +14,7 @@ class Venta extends Sys_Controller {
         $this->load->model('producto_model', 't_producto');
         $this->load->model('precio_model', 't_precio');
         $this->load->model('venta_model', 't_venta');
+        $this->load->model('Pago_model', 't_pago');
         $this->load->model('detalleventa_model', 't_detalle_venta');
         session_write_close();
     }
@@ -50,11 +51,43 @@ class Venta extends Sys_Controller {
         $this->sys_render('venta/listar', $data, $data_header, $parametroFooter);
     }
 
+    public function pago(){
+
+        $data = array();
+
+        $id_venta =  @$_GET['venta'];
+        $id_cliente =  @$_GET['cliente'];
+        $data["pagos"]=$this->t_pago->filterPagos($id_venta);
+        $data["keys"]=@$_GET;
+        $parametroFooter = array(
+            'jslib' => array(
+                
+                'assets/plugins/jquery-ui/ui/widgets/jquery-ui.js',
+
+                'assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js',                
+
+                'assets/js/VentasJS/venta/pago.js'
+            ),
+        );
+
+        $data_header = array();
+
+        $this->sys_render('venta/pago', $data, $data_header, $parametroFooter);
+    }
+
     public function listarpedido(){
         $result['status'] = 'success';
         $result['msg'] = 'Se listó correctamente...';   
 
         $data= $this->t_venta->_get_pedido();
+
+
+        foreach ($data as $key =>  $val) {
+             $data[$key]['fecha_entrega'] =  date("d/m/Y", strtotime($val['fecha_entrega'])) ;
+             $data[$key]['fecha_pedido'] =  date("d/m/Y", strtotime($val['fecha_pedido'])) ;
+
+         }
+       
 
         $result['data'] =$data;
 
@@ -68,6 +101,7 @@ class Venta extends Sys_Controller {
         $id_venta = @$_POST['id'];       
 
         $data= $this->t_venta->_get_venta($id_venta);
+
         $result['data'] =$data[0];
 
         $this->json_output($data);
@@ -141,9 +175,10 @@ class Venta extends Sys_Controller {
     public function eliminarDetalleVenta(){
 
         $id_detalle_venta = @$_POST['id'];
+        $id_venta = @$_POST['id_venta'];
         
 
-        $data = $this->t_detalle_venta->_delete_detalle_venta($id_detalle_venta);
+        $data = $this->t_detalle_venta->_delete_detalle_venta($id_detalle_venta, $id_venta);
 
         if($data){
             $result['status'] = 'success';
@@ -151,6 +186,60 @@ class Venta extends Sys_Controller {
         }else{
             $result['status'] = 'error';
             $result['msg'] = 'Ocurrio un error al eliminar';	
+        }
+
+        $this->json_output($result);
+    }
+    public function agregarPago()
+    {
+        $id_vendedor = 1;   
+        $id_venta = @$_POST['venta'];    
+        $id_cliente = @$_POST['cliente'];   
+        $monto = @$_POST['monto'];   
+        $tipo = @$_POST['tipo']; 
+
+        $data = $this->t_pago->_insert_pago($id_vendedor,$id_cliente,$id_venta,$monto);
+        if($data){
+            $this->t_venta->actualizar_pedido($id_venta);
+            if ($tipo == 1) {
+                $this->t_venta->actualizar_pago($id_venta,1);
+            }
+            $result['status'] = 'success';
+            $result['msg'] = 'Se registró correctamente';   
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al registrar';   
+        }
+
+        $this->json_output($result);
+    }
+
+    public function agregarCouta()
+    {
+        $id_vendedor = 1;   
+        $id_venta = @$_POST['venta'];    
+        $id_cliente = @$_POST['cliente'];   
+        $monto = @$_POST['monto'];   
+        $total = @$_POST['total']; 
+
+
+
+        $data = $this->t_pago->_insert_pago($id_vendedor,$id_cliente,$id_venta,$monto);
+
+        $total_cuotas = $this->t_pago->get_total_cuota($id_cliente,$id_venta);
+
+
+        if($data){
+            if ($total <= $total_cuotas[0]['monto']) {
+                $this->t_venta->actualizar_pago($id_venta, 1);
+            }else{
+                $this->t_venta->actualizar_pago($id_venta, 0);
+            }
+            $result['status'] = 'success';
+            $result['msg'] = 'Se registró correctamente';   
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al registrar';   
         }
 
         $this->json_output($result);
