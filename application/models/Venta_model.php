@@ -87,7 +87,21 @@ class Venta_model extends Base_model {
     }
 
 
-  
+
+    public function _filtrarventa($f_i , $f_e, $id_vendedor){
+
+        $this->db->select('v.id_venta,v.total, v.fecha_pedido, v.flg_pago, v.id_vendedor ');
+        $this->db->from($this->model_name . ' v' ); 
+        $this->db->where("v.id_vendedor ='".$id_vendedor."'");
+        $this->db->where("v.fecha_pedido BETWEEN '".$f_i."' AND '".$f_e."'");
+        $query = $this->db->get();
+        if($query){
+            return $query->result_array();
+        }else{
+            return array();
+        }
+
+    }
 
   
 }
