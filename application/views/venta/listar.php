@@ -27,7 +27,7 @@
             <div class="col-lg-12">
                 <div class="card custom-card">
                     <div class="card-body">
-                        <div id="reportrange" style="cursor: pointer; margin-bottom:10px; padding: 5px 10px; border: 1px solid #ccc; width: 15rem">
+                        <div id="reportrange" style="cursor: pointer; margin-bottom:10px; padding: 5px 10px; border: 1px solid #ccc; width: 18rem">
                             <i class="fa fa-calendar"></i>&nbsp;
                             <span></span> <i class="fa fa-caret-down"></i>
                         </div>

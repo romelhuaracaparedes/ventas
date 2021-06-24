@@ -56,7 +56,7 @@
     <link href="<?=base_url()?>assets/plugins/datatable/responsivebootstrap4.min.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/plugins/datatable/fileexport/buttons.bootstrap4.min.css" rel="stylesheet" />
     <link href="<?=base_url()?>assets/plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
-    <link href="<?=base_url()?>assets/css/daterangepicker.css" rel="stylesheet">
+    <link href="<?=base_url()?>assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     
     
 

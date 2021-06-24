@@ -43,7 +43,7 @@ class Venta extends Sys_Controller {
 
         $parametroFooter = array(
             'jslib' => array(
-                'assets/js/daterangepicker.min.js',
+                'assets/plugins/bootstrap-daterangepicker/daterangepicker.js',
                 'assets/js/VentasJS/venta/ventaListar.js',
             ),
         );
