@@ -1,6 +1,6 @@
 var pedidoJS = {
 
-	listarPedidos: function() {
+    listarPedidos: function() {
         var tblEntidad = $('#tablapedidos').DataTable({
             responsive: true,
             retrieve: true,
@@ -19,7 +19,7 @@ var pedidoJS = {
 
                     title: 'FECHA ',
                     render: function(value, type, row) {
-                        return "Pedido: "+row.fecha_pedido+" <br> Entrega: "+row.fecha_entrega;
+                        return "Pedido: " + row.fecha_pedido + " <br> Entrega: " + row.fecha_entrega;
                     }
                 },
                 {
@@ -43,7 +43,7 @@ var pedidoJS = {
 
                     title: 'DOCUMENTO',
                     data: 'numero_documento',
-                }, 
+                },
                 {
 
                     title: 'PAGO',
@@ -56,7 +56,7 @@ var pedidoJS = {
 
                         return '<span class="badge badge-pill ' + estado[row.flg_pago].class + ' ">' + estado[row.flg_pago].title + '</span>';
                     }
-                    
+
                 },
                 {
 
@@ -78,7 +78,7 @@ var pedidoJS = {
                     render: function(value, type, row) {
                         return `
                             <button class="btn btn-primary btn-sm" onclick="getProductoById(` + row.id_venta + `)"><i class="fas fa-edit" ></i></button>
-                            <a class="btn btn-info btn-sm" href="/ventas/content/venta/pago?venta=`+row.id_venta +`&cliente=`+row.id_cliente +`"><i class="fas fa-money" ></i></a>
+                            <a class="btn btn-info btn-sm" href="/ventas/content/venta/pago?venta=` + row.id_venta + `&cliente=` + row.id_cliente + `"><i class="fas fa-money" ></i></a>
                             `;
 
                     },
@@ -94,4 +94,30 @@ var pedidoJS = {
 
 $(document).ready(function() {
     pedidoJS.listarPedidos();
+});
+
+$(function() {
+
+    var start = moment().subtract(29, 'days');
+    var end = moment();
+
+    function cb(start, end) {
+        $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+
+    $('#reportrange').daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        }
+    }, cb);
+
+    cb(start, end);
+
 });

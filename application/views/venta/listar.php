@@ -16,6 +16,8 @@
                         <i class="fe fe-plus mr-2"></i> Agregar nuevo
                     </a>
                 </div>
+
+                
             </div>
         </div>
         <!-- End Page Header -->
@@ -25,11 +27,16 @@
             <div class="col-lg-12">
                 <div class="card custom-card">
                     <div class="card-body">
+                        <div id="reportrange" style="cursor: pointer; margin-bottom:10px; padding: 5px 10px; border: 1px solid #ccc; width: 15rem">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span></span> <i class="fa fa-caret-down"></i>
+                        </div>
                         <div class="table-responsive">
                             <table class="table" id="tablapedidos">
                                 
                             </table>
                         </div>
+                        
                     </div>
                 </div>
             </div>
