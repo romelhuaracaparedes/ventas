@@ -64,7 +64,15 @@ var reporteJS = {
 
                 }
 
-            ]
+            ], 
+            // dom: 'Bfrtip',
+            // buttons: [
+            // 'excelHtml5',
+            // 'csvHtml5',
+            // 'pdfHtml5'
+            // ]
+
+
         });
     },
 
@@ -137,33 +145,47 @@ $('#search_report').click(function(){
     var vendedor   = $('#slcvendedor').val();
 
     var genData ={};
+    var msj_error = '';
 
     genData.fechaStart =fechaStart;
     genData.fechaEnd =fechaEnd;
     genData.vendedor =vendedor;
 
-    // if (msj_error == '') {
+    if (vendedor == '') {
+        msj_error = "Seleccione vendedor";
+    }
+
+    if (msj_error == '') {
 
         reporteJS.flltarreporte(genData, function(data) {
-            // if (data != []) {
+            if (data.length >0) {
 
                 ventasJS.msj.success('Aviso:', 'Datos cargados!');
+                $('#tablaventas').dataTable().fnClearTable();
                 $("#tablaventas").dataTable().fnAddData(data);
-            // }else{
-            //     $('#tablaventas').dataTable().fnClearTable();
-            //     $('#tablaventas').dataTable().fnDraw();
-                
-            // }
+                $('#tablaventas').dataTable().fnDraw();
+            }else{
+                $('#tablaventas').dataTable().fnClearTable();
+                ventasJS.msj.warning('Aviso:',"Sin registros");
+
+            }
 
             
         });
 
-    // } else {
-    //     ventasJS.msj.warning('Aviso:', msj_error);
-    // }
+    } else {
+        ventasJS.msj.warning('Aviso:', msj_error);
+    }
 
 });
 
+
+$('#slcvendedor').select2({
+    language: {
+        noResults: () => "No se encontraron resultados"
+    },
+    placeholder: "Digita el nombre del cliente"
+});
 
 
 

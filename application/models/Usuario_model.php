@@ -135,7 +135,7 @@ class Usuario_model extends Base_model {
     }
 
     public function _get_usuarios(){
-        $this->db->select('u.id_usuario, u.numero_documento, CONCAT(u.nombres, u.apellido_paterno, u.apellido_materno) AS usuario, u.telefono, t.tipo_usuario, u.flg_estado');
+        $this->db->select("u.id_usuario, u.numero_documento, CONCAT(u.apellido_paterno,' ',u.apellido_materno,', ', u.nombres) AS usuario, u.telefono, t.tipo_usuario, u.flg_estado");
         $this->db->from($this->model_name.' u');
         $this->db->join('tipo_usuario t', 'u.id_tipo_usuario = t.id_tipo_usuario');
         $this->db->where('u.flg_estado = 1');

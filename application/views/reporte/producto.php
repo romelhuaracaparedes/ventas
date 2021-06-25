@@ -21,16 +21,31 @@
             <div class="col-lg-12">
                 <div class="card custom-card">
                     <div class="card-body">
-                        <div id="reportrange" style="cursor: pointer; margin-bottom:10px; padding: 5px 10px; border: 1px solid #ccc; width: 15rem">
-                            <i class="fa fa-calendar"></i>&nbsp;
-                            <span></span> <i class="fa fa-caret-down"></i>
+                        <div class="row row-sm"> 
+                            <div class="col-lg">
+                                <div id="reportrange" style="cursor: pointer; margin-bottom:0px; padding: 7px 10px; border: 1px solid #ccc; width: 100%">
+                                    <i class="fa fa-calendar"></i>&nbsp;
+                                    <span></span> <i class="fa fa-caret-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-lg mg-sm-l-10 mg-t-10 mg-sm-t-0">
+                                <button class="btn ripple btn-primary pd-x-20" type="button" id="search_report"> <i class="fa fa-search"></i> Filtrar </button>
+                            </div>
+                            <div class="col-lg"></div>
                         </div>
+
+                        
+                    </div>
+                </div>
+
+                <div class="card custom-card">
+                    <div class="card-body">
+
                         <div class="table-responsive">
-                            <table class="table" id="tablapedidos">
-                                
+                            <table class="table" id="tablaproductos" width="100%">
+
                             </table>
                         </div>
-                        
                     </div>
                 </div>
             </div>

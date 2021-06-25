@@ -32,10 +32,10 @@
 
                             <div class="col-lg mg-sm-l-10 mg-t-10 mg-sm-t-0">
                                 <select class="form-control select2" name="vendedor" id="slcvendedor" >
-                                    <option> - SELECCIONE VENDEDOR -</option>
+                                    <option value=""> - SELECCIONE VENDEDOR -</option>
                                     <?php if ($clientes) { ?>
                                         <?php foreach ($clientes as $dist) { ?>
-                                            <option value="<?php echo $dist['id_cliente']; ?>" data-ndocumento="<?php echo $dist['numero_documento']; ?>" data-direccion="<?php echo $dist['direccion']; ?>"  data-celular="<?php echo $dist['celular']; ?>"><?php echo utf8_encode($dist['nombres']); ?></option>
+                                            <option value="<?php echo $dist['id_usuario']; ?>" ><?php echo ($dist['numero_documento']." | ".$dist['usuario']); ?></option>
                                         <?php } ?>
                                     <?php } ?>
                                         

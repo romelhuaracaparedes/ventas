@@ -11,7 +11,8 @@ class Reporte extends Sys_Controller {
     {
     	parent::__construct();
         $this->load->model('cliente_model', 't_cliente');
-        $this->load->model('venta_model', 't_venta');
+        $this->load->model('Venta_model', 't_venta');
+        $this->load->model('Usuario_model','t_usuario'); 
         session_write_close();
     }
 
@@ -20,18 +21,19 @@ class Reporte extends Sys_Controller {
     }
 
     public function producto(){
-        $data["productos"]=$this->t_precio->_get_producto();
+        // $data["productos"]=$this->t_precio->_get_producto();
         $parametroFooter = array(
             'jslib' => array(
-                'assets/js/daterangepicker.min.js',
-                'assets/js/VentasJS/venta/ventaListar.js',
+                'assets/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                'assets/js/VentasJS/reporte/producto.js',
             ),
         );
         $data_header = array();
+        $data = array();
          $this->sys_render('reporte/producto', $data, $data_header, $parametroFooter);
     }
     public function venta(){
-        $data["clientes"]=$this->t_cliente->_get_clientes();
+        $data["clientes"]=$this->t_usuario->_get_usuarios();
         $parametroFooter = array(
             'jslib' => array(
                 'assets/plugins/bootstrap-daterangepicker/daterangepicker.js',

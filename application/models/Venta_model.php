@@ -92,6 +92,7 @@ class Venta_model extends Base_model {
 
         $this->db->select('v.id_venta,v.total, v.fecha_pedido, v.flg_pago, v.id_vendedor ');
         $this->db->from($this->model_name . ' v' ); 
+        $this->db->where("v.tipo_estado=2 ");
         $this->db->where("v.id_vendedor ='".$id_vendedor."'");
         $this->db->where("v.fecha_pedido BETWEEN '".$f_i."' AND '".$f_e."'");
         $query = $this->db->get();
