@@ -65,15 +65,66 @@ var reporteJS = {
                 }
 
             ], 
-            // dom: 'Bfrtip',
-            // buttons: [
-            // 'excelHtml5',
-            // 'csvHtml5',
-            // 'pdfHtml5'
-            // ]
+            dom: 'Bfrtip',
+            "buttons": [{
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf-o"></i> PDF ',
+                messageTop: function() {
+                    return "FECHA: "+ $('#reportrange').data('daterangepicker').startDate.format('DD-MM-YYYY') +" AL "+$('#reportrange').data('daterangepicker').endDate.format('DD-MM-YYYY')+"  VENDEDOR: "+$('#slcvendedor :selected').text();
+                },
+                title: '',
+                titleAttr: 'Exportar a PDF',
+                download: 'open',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function (doc) {
+                    doc.content[1].table.widths = 
+                    Array(doc.content[1].table.body[0].length + 1).join('*').split('');
 
+                    doc.content[1].alignment = 'center';
 
+                    doc.content.splice(0, 0, {
+                        columns: [
+                            {
+                                text: '"Tiendas de Pedidos "',
+                                fontSize: 10,
+                                italics: true,
+                                alignment: 'right',
+                                margin: [0, 15, 0, 15],
+                                width: '*'
+                            },
+                        ],
+                    },
+
+                    {
+                        columns: [{
+                            text: 'REPORTE DE VENTAS',
+                            fontSize: 14,
+                            bold: true,
+                            alignment: 'center',
+                            margin: [0, 10, 0, 5]
+                        }]
+                    }
+                    )
+                }
+
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel-o"></i> EXCEL ',
+                messageTop: function() {
+                    return "FECHA: "+ $('#reportrange').data('daterangepicker').startDate.format('DD-MM-YYYY') +" AL "+$('#reportrange').data('daterangepicker').endDate.format('DD-MM-YYYY')+"  VENDEDOR: "+$('#slcvendedor :selected').text();
+                },
+                title: "REPORTE DE VENTAS",
+                exportOptions: {
+                    columns: ':visible'
+                }
+            },
+            ]
         });
+
+
     },
 
 }

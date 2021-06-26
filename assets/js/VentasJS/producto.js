@@ -114,6 +114,63 @@ var productoJS = {
 
                 }
 
+            ],
+            dom: 'Bfrtip',
+            "buttons": [{
+                extend: 'pdfHtml5',
+                text: '<i class="fa fa-file-pdf-o"></i> PDF ',
+                messageTop: function() {
+                    return " ";
+                },
+                title: '',
+                titleAttr: 'Exportar a PDF',
+                download: 'open',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3]
+                },
+                customize: function (doc) {
+                    doc.content[1].table.widths = 
+                    Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+
+                    doc.content[1].alignment = 'center';
+
+                    doc.content.splice(0, 0, {
+                        columns: [
+                            {
+                                text: '"Tiendas de Pedidos "',
+                                fontSize: 10,
+                                italics: true,
+                                alignment: 'right',
+                                margin: [0, 15, 0, 15],
+                                width: '*'
+                            },
+                        ],
+                    },
+
+                    {
+                        columns: [{
+                            text: 'REPORTE DE PRODUCTOS',
+                            fontSize: 14,
+                            bold: true,
+                            alignment: 'center',
+                            margin: [0, 10, 0, 5]
+                        }]
+                    }
+                    )
+                }
+
+            },
+            {
+                extend: 'excelHtml5',
+                text: '<i class="fa fa-file-excel-o"></i> EXCEL ',
+                messageTop: function() {
+                    return " STOCK DE PRODUCTOS";
+                },
+                title: "REPORTE ",
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3]
+                }
+            },
             ]
         });
     },
