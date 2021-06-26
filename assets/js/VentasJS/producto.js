@@ -126,7 +126,7 @@ var productoJS = {
                 titleAttr: 'Exportar a PDF',
                 download: 'open',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3]
+                    columns: [ 0, 1, 2, 3, 5]
                 },
                 customize: function (doc) {
                     doc.content[1].table.widths = 
