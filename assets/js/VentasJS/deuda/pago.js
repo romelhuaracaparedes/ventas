@@ -88,7 +88,7 @@ $("#guardar_pago").click(function() {
             msj_error += 'Ingrese como maximo monto restante S/.' + deudaJS.deuda + '<br>';
         }
     } else {
-        if ((parseFloat(monto_anterior) + parseFloat(deudaJS.deuda)) <= (parseFloat(monto))) {
+        if ((parseFloat(monto_anterior) + parseFloat(deudaJS.deuda)) < (parseFloat(monto))) {
             msj_error += 'Ingrese como maximo monto restante S/.' + (parseFloat(monto_anterior) + deudaJS.deuda) + '<br>';
         }
     }
@@ -129,6 +129,10 @@ $("#guardar_pago").click(function() {
                 }
             });
         }
+
+        $("#id_pago").val('');
+        $(".c_monto").val('');
+        $("#monto_deuda").val('');
 
 
     } else {
