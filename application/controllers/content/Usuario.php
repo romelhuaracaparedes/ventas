@@ -30,11 +30,17 @@ class Usuario extends Sys_Controller {
 
     public function perfil(){
         $data = array();
-        $parametroFooter = array();
+        $parametroFooter = array(
+            'jslib' => array(
+                'assets/js/jquery.validate.js',
+                'assets/js/VentasJS/perfil.js',
+                'assets/js/messages_es.js'
+            ), 
+        );
         $data_header = array();
 
         
-        $data= $this->t_usuario->_get_perfil(87654321); 
+        $data['perfil']= $this->t_usuario->_get_perfil(87654321); 
         
         $this->sys_render('perfil', $data, $data_header, $parametroFooter);
     }
