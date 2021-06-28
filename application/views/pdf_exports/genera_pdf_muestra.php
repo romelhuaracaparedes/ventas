@@ -142,7 +142,7 @@ p, label, span, table{
 <body>
 <!-- <img class="anulada" src="img/anulado.png" alt="Anulada"> -->
 
-<img class="anulada"  src="<?=base_url()?>/assets/img/borrador.png" alt="Borrador">
+<!-- <img class="anulada"  src="<?=base_url()?>/assets/img/borrador.png" alt="Borrador"> -->
 
 <div id="page_pdf">
 	<table id="factura_head">

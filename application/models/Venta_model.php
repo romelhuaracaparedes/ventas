@@ -27,8 +27,10 @@ class Venta_model extends Base_model {
         $this->db->select(' v.id_venta,v.id_vendedor,v.id_cliente,v.fecha_entrega,v.fecha_pedido,v.tipo_estado,v.flg_pago,v.total,c.numero_documento,c.celular');
         $this->db->from('ventas v'); 
         $this->db->join('clientes c', 'v.id_cliente = c.id_cliente');
-        $this->db->order_by('v.fecha_pedido', 'asc');
+        // $this->db->order_by('v.fecha_pedido', 'asc');
+        $this->db->order_by('v.id_venta', 'desc');
         $query = $this->db->get();
+        
         if($query){
             return $query->result_array();
         }else{

@@ -4,6 +4,9 @@ var pedidoJS = {
         var tblEntidad = $('#tablapedidos').DataTable({
             responsive: true,
             retrieve: true,
+            order: [
+                [1, "desc"]
+            ],
             ajax: {
                 url: 'listarpedido',
                 data: { csrf_patbin_tkn: ventasJS.tk_v },
@@ -11,7 +14,6 @@ var pedidoJS = {
                 dataSrc: ""
             },
             columns: [{
-
                     title: 'N° PEDIDO',
                     data: 'id_venta',
                 },
@@ -51,7 +53,6 @@ var pedidoJS = {
                         var estado = {
                             0: { 'title': 'Deuda', 'class': 'badge-warning-light' },
                             1: { 'title': 'Pagado', 'class': 'badge-success-light' },
-
                         };
 
                         return '<span class="badge badge-pill ' + estado[row.flg_pago].class + ' ">' + estado[row.flg_pago].title + '</span>';
@@ -76,14 +77,19 @@ var pedidoJS = {
                     title: 'OPCIONES',
                     orderable: false,
                     render: function(value, type, row) {
-                        return `
-                            <button class="btn btn-primary btn-sm" onclick="getProductoById(` + row.id_venta + `)"><i class="fas fa-edit" ></i></button>
-                            <a class="btn btn-info btn-sm" href="/ventas/content/venta/pago?venta=` + row.id_venta + `&cliente=` + row.id_cliente + `"><i class="fas fa-money" ></i></a>
-                            `;
+
+                        var html = '';
+
+                        html += `<button class="btn btn-primary btn-sm" onclick="getProductoById(` + row.id_venta + `)"><i class="fas fa-edit" ></i></button>`;
+
+                        if (row.flg_pago == 1) {
+                            html += ` <a class="btn btn-info btn-sm" href="javascript:;"><i class="fas fa-check" ></i></a>`;
+                        }
+                        return html;
 
                     },
 
-                }
+                }, { width: '5%', targets: 0 }
 
             ]
         });
