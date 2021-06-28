@@ -565,9 +565,9 @@ function pago(_tipo) {
                 if (_tipo == 1) {
 
                     var total = $("#total").val();
-                    $("input[name*='monto']").val(total);
+                    $("input[name='monto']").val(total);
 
-                    $("input[name*='monto']").prop("disabled", true);
+                    $("input[name='monto']").prop("disabled", true);
                 }
 
 
