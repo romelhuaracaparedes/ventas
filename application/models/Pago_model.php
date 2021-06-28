@@ -42,7 +42,7 @@ class Pago_model extends Base_model {
 
     public function get_total_cuota($id_cliente,$id_venta){
 
-        $this->db->select('SUM(p.monto) monto, id_venta');
+        $this->db->select('SUM(p.sub_total) monto, id_venta');
         $this->db->from($this->model_name. ' p' ); 
         $this->db->where('p.id_venta = '.$id_venta.' and p.id_cliente = '.$id_cliente.'');
 

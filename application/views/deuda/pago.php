@@ -1,8 +1,3 @@
-<?php 
-    print_r($pagos);
-    print_r($keys);
- ?>
-
 <div class="container-fluid">
     <div class="inner-body">
 

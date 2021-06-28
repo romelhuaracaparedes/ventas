@@ -90,8 +90,8 @@
             <div class="main-sidebar-body">
                 <ul class="nav">
                     <li class="nav-header"><span class="nav-label">Menu</span></li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="tipousuario/">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=base_url()?>">
                             <span class="shape1">
                             </span><span class="shape2">
                             </span><i class="ti-home sidemenu-icon"></i>
@@ -100,31 +100,42 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="tipousuario/">
+                        <a class="nav-link" href="<?=base_url()?>content/usuario/tipousuario">
                             <span class="shape1">
                             </span><span class="shape2">
                             </span><i class="ti-user sidemenu-icon"></i>
                             <span class="sidemenu-label">Clientes</span>
                         </a>
                     </li>
-                       
+
                     <li class="nav-item">
                         <a class="nav-link with-sub" href="#">
                             <span class="shape1"></span>
                             <span class="shape2"></span>
                             <i class="ti-shopping-cart-full sidemenu-icon"></i>
-                            <span class="sidemenu-label">Pedido</span>
+                            <span class="sidemenu-label">Ventas</span>
                             <i class="angle fe fe-chevron-right"></i></a>
                         <ul class="nav-sub">
                             <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="#">Pedidos</a>
+                                <a class="nav-sub-link" href="<?=base_url()?>content/venta">Venta</a>
                             </li>
                             <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="#">Proformas</a>
+                                <a class="nav-sub-link" href="<?=base_url()?>content/venta/listar">Lista Ventas</a>
                             </li>
                         </ul>
                     </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=base_url()?>content/deuda/listar">
+                            <span class="shape1">
+                            </span><span class="shape2">
+                            </span><i class="ti-money sidemenu-icon"></i>
+                            <span class="sidemenu-label">Deudas</span>
+                        </a>
+                    </li>
                     
+                       
                     <li class="nav-item">
                         <a class="nav-link with-sub" href="#">
                             <span class="shape1"></span>
@@ -134,36 +145,23 @@
                             <i class="angle fe fe-chevron-right"></i></a>
                         <ul class="nav-sub">
                             <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="#">Categoría</a>
+                                <a class="nav-sub-link" href="<?=base_url()?>content/categoria">Categoría</a>
                             </li>
                             <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="#">Presentación</a>
+                                <a class="nav-sub-link" href="<?=base_url()?>content/presentacion">Presentación</a>
                             </li>
                             <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="#">Marca</a>
+                                <a class="nav-sub-link" href="<?=base_url()?>content/marca">Marca</a>
                             </li>
                             <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="#">Producto</a>
+                                <a class="nav-sub-link" href="<?=base_url()?>content/producto">Producto</a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link with-sub" href="#">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-money sidemenu-icon"></i>
-                            <span class="sidemenu-label">Deudas</span>
-                            <i class="angle fe fe-chevron-right"></i></a>
-                        <ul class="nav-sub">
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="#">Historial de Deudas</a>
-                            </li>
-                        </ul>
-                    </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="precio/">
+                        <a class="nav-link" href="<?=base_url()?>content/precio/">
                             <span class="shape1">
                             </span><span class="shape2">
                             </span><i class="ti-wallet sidemenu-icon"></i>
@@ -171,6 +169,20 @@
                         </a>
                     </li>
                     
+
+                    <li class="nav-item">
+                        <a class="nav-link with-sub" href="#">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-bar-chart-alt sidemenu-icon"></i>
+                            <span class="sidemenu-label">Reportes</span>
+                            <i class="angle fe fe-chevron-right"></i></a>
+                        <ul class="nav-sub">
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="<?=base_url()?>content/reporte/venta">Venta</a>
+                            </li>
+                        </ul>
+                    </li>
               
                 </ul>
             </div>

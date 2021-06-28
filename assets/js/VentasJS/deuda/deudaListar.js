@@ -4,6 +4,9 @@ var deudaJS = {
         var tblEntidad = $('#tablapedidos').DataTable({
             responsive: true,
             retrieve: true,
+            order: [
+                [1, "desc"]
+            ],
             ajax: {
                 url: 'listarpedido',
                 data: { csrf_patbin_tkn: ventasJS.tk_v },

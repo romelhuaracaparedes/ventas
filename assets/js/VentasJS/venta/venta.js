@@ -1,4 +1,3 @@
-
 //Globals
 
 var documento_dni = '';
@@ -149,8 +148,8 @@ var ventaJS = {
             let unique_values_next = [];
             let map_detalle = new Map();
             for (const item of data) {
-                if(!map_detalle.has(item.id_producto)){
-                    map_detalle.set(item.id_producto, true);    // set any value to Map
+                if (!map_detalle.has(item.id_producto)) {
+                    map_detalle.set(item.id_producto, true); // set any value to Map
                     unique_values.push({
                         id: item.id_producto,
                         name: item.nombre_producto
@@ -176,13 +175,13 @@ var ventaJS = {
             $.each(unique_values, function(idxgen, objgen) {
                 unique_values[idxgen]['cantidad'] = 0;
                 $.each(data, function(idxesp, objesp) {
-                    if (objgen.id.indexOf(objesp.id_producto) != -1 ) {
+                    if (objgen.id.indexOf(objesp.id_producto) != -1) {
                         unique_values[idxgen]['cantidad'] += parseFloat(objesp.cantidad);
-                    } 
+                    }
 
                 });
 
-             });
+            });
             console.log(unique_values);
 
             $("#detalle_venta").html(html);
@@ -198,8 +197,8 @@ var ventaJS = {
     },
 
 
-    agregar_Venta: function(cliente,  callback) {
-        var obj = {header: cliente};
+    agregar_Venta: function(cliente, callback) {
+        var obj = { header: cliente };
 
         ventasJS.post('venta/registrarVenta', obj, function(data) {
             // console.log(data);
@@ -223,7 +222,7 @@ var ventaJS = {
     },
 
 
-    agregar_pago: function(dataGen, callback){
+    agregar_pago: function(dataGen, callback) {
         console.log(dataGen);
         ventasJS.post('venta/agregarPago', dataGen, function(data) {
             // console.log(data);
@@ -235,7 +234,7 @@ var ventaJS = {
     },
 
     eliminar_DetalleVenta: function(id, callback) {
-        ventasJS.post('venta/eliminarDetalleVenta', { id: id, id_venta:id_venta_general }, function(data) {
+        ventasJS.post('venta/eliminarDetalleVenta', { id: id, id_venta: id_venta_general }, function(data) {
             // console.log(data);
             if (callback) {
                 callback(data);
@@ -277,11 +276,11 @@ $(document).ready(function() {
         $("#stock").val(stock);
     });
 
-    $("#guardar_general").click(function(){
+    $("#guardar_general").click(function() {
 
         //USUARIO NEW
 
-        var msj_error = ''; 
+        var msj_error = '';
         var slccliente = $("#slccliente").val();
         var fecha_pedido = $("#fechapedido").val();
         var fecha_entrega = $("#fechaentrega").val();
@@ -342,7 +341,7 @@ $(document).ready(function() {
         // var fecha_entrega = $("#fecha_entrega").val();
 
 
-     
+
 
         // PRODUCTOS
 
@@ -359,7 +358,7 @@ $(document).ready(function() {
         var cantidad = parseInt($("#cantidad").val());
         var msj_error = '';
 
-       
+
 
         if (nombre_producto == '') {
             msj_error += 'Selecciona un Producto. <br>';
@@ -378,13 +377,13 @@ $(document).ready(function() {
         $.each(unique_values, function(idxgen, objgen) {
             if (objgen.id == id_producto) {
                 let suma_stock = (objgen.cantidad + parseInt(cantidad));
-                if(suma_stock>stock){
-                   msj_error += 'Ingrese una cantidad no mayor al stock del producto la suma es '+suma_stock+'. <br>'; 
+                if (suma_stock > stock) {
+                    msj_error += 'Ingrese una cantidad no mayor al stock del producto la suma es ' + suma_stock + '. <br>';
                 }
             }
-            
 
-         });
+
+        });
 
 
 
@@ -436,15 +435,15 @@ $(document).ready(function() {
 
     });
 
-    $("#guardar_pago").click(function(){
-        var msj_error = ''; 
-        var genData = {}; 
+    $("#guardar_pago").click(function() {
+        var msj_error = '';
+        var genData = {};
 
         var id_venta = id_venta_general;
         var slccliente = $("#slccliente").val();
         var slccliente = $("#slccliente").val();
         var monto = $(".c_monto").val();
-        var tipo =  $('.tipo_pago').val();
+        var tipo = $('.tipo_pago').val();
 
 
         if (monto == '') {
@@ -535,10 +534,10 @@ $("#realizar-pedido").click(function() {
 //
 
 
-function pago(_tipo){
+function pago(_tipo) {
     var text_l = "";
     var text_label = "";
-    if (_tipo == 1) {text_l="¿Pagar Pedido?"} else {text_l="¿Fraccionar Pago?"}
+    if (_tipo == 1) { text_l = "¿Pagar Pedido?" } else { text_l = "¿Fraccionar Pago?" }
     swal({
             title: text_l,
             type: "warning",
@@ -552,9 +551,9 @@ function pago(_tipo){
         function(isConfirm) {
             if (isConfirm) {
 
-                if (_tipo == 1) {text_label=""} else {text_label=" Primer "}
+                if (_tipo == 1) { text_label = "" } else { text_label = " Primer " }
 
-                $('.option').text(text_label);   
+                $('.option').text(text_label);
                 $('.formulario_pago').removeClass('d-none')
                 $('.formulario_pago').addClass('d-block')
                 $('.opciones').addClass('d-none')
@@ -563,24 +562,34 @@ function pago(_tipo){
                 $('.tipo_pago').val(_tipo);
 
 
+                if (_tipo == 1) {
+
+                    var total = $("#total").val();
+                    $("input[name*='monto']").val(total);
+
+                    $("input[name*='monto']").prop("disabled", true);
+                }
+
+
             }
         });
 }
 
-$('.regresar').click(function(){
+$('.regresar').click(function() {
     $('.formulario_pago').addClass('d-none');
     $('.formulario_pago').removeClass('d-block');
     $('.opciones').removeClass('d-none');
     $('.opciones').addClass('d-block');
     $('.c_monto').val("");
-})
+
+    $("input[name*='monto']").val('');
+
+    $("input[name*='monto']").prop("disabled", false);
+});
 // Exportar PDF
 
-$(".generarComprobante").click(function(){
-    $url = "/ventas/content/venta/pdfventa?cli="+id_venta_general;
-    window.open($url, "Pedido",'width=702,height=750')
+$(".generarComprobante").click(function() {
+    $url = "/ventas/content/venta/pdfventa?cli=" + id_venta_general;
+    window.open($url, "Pedido", 'width=702,height=750')
 
 });
-
-
-

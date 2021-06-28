@@ -71,7 +71,7 @@ class Detalleventa_model extends Base_model {
     }
 
     public function sum_precios($id_venta){
-        $this->db->select('dv.id_venta, SUM(dv.precio) precio_total');
+        $this->db->select('dv.id_venta, SUM(dv.sub_total) precio_total');
         $this->db->from($this->model_name . ' dv'  ); 
         $this->db->where('dv.id_venta = '.$id_venta.'');
         $query = $this->db->get();
