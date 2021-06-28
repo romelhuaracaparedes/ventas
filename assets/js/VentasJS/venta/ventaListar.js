@@ -55,7 +55,16 @@ var pedidoJS = {
                             1: { 'title': 'Pagado', 'class': 'badge-success-light' },
                         };
 
-                        return '<span class="badge badge-pill ' + estado[row.flg_pago].class + ' ">' + estado[row.flg_pago].title + '</span>';
+                        var html = '<span class="badge badge-pill ' + estado[row.flg_pago].class + ' ">' + estado[row.flg_pago].title + '';
+
+                        if (row.flg_entrega == 1) {
+                            html += ` / Entregado </span>`;
+                        } else {
+                            html += ` </span>`;
+                        }
+
+                        return html;
+
                     }
 
                 },
@@ -82,8 +91,8 @@ var pedidoJS = {
 
                         html += `<button class="btn btn-primary btn-sm" onclick="getProductoById(` + row.id_venta + `)"><i class="fas fa-edit" ></i></button>`;
 
-                        if (row.flg_pago == 1) {
-                            html += ` <a class="btn btn-info btn-sm" href="javascript:;"><i class="fas fa-check" ></i></a>`;
+                        if (row.flg_pago == 1 && row.flg_entrega == 0) {
+                            html += ` <a class="btn btn-info btn-sm" onclick="entregarPedido(` + row.id_venta + `)" href="javascript:;"><i class="fas fa-check" ></i></a>`;
                         }
                         return html;
 
@@ -95,7 +104,19 @@ var pedidoJS = {
         });
     },
 
-}
+
+    entregarPedido: function(data, callback) {
+
+        ventasJS.post('entregarPedido', data, function(data) {
+
+            if (callback) {
+                callback(data);
+            }
+        });
+
+    },
+
+};
 
 
 $(document).ready(function() {
@@ -163,3 +184,36 @@ $(function() {
     cb(start, end);
 
 });
+
+function entregarPedido(id_venta) {
+
+    swal({
+            title: '¿Desea Entregar Pedido?',
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
+
+                pedidoJS.entregarPedido({ id_venta: id_venta }, function(data) {
+                    if (data.status == 'success') {
+                        ventasJS.msj.success('Aviso:', data.msg);
+
+                        $('#tablapedidos').DataTable().destroy();
+
+                        pedidoJS.listarPedidos();
+
+
+                    } else {
+                        ventasJS.msj.warning('Aviso:', data.msg);
+                    }
+                });
+
+            }
+        });
+}

@@ -45,6 +45,7 @@ class Venta extends Sys_Controller {
             'jslib' => array(
                 'assets/plugins/bootstrap-daterangepicker/daterangepicker.js',
                 'assets/js/VentasJS/venta/ventaListar.js',
+                
             ),
         );
         $data_header = array();
@@ -271,5 +272,22 @@ class Venta extends Sys_Controller {
         // generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
         $this->pdfgenerator->generate($html, $filename, true, 'Letter', 'portrait');
 
+    }
+
+    public function entregarPedido(){
+
+        $id_venta = @$_POST['id_venta'];    
+
+        $data = $this->t_venta->_entregar_pedido($id_venta);
+
+        if($data){
+            $result['status'] = 'success';
+            $result['msg'] = 'Se registró correctamente';	
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al registrar';	
+        }
+
+        $this->json_output($result);
     }
 }
