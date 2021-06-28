@@ -91,7 +91,7 @@ var pedidoJS = {
 
                         html += `<button class="btn btn-primary btn-sm" onclick="getProductoById(` + row.id_venta + `)"><i class="fas fa-edit" ></i></button>`;
 
-                        if (row.flg_pago == 1 && row.flg_entrega == 0) {
+                        if (row.flg_entrega == 0) {
                             html += ` <a class="btn btn-info btn-sm" onclick="entregarPedido(` + row.id_venta + `)" href="javascript:;"><i class="fas fa-check" ></i></a>`;
                         }
                         return html;
