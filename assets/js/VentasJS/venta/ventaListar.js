@@ -187,33 +187,20 @@ $(function() {
 
 function entregarPedido(id_venta) {
 
-    swal({
-            title: '¿Desea Entregar Pedido?',
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si",
-            cancelButtonText: "No",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
+    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
+        pedidoJS.entregarPedido({ id_venta: id_venta }, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
 
-                pedidoJS.entregarPedido({ id_venta: id_venta }, function(data) {
-                    if (data.status == 'success') {
-                        ventasJS.msj.success('Aviso:', data.msg);
+                $('#tablapedidos').DataTable().destroy();
 
-                        $('#tablapedidos').DataTable().destroy();
-
-                        pedidoJS.listarPedidos();
+                pedidoJS.listarPedidos();
 
 
-                    } else {
-                        ventasJS.msj.warning('Aviso:', data.msg);
-                    }
-                });
-
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
             }
         });
+    });
+
 }

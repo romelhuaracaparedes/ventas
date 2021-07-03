@@ -99,14 +99,24 @@
                         </a>
                     </li>
 
+
                     <li class="nav-item">
-                        <a class="nav-link" href="<?=base_url()?>content/usuario/tipousuario">
-                            <span class="shape1">
-                            </span><span class="shape2">
-                            </span><i class="ti-user sidemenu-icon"></i>
-                            <span class="sidemenu-label">Clientes</span>
-                        </a>
+                        <a class="nav-link with-sub" href="#">
+                            <span class="shape1"></span>
+                            <span class="shape2"></span>
+                            <i class="ti-user sidemenu-icon"></i>
+                            <span class="sidemenu-label">Usuario</span>
+                            <i class="angle fe fe-chevron-right"></i></a>
+                        <ul class="nav-sub">
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="<?=base_url()?>content/usuario">Lista Usuarios</a>
+                            </li>
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="<?=base_url()?>content/usuario/tipousuario">Tipo Usuario</a>
+                            </li>
+                        </ul>
                     </li>
+
 
                     <li class="nav-item">
                         <a class="nav-link with-sub" href="#">
@@ -180,6 +190,9 @@
                         <ul class="nav-sub">
                             <li class="nav-sub-item">
                                 <a class="nav-sub-link" href="<?=base_url()?>content/reporte/venta">Venta</a>
+                            </li>
+                            <li class="nav-sub-item">
+                                <a class="nav-sub-link" href="<?=base_url()?>content/reporte/pedido">Pedido</a>
                             </li>
                         </ul>
                     </li>

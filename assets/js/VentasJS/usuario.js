@@ -445,28 +445,16 @@ function getTipoUsuarioById(id) {
 
 function eliminarTipoUsuario(id) {
 
-    swal({
-            title: "¿Está seguro de Eliminar?",
-            text: "No podrá revertir los cambios",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, Eliminar",
-            cancelButtonText: "No, cancelar",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                usuarioJS.eliminar_tipo_usuario(id, function(data) {
-                    if (data.status == 'success') {
-                        ventasJS.msj.success('Aviso:', data.msg);
-                        $('#tablatipousuarios').DataTable().destroy();
-                        usuarioJS.listarTiposUsuario();
-                    } else {
-                        ventasJS.msj.warning('Aviso:', data.msg);
-                    }
-                });
+
+    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
+        usuarioJS.eliminar_tipo_usuario(id, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+                $('#tablatipousuarios').DataTable().destroy();
+                usuarioJS.listarTiposUsuario();
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
             }
         });
+    });
 }

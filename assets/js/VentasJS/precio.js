@@ -341,28 +341,16 @@ function getProductoById(id) {
 
 function eliminarProducto(id) {
 
-    swal({
-            title: "¿Está seguro de Eliminar?",
-            text: "No podrá revertir los cambios",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, Eliminar",
-            cancelButtonText: "No, cancelar",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                precioJS.eliminar_producto(id, function(data) {
-                    if (data.status == 'success') {
-                        ventasJS.msj.success('Aviso:', data.msg);
-                        $('#tablaproductos').DataTable().destroy();
-                        precioJS.listarProductos();
-                    } else {
-                        ventasJS.msj.warning('Aviso:', data.msg);
-                    }
-                });
+    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
+        precioJS.eliminar_producto(id, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+                $('#tablaproductos').DataTable().destroy();
+                precioJS.listarProductos();
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
             }
         });
+    });
+
 }

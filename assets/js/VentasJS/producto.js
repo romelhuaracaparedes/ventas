@@ -117,60 +117,58 @@ var productoJS = {
             ],
             dom: 'Bfrtip',
             "buttons": [{
-                extend: 'pdfHtml5',
-                text: '<i class="fa fa-file-pdf-o"></i> PDF ',
-                messageTop: function() {
-                    return " ";
-                },
-                title: '',
-                titleAttr: 'Exportar a PDF',
-                download: 'open',
-                exportOptions: {
-                    columns: [ 0, 1, 2, 3, 5]
-                },
-                customize: function (doc) {
-                    doc.content[1].table.widths = 
-                    Array(doc.content[1].table.body[0].length + 1).join('*').split('');
-
-                    doc.content[1].alignment = 'center';
-
-                    doc.content.splice(0, 0, {
-                        columns: [
-                            {
-                                text: '"Tiendas de Pedidos "',
-                                fontSize: 10,
-                                italics: true,
-                                alignment: 'right',
-                                margin: [0, 15, 0, 15],
-                                width: '*'
-                            },
-                        ],
+                    extend: 'pdfHtml5',
+                    text: '<i class="fa fa-file-pdf-o"></i> PDF ',
+                    messageTop: function() {
+                        return " ";
                     },
+                    title: '',
+                    titleAttr: 'Exportar a PDF',
+                    download: 'open',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 5]
+                    },
+                    customize: function(doc) {
+                        doc.content[1].table.widths =
+                            Array(doc.content[1].table.body[0].length + 1).join('*').split('');
 
-                    {
-                        columns: [{
-                            text: 'REPORTE DE PRODUCTOS',
-                            fontSize: 14,
-                            bold: true,
-                            alignment: 'center',
-                            margin: [0, 10, 0, 5]
-                        }]
+                        doc.content[1].alignment = 'center';
+
+                        doc.content.splice(0, 0, {
+                                columns: [{
+                                    text: '"Tiendas de Pedidos "',
+                                    fontSize: 10,
+                                    italics: true,
+                                    alignment: 'right',
+                                    margin: [0, 15, 0, 15],
+                                    width: '*'
+                                }, ],
+                            },
+
+                            {
+                                columns: [{
+                                    text: 'REPORTE DE PRODUCTOS',
+                                    fontSize: 14,
+                                    bold: true,
+                                    alignment: 'center',
+                                    margin: [0, 10, 0, 5]
+                                }]
+                            }
+                        )
                     }
-                    )
-                }
 
-            },
-            {
-                extend: 'excelHtml5',
-                text: '<i class="fa fa-file-excel-o"></i> EXCEL ',
-                messageTop: function() {
-                    return " STOCK DE PRODUCTOS";
                 },
-                title: "REPORTE ",
-                exportOptions: {
-                    columns: [ 0, 1, 2, 3]
-                }
-            },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa fa-file-excel-o"></i> EXCEL ',
+                    messageTop: function() {
+                        return " STOCK DE PRODUCTOS";
+                    },
+                    title: "REPORTE ",
+                    exportOptions: {
+                        columns: [0, 1, 2, 3]
+                    }
+                },
             ]
         });
     },
@@ -353,28 +351,16 @@ function getProductoById(id) {
 
 function eliminarProducto(id) {
 
-    swal({
-            title: "¿Está seguro de Eliminar?",
-            text: "No podrá revertir los cambios",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, Eliminar",
-            cancelButtonText: "No, cancelar",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                productoJS.eliminar_producto(id, function(data) {
-                    if (data.status == 'success') {
-                        ventasJS.msj.success('Aviso:', data.msg);
-                        $('#tablaproductos').DataTable().destroy();
-                        productoJS.listarProductos();
-                    } else {
-                        ventasJS.msj.warning('Aviso:', data.msg);
-                    }
-                });
+
+    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
+        productoJS.eliminar_producto(id, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+                $('#tablaproductos').DataTable().destroy();
+                productoJS.listarProductos();
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
             }
         });
+    });
 }

@@ -90,16 +90,24 @@ var ventasJS = {
                 loaderBg: '#9EC600',
             });
         },
-        confirm: function(titulo, mensaje, kallback) {
-            // bootbox.confirm({
-            //     title: titulo,
-            //     message: mensaje,
-            //     callback: function(confirm) {
-            //         if (typeof kallback != "undefined") {
-            //             kallback(confirm);
-            //         }
-            //     }
-            // });
+        confirm: function(titulo, mensaje, tipo, callback) {
+            swal({
+                    title: titulo,
+                    text: mensaje,
+                    type: tipo,
+                    confirmButtonText: "Si, Eliminar",
+                    cancelButtonText: "No, cancelar",
+                    closeOnConfirm: true,
+                    showCancelButton: true,
+                    confirmButtonColor: '#6259ca',
+                    closeOnCancel: true
+                },
+                function(isConfirm) {
+                    if (isConfirm) {
+
+                        callback();
+                    }
+                });
         },
         prompt: function(titulo, mensaje, kallback) {
             // bootbox.prompt({
@@ -143,6 +151,8 @@ var ventasJS = {
 
 
     },
+
+
 
 };
 

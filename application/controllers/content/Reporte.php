@@ -44,6 +44,19 @@ class Reporte extends Sys_Controller {
          $this->sys_render('reporte/venta', $data, $data_header, $parametroFooter);
     }
 
+    public function pedido(){
+        $data["clientes"]=$this->t_usuario->_get_usuarios();
+        $parametroFooter = array(
+            'jslib' => array(
+                'assets/plugins/bootstrap-daterangepicker/daterangepicker.js',
+                'assets/js/VentasJS/reporte/venta.js',
+            ),
+        );
+        $data_header = array();
+         $this->sys_render('reporte/pedidos', $data, $data_header, $parametroFooter);
+    }
+
+
     public function filtrarventa(){
         $fechaStart = @$_POST['fechaStart'];   
         $fechaEnd = @$_POST['fechaEnd'];   
