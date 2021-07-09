@@ -49,7 +49,7 @@ class Reporte extends Sys_Controller {
         $parametroFooter = array(
             'jslib' => array(
                 'assets/plugins/bootstrap-daterangepicker/daterangepicker.js',
-                'assets/js/VentasJS/reporte/venta.js',
+                'assets/js/VentasJS/reporte/pedido.js',
             ),
         );
         $data_header = array();
@@ -65,6 +65,16 @@ class Reporte extends Sys_Controller {
         foreach ($data as $key =>  $val) {
              $data[$key]['fecha_pedido'] =  date("d/m/Y", strtotime($val['fecha_pedido'])) ;
 
+         }
+        $this->json_output($data);
+    }
+
+    public function reporte_pedido(){
+        $fechaStart = @$_POST['fechaStart'];   
+        $fechaEnd = @$_POST['fechaEnd'];   
+        $data = $this->t_venta->_reporte_pedido($fechaStart , $fechaEnd );
+        foreach ($data as $key =>  $val) {
+             $data[$key]['fecha_pedido'] =  date("d/m/Y", strtotime($val['fecha_pedido'])) ;
          }
         $this->json_output($data);
     }

@@ -93,7 +93,7 @@ class Venta_model extends Base_model {
     public function _filtrarventa($f_i , $f_e, $id_vendedor){
 
         $this->db->select('v.id_venta,v.total, v.fecha_pedido, v.flg_pago, v.id_vendedor ');
-        $this->db->from($this->model_name . ' v' ); 
+        $this->db->from($this->model_name . ' v' );         
         $this->db->where("v.tipo_estado=2 ");
         $this->db->where("v.id_vendedor ='".$id_vendedor."'");
         $this->db->where("v.fecha_pedido BETWEEN '".$f_i."' AND '".$f_e."'");
@@ -104,6 +104,37 @@ class Venta_model extends Base_model {
             return array();
         }
 
+    }
+
+    public function _reporte_pedido($f_i , $f_e){
+
+        $this->db->select('v.id_venta, 
+        v.id_vendedor,
+        CONCAT(u.apellido_paterno, \' \', u.apellido_materno, \' ,\', u.nombres)  as "nombre_vendedor",
+        v.id_cliente,
+        CONCAT(c.apellido_paterno, \' \', c.apellido_materno, \' ,\', c.nombres)  as "nombre_cliente",
+        v.total,
+        v.tipo_estado,
+        v.fecha_registro,
+        v.fecha_pedido,
+        v.fecha_entrega,
+        v.tipo_comprobante,
+        v.flg_estado,
+        v.flg_pago,
+        v.flg_entrega');
+        $this->db->from($this->model_name . ' v' ); 
+        $this->db->join('usuarios u', 'u.id_usuario = v.id_vendedor');
+        $this->db->join('clientes c', 'c.id_cliente = v.id_cliente');
+        // $this->db->where("v.tipo_estado=2 ");;
+        $this->db->where("v.fecha_pedido BETWEEN '".$f_i."' AND '".$f_e."'");
+        $query = $this->db->get();
+
+        // echo $this->db->last_query();
+        if($query){
+            return $query->result_array();
+        }else{
+            return array();
+        }
     }
 
 
