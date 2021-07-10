@@ -210,28 +210,16 @@ function getPresentacionById(id) {
 
 function eliminarPresentacion(id) {
 
-    swal({
-            title: "¿Está seguro de Eliminar?",
-            text: "No podrá revertir los cambios",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, Eliminar",
-            cancelButtonText: "No, cancelar",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                presentacionJS.eliminar_presentacion(id, function(data) {
-                    if (data.status == 'success') {
-                        ventasJS.msj.success('Aviso:', data.msg);
-                        $('#tablapresentaciones').DataTable().destroy();
-                        presentacionJS.listarPresentaciones();
-                    } else {
-                        ventasJS.msj.warning('Aviso:', data.msg);
-                    }
-                });
+    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
+        presentacionJS.eliminar_presentacion(id, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+                $('#tablapresentaciones').DataTable().destroy();
+                presentacionJS.listarPresentaciones();
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
             }
         });
+    });
+
 }

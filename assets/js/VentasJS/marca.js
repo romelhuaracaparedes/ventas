@@ -216,28 +216,16 @@ function getMarcaById(id) {
 
 function eliminarMarca(id) {
 
-    swal({
-            title: "¿Está seguro de Eliminar?",
-            text: "No podrá revertir los cambios",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, Eliminar",
-            cancelButtonText: "No, cancelar",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                marcaJS.eliminar_marca(id, function(data) {
-                    if (data.status == 'success') {
-                        ventasJS.msj.success('Aviso:', data.msg);
-                        $('#tablamarcas').DataTable().destroy();
-                        marcaJS.listarMarcas();
-                    } else {
-                        ventasJS.msj.warning('Aviso:', data.msg);
-                    }
-                });
+    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
+        marcaJS.eliminar_marca(id, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+                $('#tablamarcas').DataTable().destroy();
+                marcaJS.listarMarcas();
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
             }
         });
+    });
+
 }

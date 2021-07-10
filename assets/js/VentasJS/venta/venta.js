@@ -538,41 +538,29 @@ function pago(_tipo) {
     var text_l = "";
     var text_label = "";
     if (_tipo == 1) { text_l = "¿Pagar Pedido?" } else { text_l = "¿Fraccionar Pago?" }
-    swal({
-            title: text_l,
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si",
-            cancelButtonText: "No",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
 
-                if (_tipo == 1) { text_label = "" } else { text_label = " Primer " }
+    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
+        usuarioJS.eliminar_tipo_usuario(id, function(data) {
+            if (_tipo == 1) { text_label = "" } else { text_label = " Primer " }
 
-                $('.option').text(text_label);
-                $('.formulario_pago').removeClass('d-none')
-                $('.formulario_pago').addClass('d-block')
-                $('.opciones').addClass('d-none')
-                $('.opciones').removeClass('d-block');
+            $('.option').text(text_label);
+            $('.formulario_pago').removeClass('d-none')
+            $('.formulario_pago').addClass('d-block')
+            $('.opciones').addClass('d-none')
+            $('.opciones').removeClass('d-block');
 
-                $('.tipo_pago').val(_tipo);
+            $('.tipo_pago').val(_tipo);
 
 
-                if (_tipo == 1) {
+            if (_tipo == 1) {
 
-                    var total = $("#total").val();
-                    $("input[name='monto']").val(total);
+                var total = $("#total").val();
+                $("input[name='monto']").val(total);
 
-                    $("input[name='monto']").prop("disabled", true);
-                }
-
-
+                $("input[name='monto']").prop("disabled", true);
             }
         });
+    });
 }
 
 $('.regresar').click(function() {

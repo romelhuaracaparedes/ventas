@@ -217,28 +217,16 @@ function getCategoriaById(id) {
 
 function eliminarCategoria(id) {
 
-    swal({
-            title: "¿Está seguro de Eliminar?",
-            text: "No podrá revertir los cambios",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Si, Eliminar",
-            cancelButtonText: "No, cancelar",
-            closeOnConfirm: true,
-            closeOnCancel: true
-        },
-        function(isConfirm) {
-            if (isConfirm) {
-                categoriaJS.eliminar_categoria(id, function(data) {
-                    if (data.status == 'success') {
-                        ventasJS.msj.success('Aviso:', data.msg);
-                        $('#tablacategorias').DataTable().destroy();
-                        categoriaJS.listarCategorias();
-                    } else {
-                        ventasJS.msj.warning('Aviso:', data.msg);
-                    }
-                });
+    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
+        categoriaJS.eliminar_categoria(id, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+                $('#tablacategorias').DataTable().destroy();
+                categoriaJS.listarCategorias();
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
             }
         });
+    });
+
 }

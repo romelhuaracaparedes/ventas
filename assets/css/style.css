@@ -7703,6 +7703,7 @@ div.dataTables_wrapper div.dataTables_length select {
     border-color: #f0f0ff;
     box-shadow: 0 2px 3px rgba(28, 39, 60, 0.06);
     border-radius: 0px;
+    z-index: 99999999px;
 }
 
 .toast:not(:last-child) {
