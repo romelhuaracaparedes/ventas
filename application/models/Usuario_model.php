@@ -28,7 +28,7 @@ class Usuario_model extends Base_model {
     
 
     public function _get_perfil($usuario){
-        $this->db->select('u.nombres, u.apellido_paterno, u.apellido_materno, u.tipo_documento,u.numero_documento,u.correo, u.telefono, t.tipo_usuario');
+        $this->db->select('u.id_usuario, u.nombres, u.apellido_paterno, u.apellido_materno, u.tipo_documento,u.numero_documento,u.correo, u.telefono, u.flg_estado, t.tipo_usuario, t.id_tipo_usuario');
         $this->db->from($this->model_name.' u');
         $this->db->join('tipo_usuario t', 'u.id_tipo_usuario = t.id_tipo_usuario');
         $this->db->where('numero_documento =\''.$usuario.'\'');
@@ -106,7 +106,7 @@ class Usuario_model extends Base_model {
 
 
     public function _insert_usuario($obj){
-    
+        
         $data = array(
             'id_tipo_usuario' => $obj["tipo_usuario"],
             'nombres' => $obj["nombres"],
@@ -116,9 +116,12 @@ class Usuario_model extends Base_model {
             'numero_documento' => $obj["num_documento"],
             'correo' => $obj["correo"],
             'telefono' => $obj["celular"],
-            'clave' => md5($obj["num_documento"]),
             'flg_estado' => $obj["estado"]
         );
+        if ($obj["perfil"]=='usuario') {
+            $data['clave']= md5($obj["num_documento"]);
+        }
+        
 
 
         if(!$obj["id_usuario"]){
@@ -134,6 +137,15 @@ class Usuario_model extends Base_model {
         return $query;
     }
 
+    public function _cambiar_contrasena($obj){
+        $data = array(
+            'clave' => md5($obj["nueva_clave"])
+        );
+        
+        $this->db->where('id_usuario', $obj["id_usuario"]);
+        $query =  $this->db->update($this->model_name, $data);
+        return $query;
+    }
     public function _get_usuarios(){
         $this->db->select("u.id_usuario, u.numero_documento, CONCAT(u.apellido_paterno,' ',u.apellido_materno,', ', u.nombres) AS usuario, u.telefono, t.tipo_usuario, u.flg_estado");
         $this->db->from($this->model_name.' u');

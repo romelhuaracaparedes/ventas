@@ -59,6 +59,7 @@
 
                                 <div class="row py-2">
                                     <input type="hidden" id="id_usuario">
+                                    <input type="hidden" id="modulo" value="usuario">
                                     <div class="col-md-4">
                                         <label for="nombres">Nombres</label>
                                         <input type="text" class="form-control" id="nombres" name="nombres">

@@ -33,7 +33,7 @@ class Usuario extends Sys_Controller {
         $parametroFooter = array(
             'jslib' => array(
                 'assets/js/jquery.validate.js',
-                'assets/js/VentasJS/perfil.js',
+                'assets/js/VentasJS/usuario.js',
                 'assets/js/messages_es.js'
             ), 
         );
@@ -154,6 +154,24 @@ class Usuario extends Sys_Controller {
         }else{
             $result['status'] = 'error';
             $result['msg'] = 'Ocurrio un error al registrar';	
+        }
+
+        $this->json_output($result);
+    }
+
+    public function cambiarContrasena(){
+
+
+        $obj = $this->input->post();        
+        
+        $data = $this->t_usuario->_cambiar_contrasena($obj);
+        
+        if($data){
+            $result['status'] = 'success';
+            $result['msg'] = 'Se actualizó correctamente';	
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al actualizar';	
         }
 
         $this->json_output($result);

@@ -334,7 +334,7 @@
                                         <input type="hidden" name="" class="tipo_pago">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">S/. </span>
-                                        </div><input aria-describedby="basic-addon1" aria-label="monto" class="form-control c_monto" placeholder="_ _ _ _ _" name="monto"type="text">
+                                        </div><input aria-describedby="basic-addon1" aria-label="monto" class="form-control c_monto" placeholder="_ _ _ _ _" name="monto" type="text">
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12 text-center mt-3">

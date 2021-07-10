@@ -194,8 +194,12 @@ var usuarioJS = {
     },
 
     agregar_usuario: function(obj, callback) {
+        var ruta = "usuario/registrarUsuario";
+        if (obj.perfil == "perfil") {
+            ruta = 'registrarUsuario';
+        }
 
-        ventasJS.post('usuario/registrarUsuario', obj, function(data) {
+        ventasJS.post(ruta, obj, function(data) {
             if (callback) {
                 callback(data);
             }
@@ -203,9 +207,14 @@ var usuarioJS = {
         });
     },
 
+    cambiar_contrasena: function(obj, callback) {
 
-
-
+        ventasJS.post('cambiarContrasena', obj, function(data) {
+            if (callback) {
+                callback(data);
+            }
+        });
+    }
 };
 
 $(document).ready(function() {
@@ -347,6 +356,8 @@ $("#guardar-tipo-usuario").click(function() {
 $("#guardar-usuario").click(function() {
 
     var obj = {};
+
+    obj.perfil = $.trim($('#modulo').val());
     obj.id_usuario = $.trim($('#id_usuario').val());
     obj.nombres = $.trim($('#nombres').val());
     obj.apellido_paterno = $('#apellido_paterno').val();
@@ -356,7 +367,12 @@ $("#guardar-usuario").click(function() {
     obj.tipo_documento = $('#tipo_documento').val();
     obj.num_documento = $.trim($('#num_documento').val());
     obj.tipo_usuario = $.trim($('#tipo_usuario').val());
-    obj.estado = ($('#estado_usuario').is(":checked")) ? 1 : 0;
+
+    if (obj.perfil == "perfil") {
+        obj.estado = $.trim($('#estado_usuario').val());
+    } else {
+        obj.estado = ($('#estado_usuario').is(":checked")) ? 1 : 0;
+    }
     obj.csrf_patbin_tkn = $("#token").val();
 
 
@@ -367,7 +383,7 @@ $("#guardar-usuario").click(function() {
             nombres: {
                 required: true
             },
-            apellio_paterno: {
+            apellido_paterno: {
                 required: true
             },
             apellido_materno: {
@@ -402,7 +418,6 @@ $("#guardar-usuario").click(function() {
     if (!formulario.form()) {
         return;
     } else {
-
         usuarioJS.agregar_usuario(obj, function(data) {
             if (data.status == 'success') {
                 ventasJS.msj.success('Aviso:', data.msg);
@@ -420,7 +435,42 @@ $("#guardar-usuario").click(function() {
 
 });
 
+$("#actualizar-contrasena").click(function() {
+    var obj = {};
 
+    obj.id_usuario = $.trim($('#id_usuario').val());
+    obj.nueva_clave = $.trim($('#nueva_clave').val());
+    obj.nueva_clave_rep = $.trim($('#nueva_clave_rep').val());
+
+    var form = $('#form-clave');
+    var formulario = form.validate({
+        errorElement: 'div',
+        rules: {
+            nueva_clave: {
+                required: true
+            },
+            nueva_clave_rep: {
+                required: true,
+                equalTo: "#nueva_clave"
+            }
+        }
+
+    });
+
+    if (!formulario.form()) {
+        return;
+    } else {
+        usuarioJS.cambiar_contrasena(obj, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
+            }
+        });
+    }
+
+
+});
 
 function getTipoUsuarioById(id) {
     usuarioJS.obtener_tipo_usuario(id, function(data) {
