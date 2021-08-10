@@ -8,16 +8,14 @@ class Login extends Sys_Controller  {
 	function __construct()
     {
         parent::__construct(FALSE);
-        
-        $this->load->model('Usuario_model', 't_usuario');
 
-        session_write_close();
+        // session_write_close();
     }
 
 
 	public function index(){
         if(isset($this->usuario_login) && $this->usuario_login !== FALSE){
-			redirect('/acceso/home', 'refresh');
+			redirect('/content/usuario/perfil', 'refresh');
 		}else{
 			$data = array();
 			$this->load->view('login', $data);
@@ -56,9 +54,8 @@ class Login extends Sys_Controller  {
                         'flg_estado' =>$data[0]["flg_estado"],
                         'logged_in' => TRUE);
                     
-                        
-                    $this->session->set_userdata($sess_array);
                     
+                    $this->session->set_userdata('usuario_login', $sess_array);
                     
                     
                     
@@ -87,6 +84,7 @@ class Login extends Sys_Controller  {
 
         
     }
+
 
 }
 

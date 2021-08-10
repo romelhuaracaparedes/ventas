@@ -13,13 +13,15 @@ class Sys_Controller extends CI_Controller {
 	{
 		parent::__construct();
 
-		// $this->validar_login = $validar;
-        // $this->usuario_login = $this->session->userdata('usuario_login');
+		$this->validar_login = $validar;
+        $this->usuario_login = $this->session->userdata('usuario_login');
 		// $this->usuario_sesion = $this->session->userdata('usuario_sesion');
 
-		// if(!$this->usuario_login && $this->validar_login){
-		// 	redirect('/login', 'refresh');
-		// }
+		$this->load->model('usuario_model', 't_usuario');
+
+		if(!$this->usuario_login && $this->validar_login){
+			redirect('/login', 'refresh');
+		}
 		//elseif($this->usuario_login && $this->validar_login){
 			// $sesion = $this->m_sesion->get_SesionActiva($this->usuario_login);
 			// if(!$sesion || $sesion['ipmaqreg']!=$this->_getIP()){
@@ -49,6 +51,14 @@ class Sys_Controller extends CI_Controller {
 	{
 		header('Content-Type: application/json');
 		echo json_encode( $arr );
+	}
+
+	public function cerrarSesion(){
+		$this->session->set_userdata('usuario_login', FALSE);
+		$this->usuario_login = NULL;
+		$this->validar_login = false;
+		redirect('/login','refresh');
+
 	}
 
 

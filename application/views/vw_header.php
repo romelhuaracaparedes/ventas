@@ -209,6 +209,11 @@
                     <a class="main-header-menu-icon" href="#" id="mainSidebarToggle"><span></span></a>
                 </div>
                 <div class="main-header-center">
+
+                <?php echo '<div>';
+                var_dump($_SESSION);
+                echo '</div>'; ?>
+
                     <div class="responsive-logo">
                         <a href="index.html"><img src="<?=base_url()?>assets/img/brand/logo.png" class="mobile-logo" alt="logo"></a>
                         <a href="index.html"><img src="<?=base_url()?>assets/img/brand/logo-light.png" class="mobile-logo-dark" alt="logo"></a>
@@ -281,8 +286,8 @@
                             <a class="dropdown-item" href="profile.html">
                                 <i class="fe fe-compass"></i> Activity
                             </a>
-                            <a class="dropdown-item" href="signin.html">
-                                <i class="fe fe-power"></i> Sign Out
+                            <a class="dropdown-item" href="<?php echo base_url(); ?>login/cerrarSesion">
+                                <i class="fe fe-power"></i> Cerrar Sesión
                             </a>
                         </div>
                     </div>
@@ -374,8 +379,8 @@
                                 <a class="dropdown-item" href="profile.html">
                                     <i class="fe fe-compass"></i> Activity
                                 </a>
-                                <a class="dropdown-item" href="signin.html">
-                                    <i class="fe fe-power"></i> Sign Out
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>login/cerrarSesion">
+                                    <i class="fe fe-power"></i> Cerrar Sesión
                                 </a>
                             </div>
                         </div>
