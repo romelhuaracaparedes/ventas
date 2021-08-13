@@ -1,10 +1,19 @@
+<?php
 
+echo '<pre>';
+var_dump($_SESSION);
+echo '</pre>';
+
+?>
 <style type="text/css">
     .list_eleccion :hover{
         background-color: white;
         border-radius: 1em;
     }
 </style>
+
+
+
 
 <div class="container-fluid">
     <div class="inner-body">
@@ -350,6 +359,8 @@
         </div>
     </div>
 </div>
+
+
 
 <!-- end pedido  -->
 

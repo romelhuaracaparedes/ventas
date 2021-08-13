@@ -98,7 +98,7 @@
     <script src="<?=base_url()?>assets/js/table-data.js"></script>
     
 	<script>
-    ventasJS.init('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>');
+    ventasJS.init('<?php echo $this->security->get_csrf_token_name(); ?>','<?php echo $this->security->get_csrf_hash(); ?>','<?php $_SESSION["usuario_login"]["numero_documento"];?>', '<?php $_SESSION["usuario_login"]["tipo_usuario"];?>');
     </script>
     
     <?php 

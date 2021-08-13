@@ -19,6 +19,7 @@ class Pago_model extends Base_model {
             'monto' => $monto,
         );
         $query = $this->db->insert($this->model_name, $data);
+
         return $this->db->insert_id();
     }
 

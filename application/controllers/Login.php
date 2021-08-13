@@ -46,10 +46,12 @@ class Login extends Sys_Controller  {
 
                     
                     $sess_array = array(                        
+                        'id_usuario' =>$data[0]["id_usuario"],
                         'numero_documento' =>$data[0]["numero_documento"],
                         'nombres' =>$data[0]["nombres"],
                         'apellido_paterno' =>$data[0]["apellido_paterno"],
                         'apellido_materno' =>$data[0]["apellido_materno"],
+                        'id_tipo_usuario' =>$data[0]["id_tipo_usuario"],
                         'tipo_usuario' =>$data[0]["tipo_usuario"],
                         'flg_estado' =>$data[0]["flg_estado"],
                         'logged_in' => TRUE);

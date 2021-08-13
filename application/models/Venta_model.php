@@ -23,10 +23,12 @@ class Venta_model extends Base_model {
         }
 	}
 
-    public function _get_pedido(){
+    public function _get_pedido($id_usuario){
         $this->db->select(' v.id_venta,v.id_vendedor,v.id_cliente,v.fecha_entrega,v.fecha_pedido,v.tipo_estado,v.flg_pago,v.total,c.numero_documento,c.celular,v.flg_entrega');
         $this->db->from('ventas v'); 
         $this->db->join('clientes c', 'v.id_cliente = c.id_cliente');
+
+        $this->db->where("v.id_vendedor ='".$id_usuario."'");
         // $this->db->order_by('v.fecha_pedido', 'asc');
         $this->db->order_by('v.id_venta', 'desc');
         $query = $this->db->get();

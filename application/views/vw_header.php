@@ -210,9 +210,7 @@
                 </div>
                 <div class="main-header-center">
 
-                <?php echo '<div>';
-                var_dump($_SESSION);
-                echo '</div>'; ?>
+            
 
                     <div class="responsive-logo">
                         <a href="index.html"><img src="<?=base_url()?>assets/img/brand/logo.png" class="mobile-logo" alt="logo"></a>

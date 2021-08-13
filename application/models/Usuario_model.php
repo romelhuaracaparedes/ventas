@@ -11,7 +11,7 @@ class Usuario_model extends Base_model {
     }
 
     public function _get_usuario($usuario, $clave){
-        $this->db->select('u.numero_documento, u.nombres, u.apellido_paterno, u.apellido_materno, t.tipo_usuario, u.flg_estado');
+        $this->db->select('u.id_usuario,u.numero_documento, u.nombres, u.apellido_paterno, u.apellido_materno, u.id_tipo_usuario, t.tipo_usuario, u.flg_estado');
         $this->db->from($this->model_name.' u');
         $this->db->join('tipo_usuario t', 'u.id_tipo_usuario = t.id_tipo_usuario');
         $this->db->where('numero_documento =\''.$usuario.'\' and clave=\''.$clave.'\'');

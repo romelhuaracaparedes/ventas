@@ -81,7 +81,8 @@ class Venta extends Sys_Controller {
         $result['status'] = 'success';
         $result['msg'] = 'Se listó correctamente...';   
 
-        $data= $this->t_venta->_get_pedido();
+        $id_usuario =  $this->usuario_login['id_usuario'];
+        $data= $this->t_venta->_get_pedido($id_usuario);
 
 
         foreach ($data as $key =>  $val) {
@@ -113,7 +114,7 @@ class Venta extends Sys_Controller {
         // print_r(@$_POST['header']['fecha_pedido']);exit();
 
         // $id_vendedor = @$_POST['id_vendedor'];       
-        $id_vendedor = 1;       
+        $id_vendedor =  $this->usuario_login['id_usuario'];    //1;       
 		$id_cliente = @$_POST['header']['id_cliente'];    
         $total = 0;    
         $tipo_estado = 1;    
@@ -194,7 +195,7 @@ class Venta extends Sys_Controller {
     }
     public function agregarPago()
     {
-        $id_vendedor = 1;   
+        $id_vendedor = $this->usuario_login['id_usuario'];   
         $id_venta = @$_POST['venta'];    
         $id_cliente = @$_POST['cliente'];   
         $monto = @$_POST['monto'];   
