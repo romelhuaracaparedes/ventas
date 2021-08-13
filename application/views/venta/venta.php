@@ -1,10 +1,4 @@
-<?php
 
-echo '<pre>';
-var_dump($_SESSION);
-echo '</pre>';
-
-?>
 <style type="text/css">
     .list_eleccion :hover{
         background-color: white;
@@ -89,7 +83,7 @@ echo '</pre>';
 												<i class="fe fe-calendar lh--9 op-6"></i>
 											</div>
                                         </div>
-                                        <input class="form-control" id="fechapedido" placeholder="dd/mm/yyyy" type="text">
+                                        <input class="form-control" id="fechapedido" placeholder="dd/mm/yyyy" type="text" autocomplete="off">
 									</div>
 								</div>
 								
@@ -103,7 +97,7 @@ echo '</pre>';
 												<i class="fe fe-calendar lh--9 op-6"></i>
 											</div>
                                         </div>
-                                        <input class="form-control" id="fechaentrega" placeholder="dd/mm/yyyy" type="text">
+                                        <input class="form-control" id="fechaentrega" placeholder="dd/mm/yyyy" type="text" autocomplete="off">
 									</div>
 								</div>
                             </div>
@@ -123,10 +117,6 @@ echo '</pre>';
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="row py-2">
-                            <!-- <div class="col-md-4 pt-md-0 pt-3">
-                                <label for="documento">N° documento</label>
-                                <input type="text" class="form-control" id="documento">
-                            </div> -->
                             <div class="col-md-8 pb-4">                                            
                                     <label for="producto">Producto</label>
                                     

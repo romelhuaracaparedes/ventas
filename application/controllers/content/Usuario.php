@@ -40,7 +40,7 @@ class Usuario extends Sys_Controller {
         $data_header = array();
 
         
-        $data['perfil']= $this->t_usuario->_get_perfil(87654321); 
+        $data['perfil']= $this->t_usuario->_get_perfil($this->usuario_login['numero_documento']); 
         
         $this->sys_render('perfil', $data, $data_header, $parametroFooter);
     }
