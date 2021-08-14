@@ -245,7 +245,7 @@
                     <div class="row py-2">
                         <div class="col-md-4 pt-md-0 pt-3">
                             <label for="direccion">Dirección</label>
-                            <input type="text" class="form-control" id="cireccion" name="direccion">
+                            <input type="text" class="form-control" id="direccion_cliente" name="direccion">
                         </div>
                         <div class="col-md-4">
                             <label for="celular">Celular</label>

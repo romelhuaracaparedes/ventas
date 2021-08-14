@@ -36,6 +36,33 @@ class Cliente extends Sys_Controller {
         $this->json_output($data);
     }
 
+
+
+    public function registarCliente(){
+
+        $nombre = $this->input->post('nombre');
+        $apellido_paterno = $this->input->post('apellido_paterno');
+        $apellido_materno = $this->input->post('apellido_materno');
+        $direccion = $this->input->post('direccion');
+        $celular = $this->input->post('celular');
+        $tipo_documento = $this->input->post('tipo_documento');
+        $num_documento = $this->input->post('num_documento');
+
+           
+
+        $data = $this->t_cliente->_registrar_cliente($nombre,$apellido_paterno,$apellido_materno,$direccion,$celular,$tipo_documento,$num_documento);
+
+        if($data){
+            $result['status'] = 'success';
+            $result['msg'] = 'Se registró correctamente';	
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al registrar';	
+        }
+
+        $this->json_output($result);
+
+    }
     // public function registrarCategoria(){
 
     //     $nombre_caterogia = @$_POST['nombre_caterogia'];       
