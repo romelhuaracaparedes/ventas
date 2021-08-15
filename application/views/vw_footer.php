@@ -6,7 +6,7 @@
             <div class="container">
                 <div class="row row-sm">
                     <div class="col-md-12">
-                        <span>Copyright © 2021 <a href="#">Spruko</a> Todos los derechos reservados.</span>
+                        <span>Copyright © 2021 <a href="#">Valessa</a> Todos los derechos reservados.</span>
                     </div>
                 </div>
             </div>

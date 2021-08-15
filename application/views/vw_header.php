@@ -80,8 +80,8 @@
         <!-- Sidemenu -->
         <div class="main-sidebar main-sidebar-sticky side-menu">
             <div class="sidemenu-logo">
-                <a class="main-logo" href="index.html">
-                    <img src="<?=base_url()?>assets/img/brand/logo-light.png" class="header-brand-img desktop-logo" alt="logo">
+                <a class="main-logo" href="<?=base_url()?>content/usuario/perfil">
+                    <img src="<?=base_url()?>assets/img/brand/logo-light.png" class="header-brand-img desktop-logo" alt="logo" style="width: 150px;">
                     <img src="<?=base_url()?>assets/img/brand/icon-light.png" class="header-brand-img icon-logo" alt="logo">
                     <img src="<?=base_url()?>assets/img/brand/logo.png" class="header-brand-img desktop-logo theme-logo" alt="logo">
                     <img src="<?=base_url()?>assets/img/brand/icon.png" class="header-brand-img icon-logo theme-logo" alt="logo">
@@ -95,107 +95,107 @@
                             <span class="shape1">
                             </span><span class="shape2">
                             </span><i class="ti-home sidemenu-icon"></i>
-                            <span class="sidemenu-label">Dashboard</span>
+                            <span class="sidemenu-label">Mi perfil</span>
                         </a>
                     </li>
 
-
-                    <li class="nav-item">
-                        <a class="nav-link with-sub" href="#">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-user sidemenu-icon"></i>
-                            <span class="sidemenu-label">Usuario</span>
-                            <i class="angle fe fe-chevron-right"></i></a>
-                        <ul class="nav-sub">
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/usuario">Lista Usuarios</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/usuario/tipousuario">Tipo Usuario</a>
-                            </li>
-                        </ul>
-                    </li>
+                    <?php
+                        $perfil = $_SESSION["usuario_login"]["id_tipo_usuario"];
+                    ?>
 
 
-                    <li class="nav-item">
-                        <a class="nav-link with-sub" href="#">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-shopping-cart-full sidemenu-icon"></i>
-                            <span class="sidemenu-label">Ventas</span>
-                            <i class="angle fe fe-chevron-right"></i></a>
-                        <ul class="nav-sub">
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/venta">Venta</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/venta/listar">Lista Ventas</a>
-                            </li>
-                        </ul>
-                    </li>
+                    <?php if($perfil == 1 || $perfil == 2){?>
+                        <li class="nav-item">
+                            <a class="nav-link with-sub" href="#">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
+                                <i class="ti-shopping-cart-full sidemenu-icon"></i>
+                                <span class="sidemenu-label">Ventas</span>
+                                <i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="nav-sub">
+                                <li class="nav-sub-item">
+                                    <a class="nav-sub-link" href="<?=base_url()?>content/venta">Venta</a>
+                                </li>
+                                <li class="nav-sub-item">
+                                    <a class="nav-sub-link" href="<?=base_url()?>content/venta/listar">Lista Ventas</a>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php } ?>
 
+                    <?php if($perfil == 1 || $perfil == 2){?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=base_url()?>content/deuda/listar">
-                            <span class="shape1">
-                            </span><span class="shape2">
-                            </span><i class="ti-money sidemenu-icon"></i>
-                            <span class="sidemenu-label">Deudas</span>
-                        </a>
-                    </li>
-                    
-                       
-                    <li class="nav-item">
-                        <a class="nav-link with-sub" href="#">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-package sidemenu-icon"></i>
-                            <span class="sidemenu-label">Almacen</span>
-                            <i class="angle fe fe-chevron-right"></i></a>
-                        <ul class="nav-sub">
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/categoria">Categoría</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/presentacion">Presentación</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/marca">Marca</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/producto">Producto</a>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?=base_url()?>content/deuda/listar">
+                                <span class="shape1">
+                                </span><span class="shape2">
+                                </span><i class="ti-money sidemenu-icon"></i>
+                                <span class="sidemenu-label">Deudas</span>
+                            </a>
+                        </li>
 
+                    <?php } ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?=base_url()?>content/precio/">
-                            <span class="shape1">
-                            </span><span class="shape2">
-                            </span><i class="ti-wallet sidemenu-icon"></i>
-                            <span class="sidemenu-label">Precios</span>
-                        </a>
-                    </li>
-                    
+                    <?php if($perfil == 1 || $perfil == 3){?>
+                        <li class="nav-item">
+                            <a class="nav-link with-sub" href="#">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
+                                <i class="ti-package sidemenu-icon"></i>
+                                <span class="sidemenu-label">Almacen</span>
+                                <i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="nav-sub">
+                                <li class="nav-sub-item">
+                                    <a class="nav-sub-link" href="<?=base_url()?>content/categoria">Categoría</a>
+                                </li>
+                                <li class="nav-sub-item">
+                                    <a class="nav-sub-link" href="<?=base_url()?>content/presentacion">Presentación</a>
+                                </li>
+                                <li class="nav-sub-item">
+                                    <a class="nav-sub-link" href="<?=base_url()?>content/marca">Marca</a>
+                                </li>
+                                <li class="nav-sub-item">
+                                    <a class="nav-sub-link" href="<?=base_url()?>content/producto">Producto</a>
+                                </li>
+                            </ul>
+                        </li>
+                    <?php } ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link with-sub" href="#">
-                            <span class="shape1"></span>
-                            <span class="shape2"></span>
-                            <i class="ti-bar-chart-alt sidemenu-icon"></i>
-                            <span class="sidemenu-label">Reportes</span>
-                            <i class="angle fe fe-chevron-right"></i></a>
-                        <ul class="nav-sub">
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/reporte/venta">Venta</a>
-                            </li>
-                            <li class="nav-sub-item">
-                                <a class="nav-sub-link" href="<?=base_url()?>content/reporte/pedido">Pedido</a>
-                            </li>
-                        </ul>
-                    </li>
+                    <?php if($perfil == 1){?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?=base_url()?>content/precio/">
+                                <span class="shape1">
+                                </span><span class="shape2">
+                                </span><i class="ti-wallet sidemenu-icon"></i>
+                                <span class="sidemenu-label">Precios</span>
+                            </a>
+                        </li>
+                    <?php } ?>
+
+                    <?php if($perfil == 1 || $perfil == 3){?>
+                        <li class="nav-item">
+                            <a class="nav-link with-sub" href="#">
+                                <span class="shape1"></span>
+                                <span class="shape2"></span>
+                                <i class="ti-bar-chart-alt sidemenu-icon"></i>
+                                <span class="sidemenu-label">Reportes</span>
+                                <i class="angle fe fe-chevron-right"></i></a>
+                            <ul class="nav-sub">
+
+                                <?php if($perfil == 1){?>
+                                    <li class="nav-sub-item">
+                                        <a class="nav-sub-link" href="<?=base_url()?>content/reporte/venta">Venta</a>
+                                    </li>
+                                <?php } ?>
+
+                                <?php if($perfil == 3){?>
+                                    <li class="nav-sub-item">
+                                        <a class="nav-sub-link" href="<?=base_url()?>content/reporte/pedido">Pedido</a>
+                                    </li>
+                                <?php } ?>                                
+                            </ul>
+                        </li>
+                    <?php } ?>
               
                 </ul>
             </div>
@@ -226,74 +226,24 @@
                             <i class="fe fe-minimize fullscreen-button exit-fullscreen header-icons"></i>
                         </a>
                     </div>
-                    <div class="dropdown main-header-notification">
-                        <a class="nav-link icon" href="#">
-                            <i class="fe fe-bell header-icons"></i>
-                            <span class="badge badge-danger nav-link-badge">4</span>
-                        </a>
-                        <div class="dropdown-menu">
-                            <div class="header-navheading">
-                                <p class="main-notification-text">You have 1 unread notification<span class="badge badge-pill badge-primary ml-3">View all</span></p>
-                            </div>
-                            <div class="main-notification-list">
-                                <div class="media new">
-                                    <div class="main-img-user online"><img alt="avatar" src="<?=base_url()?>assets/img/users/5.jpg"></div>
-                                    <div class="media-body">
-                                        <p>Congratulate <strong>Olivia James</strong> for New template start</p><span>Oct 15 12:32pm</span>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <div class="main-img-user"><img alt="avatar" src="<?=base_url()?>assets/img/users/2.jpg"></div>
-                                    <div class="media-body">
-                                        <p><strong>Joshua Gray</strong> New Message Received</p><span>Oct 13 02:56am</span>
-                                    </div>
-                                </div>
-                                <div class="media">
-                                    <div class="main-img-user online"><img alt="avatar" src="<?=base_url()?>assets/img/users/3.jpg"></div>
-                                    <div class="media-body">
-                                        <p><strong>Elizabeth Lewis</strong> added new schedule realease</p><span>Oct 12 10:40pm</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dropdown-footer">
-                                <a href="#">View All Notifications</a>
-                            </div>
-                        </div>
-                    </div>
+                    
                     <div class="dropdown main-profile-menu">
                         <a class="d-flex" href="#">
                             <span class="main-img-user"><img alt="avatar" src="<?=base_url()?>assets/img/users/1.jpg"></span>
                         </a>
                         <div class="dropdown-menu">
                             <div class="header-navheading">
-                                <h6 class="main-notification-title">Sonia Taylor</h6>
-                                <p class="main-notification-text">Web Designer</p>
+                                <h6 class="main-notification-title">Bienvenido</h6>
                             </div>
-                            <a class="dropdown-item border-top" href="profile.html">
-                                <i class="fe fe-user"></i> My Profile
-                            </a>
-                            <a class="dropdown-item" href="profile.html">
-                                <i class="fe fe-edit"></i> Edit Profile
-                            </a>
-                            <a class="dropdown-item" href="profile.html">
-                                <i class="fe fe-settings"></i> Account Settings
-                            </a>
-                            <a class="dropdown-item" href="profile.html">
-                                <i class="fe fe-settings"></i> Support
-                            </a>
-                            <a class="dropdown-item" href="profile.html">
-                                <i class="fe fe-compass"></i> Activity
+                            <a class="dropdown-item border-top" href="<?=base_url()?>content/usuario/perfil">
+                                <i class="fe fe-user"></i> Mi perfil
                             </a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>login/cerrarSesion">
                                 <i class="fe fe-power"></i> Cerrar Sesión
                             </a>
                         </div>
                     </div>
-                    <div class="dropdown d-md-flex header-settings">
-                        <a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
-                            <i class="fe fe-align-right header-icons"></i>
-                        </a>
-                    </div>
+                    
                     <button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
                     </button>
@@ -308,64 +258,26 @@
             <div class="mb-1 navbar navbar-expand-lg  nav nav-item  navbar-nav-right responsive-navbar navbar-dark  ">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                     <div class="d-flex order-lg-2 ml-auto">
-                        <div class="dropdown header-search">
-                            <a class="nav-link icon header-search">
-                                <i class="fe fe-search header-icons"></i>
-                            </a>
-                        </div>
+                        
                         <div class="dropdown full-screen-link">
                             <a class="nav-link icon ">
                                 <i class="fe fe-maximize fullscreen-button fullscreen header-icons"></i>
                                 <i class="fe fe-minimize fullscreen-button exit-fullscreen header-icons"></i>
                             </a>
                         </div>
-                        <div class="dropdown main-header-notification">
-                            <a class="nav-link icon" href="#">
-                                <i class="fe fe-bell header-icons"></i>
-                                <span class="badge badge-danger nav-link-badge">4</span>
-                            </a>
-                            <div class="dropdown-menu">
-                                <div class="header-navheading">
-                                    <p class="main-notification-text">You have 1 unread notification<span class="badge badge-pill badge-primary ml-3">View all</span></p>
-                                </div>
-                                <div class="main-notification-list">
-                                    <div class="media new">
-                                        <div class="main-img-user online"><img alt="avatar" src="<?=base_url()?>assets/img/users/5.jpg"></div>
-                                        <div class="media-body">
-                                            <p>Congratulate <strong>Olivia James</strong> for New template start</p><span>Oct 15 12:32pm</span>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="main-img-user"><img alt="avatar" src="<?=base_url()?>assets/img/users/2.jpg"></div>
-                                        <div class="media-body">
-                                            <p><strong>Joshua Gray</strong> New Message Received</p><span>Oct 13 02:56am</span>
-                                        </div>
-                                    </div>
-                                    <div class="media">
-                                        <div class="main-img-user online"><img alt="avatar" src="<?=base_url()?>assets/img/users/3.jpg"></div>
-                                        <div class="media-body">
-                                            <p><strong>Elizabeth Lewis</strong> added new schedule realease</p><span>Oct 12 10:40pm</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dropdown-footer">
-                                    <a href="#">View All Notifications</a>
-                                </div>
-                            </div>
-                        </div>
+                        
                         <div class="dropdown main-profile-menu">
                             <a class="d-flex" href="#">
                                 <span class="main-img-user"><img alt="avatar" src="<?=base_url()?>assets/img/users/1.jpg"></span>
                             </a>
                             <div class="dropdown-menu">
                                 <div class="header-navheading">
-                                    <h6 class="main-notification-title">Sonia Taylor</h6>
-                                    <p class="main-notification-text">Web Designer</p>
+                                    <h6 class="main-notification-title">Bienvenido</h6>
                                 </div>
-                                <a class="dropdown-item border-top" href="profile.html">
-                                    <i class="fe fe-user"></i> My Profile
+                                <a class="dropdown-item border-top" href="usuario/perfil">
+                                    <i class="fe fe-user"></i> Mi perfil
                                 </a>
-                                <a class="dropdown-item" href="profile.html">
+                                <!-- <a class="dropdown-item" href="profile.html">
                                     <i class="fe fe-edit"></i> Edit Profile
                                 </a>
                                 <a class="dropdown-item" href="profile.html">
@@ -376,17 +288,13 @@
                                 </a>
                                 <a class="dropdown-item" href="profile.html">
                                     <i class="fe fe-compass"></i> Activity
-                                </a>
+                                </a> -->
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>login/cerrarSesion">
                                     <i class="fe fe-power"></i> Cerrar Sesión
                                 </a>
                             </div>
                         </div>
-                        <div class="dropdown  header-settings">
-                            <a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right">
-                                <i class="fe fe-align-right header-icons"></i>
-                            </a>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

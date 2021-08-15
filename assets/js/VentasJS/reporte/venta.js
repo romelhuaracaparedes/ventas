@@ -3,7 +3,7 @@ var jsonDefault = {}
 
 var reporteJS = {
 
-    flltarreporte: function(dataGen, callback){
+    flltarreporte: function(dataGen, callback) {
         ventasJS.post('filtrarventa', dataGen, function(data) {
             console.log(data);
             if (callback) {
@@ -16,7 +16,7 @@ var reporteJS = {
         var tblEntidad = $('#tablaventas').DataTable({
             responsive: true,
             retrieve: true,
-            data:jsonDefault,
+            data: jsonDefault,
             columns: [{
 
                     title: 'N° PEDIDO',
@@ -26,7 +26,7 @@ var reporteJS = {
 
                     title: 'FECHA ',
                     render: function(value, type, row) {
-                        return "Pedido: " + row.fecha_pedido ;
+                        return "Pedido: " + row.fecha_pedido;
                     }
                 },
                 {
@@ -64,63 +64,61 @@ var reporteJS = {
 
                 }
 
-            ], 
+            ],
             dom: 'Bfrtip',
             "buttons": [{
-                extend: 'pdfHtml5',
-                text: '<i class="fa fa-file-pdf-o"></i> PDF ',
-                messageTop: function() {
-                    return "FECHA: "+ $('#reportrange').data('daterangepicker').startDate.format('DD-MM-YYYY') +" AL "+$('#reportrange').data('daterangepicker').endDate.format('DD-MM-YYYY')+"  VENDEDOR: "+$('#slcvendedor :selected').text();
-                },
-                title: '',
-                titleAttr: 'Exportar a PDF',
-                download: 'open',
-                exportOptions: {
-                    columns: ':visible'
-                },
-                customize: function (doc) {
-                    doc.content[1].table.widths = 
-                    Array(doc.content[1].table.body[0].length + 1).join('*').split('');
-
-                    doc.content[1].alignment = 'center';
-
-                    doc.content.splice(0, 0, {
-                        columns: [
-                            {
-                                text: '"Tiendas de Pedidos "',
-                                fontSize: 10,
-                                italics: true,
-                                alignment: 'right',
-                                margin: [0, 15, 0, 15],
-                                width: '*'
-                            },
-                        ],
+                    extend: 'pdfHtml5',
+                    text: '<i class="fa fa-file-pdf-o"></i> PDF ',
+                    messageTop: function() {
+                        return "FECHA: " + $('#reportrange').data('daterangepicker').startDate.format('DD-MM-YYYY') + " AL " + $('#reportrange').data('daterangepicker').endDate.format('DD-MM-YYYY') + "  VENDEDOR: " + $('#slcvendedor :selected').text();
                     },
+                    title: '',
+                    titleAttr: 'Exportar a PDF',
+                    download: 'open',
+                    exportOptions: {
+                        columns: ':visible'
+                    },
+                    customize: function(doc) {
+                        doc.content[1].table.widths =
+                            Array(doc.content[1].table.body[0].length + 1).join('*').split('');
 
-                    {
-                        columns: [{
-                            text: 'REPORTE DE VENTAS',
-                            fontSize: 14,
-                            bold: true,
-                            alignment: 'center',
-                            margin: [0, 10, 0, 5]
-                        }]
+                        doc.content[1].alignment = 'center';
+
+                        doc.content.splice(0, 0, {
+                                columns: [{
+                                    text: '"Tiendas de Pedidos "',
+                                    fontSize: 10,
+                                    italics: true,
+                                    alignment: 'right',
+                                    margin: [0, 15, 0, 15],
+                                    width: '*'
+                                }, ],
+                            },
+
+                            {
+                                columns: [{
+                                    text: 'REPORTE DE VENTAS',
+                                    fontSize: 14,
+                                    bold: true,
+                                    alignment: 'center',
+                                    margin: [0, 10, 0, 5]
+                                }]
+                            }
+                        )
                     }
-                    )
-                }
 
-            },
-            {
-                extend: 'excelHtml5',
-                text: '<i class="fa fa-file-excel-o"></i> EXCEL ',
-                messageTop: function() {
-                    return "FECHA: "+ $('#reportrange').data('daterangepicker').startDate.format('DD-MM-YYYY') +" AL "+$('#reportrange').data('daterangepicker').endDate.format('DD-MM-YYYY')+"  VENDEDOR: "+$('#slcvendedor :selected').text();
                 },
-                title: "REPORTE DE VENTAS",
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
+                {
+                    extend: 'excelHtml5',
+                    text: '<i class="fa fa-file-excel-o"></i> EXCEL ',
+                    messageTop: function() {
+                        return "FECHA: " + $('#reportrange').data('daterangepicker').startDate.format('DD-MM-YYYY') + " AL " + $('#reportrange').data('daterangepicker').endDate.format('DD-MM-YYYY') + "  VENDEDOR: " + $('#slcvendedor :selected').text();
+                    },
+                    title: "REPORTE DE VENTAS",
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
             ]
         });
 
@@ -190,17 +188,17 @@ $(function() {
     reporteJS.listarPedidos()
 });
 
-$('#search_report').click(function(){
+$('#search_report').click(function() {
     var fechaStart = $('#reportrange').data('daterangepicker').startDate.format('YYYY-MM-DD');
-    var fechaEnd   = $('#reportrange').data('daterangepicker').endDate.format('YYYY-MM-DD');
-    var vendedor   = $('#slcvendedor').val();
+    var fechaEnd = $('#reportrange').data('daterangepicker').endDate.format('YYYY-MM-DD');
+    var vendedor = $('#slcvendedor').val();
 
-    var genData ={};
+    var genData = {};
     var msj_error = '';
 
-    genData.fechaStart =fechaStart;
-    genData.fechaEnd =fechaEnd;
-    genData.vendedor =vendedor;
+    genData.fechaStart = fechaStart;
+    genData.fechaEnd = fechaEnd;
+    genData.vendedor = vendedor;
 
     if (vendedor == '') {
         msj_error = "Seleccione vendedor";
@@ -209,19 +207,19 @@ $('#search_report').click(function(){
     if (msj_error == '') {
 
         reporteJS.flltarreporte(genData, function(data) {
-            if (data.length >0) {
+            if (data.length > 0) {
 
                 ventasJS.msj.success('Aviso:', 'Datos cargados!');
                 $('#tablaventas').dataTable().fnClearTable();
                 $("#tablaventas").dataTable().fnAddData(data);
                 $('#tablaventas').dataTable().fnDraw();
-            }else{
+            } else {
                 $('#tablaventas').dataTable().fnClearTable();
-                ventasJS.msj.warning('Aviso:',"Sin registros");
+                ventasJS.msj.warning('Aviso:', "Sin registros");
 
             }
 
-            
+
         });
 
     } else {
@@ -235,11 +233,5 @@ $('#slcvendedor').select2({
     language: {
         noResults: () => "No se encontraron resultados"
     },
-    placeholder: "Digita el nombre del cliente"
+    placeholder: "Digita el nombre del vendedor"
 });
-
-
-
-
-
-
