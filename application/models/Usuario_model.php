@@ -19,6 +19,8 @@ class Usuario_model extends Base_model {
         
         $query = $this->db->get();
         
+    
+        
         if($query){
             return $query->result_array();
         }else{

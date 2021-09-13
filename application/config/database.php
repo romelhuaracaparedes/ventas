@@ -7,9 +7,9 @@ $query_builder = TRUE;
 
 $db['default'] = [
     'hostname' => 'localhost',
-    'username' => 'root',
-    'password' => '',
-    'database' => 'db_ventas',
+    'username' => 'valessac_ventas',
+    'password' => 'Valessa1@',
+    'database' => 'valessac_dbventas',
     'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => true,

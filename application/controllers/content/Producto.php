@@ -112,6 +112,20 @@ class Producto extends Sys_Controller {
         $this->json_output($result);
     }
 
+    public function actualizarStock(){
+        $id_producto = @$_POST['id_producto'];    
+        $stock = @$_POST['stock'];    
+        $data = $this->t_producto->_update_stock($id_producto,$stock);
 
+        if($data){
+            $result['status'] = 'success';
+            $result['msg'] = 'Se actualizó correctamente';	
+        }else{
+            $result['status'] = 'error';
+            $result['msg'] = 'Ocurrio un error al actualizar';	
+        }
+
+        $this->json_output($result);
+    }
 
 }

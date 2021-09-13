@@ -23,7 +23,7 @@
             <div class="d-flex">
                 <div class="justify-content-center">
 
-                    <a href="/ventas/content/venta/listar" type="button" class="btn btn-primary my-2 btn-icon-text">
+                    <a href="/content/venta/listar" type="button" class="btn btn-primary my-2 btn-icon-text">
                        <i class="fe fe-arrow-left mr-2"></i> Regresar a Lista
                     </a>
                 </div>
@@ -46,7 +46,7 @@
                                         <option></option>
                                         <?php if ($clientes) { ?>
                                             <?php foreach ($clientes as $dist) { ?>
-                                                <option value="<?php echo $dist['id_cliente']; ?>" data-ndocumento="<?php echo $dist['numero_documento']; ?>" data-direccion="<?php echo $dist['direccion']; ?>"  data-celular="<?php echo $dist['celular']; ?>"><?php echo utf8_encode($dist['nombres']); ?></option>
+                                                <option value="<?php echo $dist['id_cliente']; ?>" data-ndocumento="<?php echo $dist['numero_documento']; ?>" data-direccion="<?php echo $dist['direccion']; ?>"  data-celular="<?php echo $dist['celular']; ?>"><?php echo utf8_encode($dist['numero_documento']." ".$dist['nombres']." ".$dist['apellido_paterno']); ?></option>
                                             <?php } ?>
                                         <?php } ?>
 											
@@ -124,7 +124,7 @@
                                         <option></option>
                                         <?php if ($productos) { ?>
                                             <?php foreach ($productos as $dist) { ?>
-                                                <option value="<?php echo $dist['id_producto']; ?>" data-stock="<?php echo $dist['stock']; ?>" data-preciounit="<?php echo $dist['precio_venta_unit']; ?>"><?php echo utf8_encode($dist['nombre_producto']); ?></option>
+                                                <option value="<?php echo $dist['id_producto']; ?>" data-stock="<?php echo $dist['stock']; ?>" data-preciounit="<?php echo $dist['precio_venta_unit']; ?>"><?php echo $dist['nombre_producto']." - ".$dist['nombre_marca']." - ".$dist['nombre_presentacion']; ?></option>
                                             <?php } ?>
                                         <?php } ?>
 											
@@ -139,7 +139,7 @@
                             
                             <div class="col-md-1 pb-4">
                                 <label for="cantidad">Cantidad</label>  
-                                <input class="form-control" type="text" id="cantidad">
+                                <input class="form-control" type="text" id="cantidad" onkeypress="return solo_numero(event)">
                                 
                             </div>
                             <div class="col-md-2 pb-4 ">
@@ -182,7 +182,7 @@
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span style="width:80px;" class="input-group-text" id="basic-addon1">I.G.V </span>
-                                    </div><input class="form-control" type="text" value="18%" disabled>
+                                    </div><input class="form-control" type="text"  id="igv_total" disabled>
                                 </div>
                             </div>
                         </div>
@@ -331,6 +331,7 @@
 
                                     <div class="input-group mb-3">
                                         <input type="hidden" name="" class="tipo_pago">
+                                        <input type="hidden" id="monto_total">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">S/. </span>
                                         </div><input aria-describedby="basic-addon1" aria-label="monto" class="form-control c_monto" placeholder="_ _ _ _ _" name="monto" type="text">

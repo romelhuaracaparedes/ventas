@@ -185,8 +185,9 @@ var ventaJS = {
             console.log(unique_values);
 
             $("#detalle_venta").html(html);
-            var total = sub_total - (sub_total * 0.18);
+            var total =  (sub_total / 1.18).toFixed(2);
             $("#sub_total").val(total);
+            $("#igv_total").val((total * 0.18).toFixed(2));
 
             $("#total").val(sub_total);
 
@@ -239,6 +240,27 @@ var ventaJS = {
             if (callback) {
                 callback(data);
             }
+
+        });
+    },
+    
+    agregar_cliente: function(obj, callback) {
+
+        ventasJS.post('cliente/registarCliente', obj, function(data) {
+            console.log(data);
+            if (callback) {
+                callback(data);
+            }
+        });
+    },
+    
+    listar_cliente: function() {
+
+        ventasJS.post('cliente/listarClientes', {}, function(data) {
+            $("#slccliente").html('<option value="0">-- Seleccione --</option>');
+            $.each(data, function(index, obj) {
+                $("#slccliente").append('<option value="' + obj.id_cliente + '" data-ndocumento="' + obj.numero_documento + '" data-direccion="' + obj.direccion + '" data-celular="' + obj.celular + '" >' + obj.nombres + '</option>');
+            });
 
         });
     }
@@ -329,6 +351,8 @@ $(document).ready(function() {
         if (id_venta_general == '') {
             return ventasJS.msj.warning('Aviso:', "Seleccione a un cliente");
         }
+        
+       
         // VENTA
 
         var id_venta = $("#txtIdVenta").val();
@@ -355,7 +379,9 @@ $(document).ready(function() {
 
         var stock = parseInt($("#stock").val());
 
-        var cantidad = parseInt($("#cantidad").val());
+        var cantidad = ($("#cantidad").val());
+        
+        
         var msj_error = '';
 
 
@@ -363,9 +389,13 @@ $(document).ready(function() {
         if (nombre_producto == '') {
             msj_error += 'Selecciona un Producto. <br>';
         }
+        
+        if (precio == '') {
+            msj_error += 'El producto no cuenta con precio. <br>';
+        }
 
-        if (cantidad == '') {
-            msj_error += 'Ingrese una cantidad. <br>';
+        if (cantidad == '' || cantidad == 0) {
+            msj_error += 'Ingrese una cantidad mayor a 0. <br>';
         }
 
         if (cantidad > stock) {
@@ -446,10 +476,20 @@ $(document).ready(function() {
         var tipo = $('.tipo_pago').val();
 
 
+        var monto_total = $("#monto_total").val(); 
+
+
         if (monto == '') {
             msj_error += 'Ingrese una monto a pagar. <br>';
         }
 
+        if (parseFloat(monto) > parseFloat(monto_total)) {
+            msj_error += 'Ingrese un monto correcto. <br>';
+        }
+
+        console.log(parseFloat(monto_total));
+        console.log(parseFloat(monto));
+         
         genData.venta = id_venta;
         genData.cliente = slccliente;
         genData.monto = monto;
@@ -482,11 +522,86 @@ $(document).ready(function() {
 
 });
 
+$("#guardar-cliente").click(function() {
+
+        var obj = {};
+        obj.nombre = $("#nombres").val();
+        obj.apellido_paterno = $("#apellido_paterno").val();
+        obj.apellido_materno = $("#apellido_materno").val();
+        obj.direccion = $("#direccion_cliente").val();
+        obj.celular = $("#celular").val();
+        obj.tipo_documento = $("#tipo_documento").val();
+        obj.num_documento = $("#num_documento").val();
+
+        var msj_error = '';
+
+        if (obj.nombre == '') {
+            msj_error += 'Ingrese nombre. <br>';
+        }
+
+        if (obj.apellido_paterno == '') {
+            msj_error += 'Ingrese apellido paterno. <br>';
+        }
+
+        // if (obj.apellido_materno == '') {
+        //     msj_error += 'Ingrese apellido materno. <br>';
+        // }
+
+        // if (obj.direccion == '') {
+        //     msj_error += 'Ingrese Dirección. <br>';
+        // }
+
+        // if (obj.celular == '') {
+        //     msj_error += 'Ingrese Celular. <br>';
+        // }
+
+        if (obj.tipo_documento == '') {
+            msj_error += 'Ingrese Tipo de documento. <br>';
+        }
+
+        if (obj.num_documento == '') {
+            msj_error += 'Ingrese Numero de Documento. <br>';
+        }
+
+        if (msj_error == '') {
+            ventaJS.agregar_cliente(obj, function(data) {
+                if (data.status == 'success') {
+                    ventasJS.msj.success('Aviso:', data.msg);
+                    $("#modal-cliente").modal('hide');
+
+                    $("#nombres").val('');
+                    $("#apellido_paterno").val('');
+                    $("#apellido_materno").val('');
+                    $("#direccion_cliente").val('');
+                    $("#celular").val('');
+                    $("#tipo_documento").val('1');
+                    $("#num_documento").val('');
+
+                    ventaJS.listar_cliente();
+
+
+                } else {
+                    ventasJS.msj.warning('Aviso:', data.msg);
+                }
+
+
+            });
+
+        } else {
+            ventasJS.msj.warning('Aviso:', msj_error);
+        }
+
+
+    });
+
+
 function eliminar_DetalleVenta(id) {
     ventaJS.eliminar_DetalleVenta(id, function() {
         ventaJS.listarDetalleVenta(id_venta_general);
     });
 }
+
+
 
 $('#slctproducto').select2({
     language: {
@@ -539,29 +654,42 @@ function pago(_tipo) {
     var text_label = "";
     if (_tipo == 1) { text_l = "¿Pagar Pedido?" } else { text_l = "¿Fraccionar Pago?" }
 
-    ventasJS.msj.confirm("¿Está seguro de Eliminar?", "No podrá revertir los cambios", "warning", function() {
-        usuarioJS.eliminar_tipo_usuario(id, function(data) {
-            if (_tipo == 1) { text_label = "" } else { text_label = " Primer " }
+    swal({
+            title: text_l,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+        function(isConfirm) {
+            if (isConfirm) {
 
-            $('.option').text(text_label);
-            $('.formulario_pago').removeClass('d-none')
-            $('.formulario_pago').addClass('d-block')
-            $('.opciones').addClass('d-none')
-            $('.opciones').removeClass('d-block');
+                if (_tipo == 1) { text_label = "" } else { text_label = " Primer " }
+                $('.option').text(text_label);
+                $('.formulario_pago').removeClass('d-none')
+                $('.formulario_pago').addClass('d-block')
+                $('.opciones').addClass('d-none')
+                $('.opciones').removeClass('d-block');
+                $('.tipo_pago').val(_tipo);
 
-            $('.tipo_pago').val(_tipo);
+                if (_tipo == 1) {
 
+                    var total = $("#total").val();
+                    $("input[name='monto']").val(total);
 
-            if (_tipo == 1) {
+                    $("input[name='monto']").prop("disabled", true);
+                }else {
+                    var total = $("#total").val();
+                    $("#monto_total").val(total);
+                }
 
-                var total = $("#total").val();
-                $("input[name='monto']").val(total);
-
-                $("input[name='monto']").prop("disabled", true);
             }
         });
-    });
 }
+
 
 $('.regresar').click(function() {
     $('.formulario_pago').addClass('d-none');
@@ -577,7 +705,17 @@ $('.regresar').click(function() {
 // Exportar PDF
 
 $(".generarComprobante").click(function() {
-    $url = "/ventas/content/venta/pdfventa?cli=" + id_venta_general;
+    $url = "/content/venta/pdfventa?cli=" + id_venta_general;
     window.open($url, "Pedido", 'width=702,height=750')
 
 });
+
+
+function solo_numero(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}

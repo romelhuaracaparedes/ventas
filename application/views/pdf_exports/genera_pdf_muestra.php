@@ -150,14 +150,14 @@ p, label, span, table{
 			<td class="logo_factura">
 				<div>
 
-					<img src="<?=base_url()?>/assets/img/brand/logo-light.png" alt="" border="0" width="150" height="50">
+					<img src="<?=base_url()?>/assets/img/brand/logoValessa.jpeg" alt="" border="0" width="200" height="100">
 				</div>
 			</td>
 			<td class="info_empresa">
 				<div>
-					<span class="h2">SISTEMA VENTAS BRADESCO</span>
+					<span class="h2">SISTEMA VENTAS VALESSA</span>
 					<p>AYACUCHO</p>
-					<p>Teléfono: +(502) 2222-3333</p>
+					<p>Teléfono: 976827567 - 966125414</p>
 					<p>Email: info@badresco.com</p>
 				</div>
 			</td>
@@ -218,7 +218,7 @@ p, label, span, table{
 					$subtotal = round($subtotal + $precio_total, 2);
 				} 
 
-				$impuesto 	= round($subtotal * ($iva / 100), 2);
+				$impuesto 	= round($subtotal / 1.18, 2);
 				$tl_sniva 	= round($subtotal - $impuesto,2 );
 				$total 		= round($tl_sniva + $impuesto,2);
 
@@ -228,11 +228,11 @@ p, label, span, table{
 			<tfoot id="detalle_totales">
 				<tr>
 					<td colspan="3" class="textright"><span><b>SUB TOTAL</b></span></td>
-					<td class="textright"><span> <?php echo $tl_sniva;  ?></span></td>
+					<td class="textright"><span> <?php echo $impuesto;  ?></span></td>
 				</tr>
 				<tr>
-					<td colspan="3" class="textright"><span><b>IVA (18%)</b></span></td>
-					<td class="textright"><span><?php echo $impuesto; ?></span></td>
+					<td colspan="3" class="textright"><span><b>IGV (18%)</b></span></td>
+					<td class="textright"><span><?php echo $tl_sniva; ?></span></td>
 				</tr>
 				<tr>
 					<td colspan="3" class="textright"><span><b>TOTAL</b></span></td>

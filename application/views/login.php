@@ -10,15 +10,12 @@
 
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <meta name="description" content="Spruha - Codeigniter Admin & Dashboard Template">
-    <meta name="author" content="Spruko Technologies Private Limited">
-    <meta name="keywords" content="admin template, admin dashboard, bootstrap dashboard template, bootstrap 4 admin template, codeigniter 4 admin panel, template codeigniter bootstrap, php, codeigniter, php framework, web template, html5 template, php code, php html, codeigniter 4, codeigniter mvc">
-
+  
     <!-- Favicon -->
     <link rel="icon" href="<?=base_url()?>assets/img/brand/favicon.ico" type="image/x-icon" />
 
     <!-- Title -->
-    <title>Spruha - Codeigniter Admin & Dashboard Template</title>
+    <title>Sistemas de Ventas</title>
 
     <!-- Bootstrap css-->
     <link href="<?=base_url()?>assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -104,8 +101,8 @@
                                             <button id="ingresar" type="button" class="btn ripple btn-main-primary btn-block">Iniciar sesión</button>
                                         </form>
                                         <div class="text-left mt-5 ml-0">
-                                            <div class="mb-1"><a href="forgot.html">¿Olvidaste tu contraseña?</a></div>
-                                            <div>¿No tiene una cuenta? <a href="signup.html">solicitar al proveedor</a></div>
+                                            <div class="mb-1"><a href="#">¿Olvidaste tu contraseña?</a></div>
+                                            <div>¿No tiene una cuenta? <a href="tel:+51976827567">solicitar al proveedor</a></div>
                                         </div>
                                     </div>
                                 </div>

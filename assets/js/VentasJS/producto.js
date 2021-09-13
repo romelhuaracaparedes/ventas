@@ -9,6 +9,31 @@ var productoJS = {
         });
     },
 
+    agregar_stock: function(obj, callback) {
+
+        // obj.id_producto = id_producto;
+        // obj.stock = stock;
+
+        ventasJS.post('producto/obtenerProducto', { id: obj.id_producto }, function(data) {
+
+            // console.log(data[0].stock);
+            var stock_actual = parseInt(data[0].stock);
+            var stock_actualizado = stock_actual + parseInt(obj.stock);
+
+            var body = {};
+            body.id_producto = obj.id_producto;
+            body.stock = stock_actualizado;
+
+            ventasJS.post('producto/actualizarStock', body, function(data) {
+
+                if (callback) {
+                    callback(data);
+                }
+            });
+
+        });
+    },
+
     agregar_producto: function(obj, callback) {
 
         ventasJS.post('producto/registrarProducto', obj, function(data) {
@@ -106,6 +131,7 @@ var productoJS = {
                     orderable: false,
                     render: function(value, type, row) {
                         return `
+                            <button class="btn btn-info btn-sm" onclick="agregarStock(` + row.id_producto + `)"><i class="fas fa-plus" ></i></button>
                             <button class="btn btn-primary btn-sm" onclick="getProductoById(` + row.id_producto + `)"><i class="fas fa-edit" ></i></button>
                             <button class="btn btn-danger btn-sm" onclick="eliminarProducto(` + row.id_producto + `)"><i class="fas fa-trash" ></i></button>
                             `;
@@ -249,6 +275,12 @@ $("#btn-cancelar").click(function() {
     productoJS.limpiar_formulario();
 });
 
+$("#btn-cancelar-stock").click(function() {
+    $("#modal-stock").modal("hide");
+    $("#agregar_stock_producto").val('');
+    $("#id_producto_stock").val('');
+});
+
 $("#btn-guardar").click(function() {
 
     var id_producto = $.trim($('#id_producto').val());
@@ -323,6 +355,42 @@ $("#btn-guardar").click(function() {
     }
 });
 
+$("#btn-actualizar-stock").click(function() {
+    var id_producto = $.trim($('#id_producto_stock').val());
+    var stock = $.trim($('#agregar_stock_producto').val());
+
+    var obj = {};
+    obj.id_producto = id_producto;
+    obj.stock = stock;
+
+    var msj_error = '';
+
+    if (stock == '') {
+        msj_error += 'Ingresar Stock. <br>';
+    }
+
+    if (msj_error == '') {
+
+        productoJS.agregar_stock(obj, function(data) {
+            console.log(data);
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+                $('#tablaproductos').DataTable().destroy();
+                productoJS.listarProductos();
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
+            }
+            $("#modal-stock").modal("hide");
+            $("#agregar_stock_producto").val('');
+            $("#id_producto_stock").val('');
+        });
+
+    } else {
+        ventasJS.msj.warning('Aviso:', msj_error);
+    }
+
+});
+
 $("#agregar-producto").click(function() {
     $("#modal-producto").modal("show");
     $("#titulo_modal").html('Registro de Producto');
@@ -363,4 +431,20 @@ function eliminarProducto(id) {
             }
         });
     });
+}
+
+function agregarStock(id) {
+
+    $("#modal-stock").modal("show");
+    $("#titulo_modal").html('Agregar Stock a producto');
+    $("#id_producto_stock").val(id);
+}
+
+function solo_numero(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
 }

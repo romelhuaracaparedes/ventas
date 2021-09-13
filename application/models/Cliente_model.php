@@ -30,10 +30,10 @@ class Cliente_model extends Base_model {
             'nombres' => $nombre,
             'apellido_paterno' => $apellido_paterno,
             'apellido_materno' => $apellido_materno,
-            'tipo_documento' => $direccion,
-            'numero_documento' => $celular,
-            'direccion' => $tipo_documento,
-            'celular' => $num_documento,
+            'tipo_documento' => $tipo_documento,
+            'numero_documento' => $num_documento,
+            'direccion' => $direccion,
+            'celular' => $celular,
             'flg_estado' => 1
         );
       

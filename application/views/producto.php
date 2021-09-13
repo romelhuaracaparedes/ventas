@@ -102,3 +102,33 @@
     </div>
 </div>
 <!--End usuario Modal -->
+
+<!-- usuario Modal -->
+<div class="modal" id="modal-stock">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">A&ntilde;adir Stock</h6>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <input type="hidden" id="id_producto_stock">
+                    <div class="row py-2">
+                        <div class="col-md-12">
+                            <label for="nombre_producto">Stock a agregar:</label>
+                            <input type="text" class="form-control" id="agregar_stock_producto" onkeypress="return solo_numero(event)">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn ripple btn-secondary" type="button" id="btn-cancelar-stock">Cancelar</button>
+                <button class="btn ripple btn-primary" type="button" id="btn-actualizar-stock">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End usuario Modal -->

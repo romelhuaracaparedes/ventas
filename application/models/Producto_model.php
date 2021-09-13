@@ -72,6 +72,16 @@ class Producto_model extends Base_model {
         return $query;
     }
     
+    public function _update_stock($id_producto=0,$stock){
+        $data = array(
+            'stock' => $stock,
+        );        
+        $this->db->where('id_producto', $id_producto);
+        $query =  $this->db->update($this->model_name, $data);
+
+        return $query;
+    }
+    
     public function _delete_producto($id_producto=0){
         $data = array(
             'flg_situacion' => 0
