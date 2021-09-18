@@ -7,6 +7,10 @@ var data_detalle_esp = '';
 
 var unique_values = [];
 
+var detalle_venta = {};
+
+var carrito = {};
+
 var funcionalidades = {
 
 }
@@ -185,7 +189,7 @@ var ventaJS = {
             console.log(unique_values);
 
             $("#detalle_venta").html(html);
-            var total =  (sub_total / 1.18).toFixed(2);
+            var total = (sub_total / 1.18).toFixed(2);
             $("#sub_total").val(total);
             $("#igv_total").val((total * 0.18).toFixed(2));
 
@@ -243,7 +247,7 @@ var ventaJS = {
 
         });
     },
-    
+
     agregar_cliente: function(obj, callback) {
 
         ventasJS.post('cliente/registarCliente', obj, function(data) {
@@ -253,7 +257,7 @@ var ventaJS = {
             }
         });
     },
-    
+
     listar_cliente: function() {
 
         ventasJS.post('cliente/listarClientes', {}, function(data) {
@@ -272,6 +276,16 @@ $(document).ready(function() {
     ventaJS.listarClientes();
     ventaJS.listarProductos();
     ventaJS.listarDetalleVenta(id_venta_general);
+
+    const templateCarrito = document.getElementById('template-carrito').content;
+    const items = document.getElementById('items');
+    const fragment = document.createDocumentFragment();
+
+    items.addEventListener('click', function(e) {
+        eliminar(e);
+    });
+
+
 
     $('#slccliente').change(function() {
         var selected = $(this).find('option:selected');
@@ -345,30 +359,7 @@ $(document).ready(function() {
 
     $("#agregar-producto").click(function() {
 
-        // if(documento_dni == ''){
-        //     return ventasJS.msj.warning('Aviso:', "Seleccione a un cliente");
-        // }
-        if (id_venta_general == '') {
-            return ventasJS.msj.warning('Aviso:', "Seleccione a un cliente");
-        }
-        
-       
-        // VENTA
-
-        var id_venta = $("#txtIdVenta").val();
-
-        // USUARIO
-        var usuario = $("#slccliente").select2('data');
-        var id_usuario = usuario[0].id;
-
-        // var fecha_pedido = $("#fecha_pedido").val();
-        // var fecha_entrega = $("#fecha_entrega").val();
-
-
-
-
         // PRODUCTOS
-
 
         var data = $("#slctproducto").select2('data');
         var nombre_producto = data[0].text;
@@ -376,20 +367,15 @@ $(document).ready(function() {
 
         var producto = $("#slctproducto").find('option:selected');
         var precio = producto.data('preciounit');
-
         var stock = parseInt($("#stock").val());
-
         var cantidad = ($("#cantidad").val());
-        
-        
+
         var msj_error = '';
-
-
 
         if (nombre_producto == '') {
             msj_error += 'Selecciona un Producto. <br>';
         }
-        
+
         if (precio == '') {
             msj_error += 'El producto no cuenta con precio. <br>';
         }
@@ -402,68 +388,145 @@ $(document).ready(function() {
             msj_error += 'Ingrese una cantidad no mayor al stock del producto. <br>';
         }
 
-        //validate cantidad detalle
-
-        $.each(unique_values, function(idxgen, objgen) {
-            if (objgen.id == id_producto) {
-                let suma_stock = (objgen.cantidad + parseInt(cantidad));
-                if (suma_stock > stock) {
-                    msj_error += 'Ingrese una cantidad no mayor al stock del producto la suma es ' + suma_stock + '. <br>';
-                }
-            }
 
 
-        });
+        // productos.id_venta = id_venta;
+        producto.id_producto = id_producto;
+        producto.nombre_producto = nombre_producto;
+        producto.cantidad = parseInt(cantidad);
+        producto.precio = parseFloat(precio);
 
 
-
-        var productos = {};
-        var cliente = {};
-
-        // cliente.id_cliente = id_usuario;
-        // cliente.fecha_pedido = fecha_pedido;
-        // cliente.fecha_entrega = fecha_entrega;
-        productos.id_venta = id_venta;
-        productos.id_producto = id_producto;
-        // productos.id_cliente = id_usuario;
-        productos.cantidad = cantidad;
-        productos.precio = precio;
-
-        if (msj_error == '') {
-            if (id_venta != '') {
-
-                ventaJS.agregar_DetalleVenta(productos, function(data) {
-                    if (data.status == 'success') {
-                        ventasJS.msj.success('Aviso:', data.msg);
-                        ventaJS.listarDetalleVenta(id_venta);
-                        $("#slctproducto").val(null).trigger('change');
-                        $("#cantidad").val('');
-                    } else {
-                        ventasJS.msj.warning('Aviso:', data.msg);
-                    }
-                    // ventaJS.limpiar_formulario();
-                });
-            } else {
-                // productoJS.editar_producto(obj, function(data) {
-                //     if (data.status == 'success') {
-                //         ventasJS.msj.success('Aviso:', data.msg);
-                //         $('#tablaproductos').DataTable().destroy();
-
-                //         productoJS.listarProductos();
-                //     } else {
-                //         ventasJS.msj.warning('Aviso:', data.msg);
-                //     }
-                //     $("#modal-producto").modal("hide");
-                //     productoJS.limpiar_formulario();
-                // });
-            }
-        } else {
-            ventasJS.msj.warning('Aviso:', msj_error);
+        if (carrito.hasOwnProperty(producto.id_producto)) {
+            producto.cantidad = carrito[producto.id_producto].cantidad + producto.cantidad;
         }
 
-        var obj = {};
+        if (producto.cantidad < stock) {
+            carrito[producto.id_producto] = {...producto };
+
+            items.innerHTML = ''
+
+            Object.values(carrito).forEach(producto => {
+                templateCarrito.querySelector('.badge-pill').dataset.id = producto.id_producto;
+                templateCarrito.querySelector('.fa-trash').dataset.id = producto.id_producto;
+                templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad;
+                templateCarrito.querySelectorAll('td')[2].textContent = producto.nombre_producto;
+                templateCarrito.querySelectorAll('td')[3].textContent = producto.precio;
+                templateCarrito.querySelector('span').textContent = producto.precio * producto.cantidad;
+
+                // //botones
+                // templateCarrito.querySelector('.btn-info').dataset.id = producto.id
+                // templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
+
+                const clone = templateCarrito.cloneNode(true);
+                fragment.appendChild(clone);
+            })
+            items.appendChild(fragment);
+
+            if (Object.keys(carrito).length === 0) {
+                $("#sub_total").val(0.00);
+                $("#igv_total").val(0.00);
+                $("#total").val(0);
+            } else {
+
+                const nCantidad = Object.values(carrito).reduce((acc, { cantidad }) => acc + cantidad, 0);
+                const nPrecio = Object.values(carrito).reduce((acc, { cantidad, precio }) => acc + cantidad * precio, 0);
+
+
+                var total = (nPrecio / 1.18).toFixed(2);
+                $("#sub_total").val(total);
+                $("#igv_total").val((total * 0.18).toFixed(2));
+
+                $("#total").val(nPrecio);
+            }
+        } else {
+            // console.log("excedio stock");
+            ventasJS.msj.warning('Aviso:', 'Excedio el Sctock');
+        }
+
+        console.log(carrito);
 
     });
+
+    function pintarCarrito() {
+        items.innerHTML = ''
+
+        Object.values(carrito).forEach(producto => {
+            templateCarrito.querySelector('.badge-pill').dataset.id = producto.id_producto;
+            templateCarrito.querySelector('.fa-trash').dataset.id = producto.id_producto;
+            templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad;
+            templateCarrito.querySelectorAll('td')[2].textContent = producto.nombre_producto;
+            templateCarrito.querySelectorAll('td')[3].textContent = producto.precio;
+            templateCarrito.querySelector('span').textContent = producto.precio * producto.cantidad;
+
+            // //botones
+            // templateCarrito.querySelector('.btn-info').dataset.id = producto.id
+            // templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
+
+            const clone = templateCarrito.cloneNode(true);
+            fragment.appendChild(clone);
+        })
+        items.appendChild(fragment);
+
+        if (Object.keys(carrito).length === 0) {
+            $("#sub_total").val(0.00);
+            $("#igv_total").val(0.00);
+            $("#total").val(0);
+        } else {
+
+            const nCantidad = Object.values(carrito).reduce((acc, { cantidad }) => acc + cantidad, 0);
+            const nPrecio = Object.values(carrito).reduce((acc, { cantidad, precio }) => acc + cantidad * precio, 0);
+
+
+            var total = (nPrecio / 1.18).toFixed(2);
+            $("#sub_total").val(total);
+            $("#igv_total").val((total * 0.18).toFixed(2));
+
+            $("#total").val(nPrecio);
+        }
+    }
+
+    function eliminar(e) {
+
+        if (e.target.classList.contains('eliminar')) {
+
+            var producto = carrito[e.target.dataset.id];
+            console.log(producto);
+            delete carrito[e.target.dataset.id];
+            pintarCarrito();
+        }
+
+        e.stopPropagation();
+    }
+
+    $("#vaciar-producto").click(function() {
+        carrito = {};
+        items.innerHTML = ''
+
+        Object.values(carrito).forEach(producto => {
+            templateCarrito.querySelector('.badge-pill').dataset.id = producto.id_producto;
+            templateCarrito.querySelectorAll('td')[1].textContent = producto.cantidad;
+            templateCarrito.querySelectorAll('td')[2].textContent = producto.nombre_producto;
+            templateCarrito.querySelectorAll('td')[3].textContent = producto.precio;
+            templateCarrito.querySelector('span').textContent = producto.precio * producto.cantidad;
+
+            // //botones
+            // templateCarrito.querySelector('.btn-info').dataset.id = producto.id
+            // templateCarrito.querySelector('.btn-danger').dataset.id = producto.id
+
+            const clone = templateCarrito.cloneNode(true);
+            fragment.appendChild(clone);
+        })
+
+        $("#sub_total").val(0.00);
+        $("#igv_total").val(0.00);
+
+        $("#total").val(0);
+        items.appendChild(fragment);
+    });
+
+
+
 
     $("#guardar_pago").click(function() {
         var msj_error = '';
@@ -471,12 +534,11 @@ $(document).ready(function() {
 
         var id_venta = id_venta_general;
         var slccliente = $("#slccliente").val();
-        var slccliente = $("#slccliente").val();
         var monto = $(".c_monto").val();
         var tipo = $('.tipo_pago').val();
 
 
-        var monto_total = $("#monto_total").val(); 
+        var monto_total = $("#monto_total").val();
 
 
         if (monto == '') {
@@ -489,7 +551,7 @@ $(document).ready(function() {
 
         console.log(parseFloat(monto_total));
         console.log(parseFloat(monto));
-         
+
         genData.venta = id_venta;
         genData.cliente = slccliente;
         genData.monto = monto;
@@ -524,75 +586,75 @@ $(document).ready(function() {
 
 $("#guardar-cliente").click(function() {
 
-        var obj = {};
-        obj.nombre = $("#nombres").val();
-        obj.apellido_paterno = $("#apellido_paterno").val();
-        obj.apellido_materno = $("#apellido_materno").val();
-        obj.direccion = $("#direccion_cliente").val();
-        obj.celular = $("#celular").val();
-        obj.tipo_documento = $("#tipo_documento").val();
-        obj.num_documento = $("#num_documento").val();
+    var obj = {};
+    obj.nombre = $("#nombres").val();
+    obj.apellido_paterno = $("#apellido_paterno").val();
+    obj.apellido_materno = $("#apellido_materno").val();
+    obj.direccion = $("#direccion_cliente").val();
+    obj.celular = $("#celular").val();
+    obj.tipo_documento = $("#tipo_documento").val();
+    obj.num_documento = $("#num_documento").val();
 
-        var msj_error = '';
+    var msj_error = '';
 
-        if (obj.nombre == '') {
-            msj_error += 'Ingrese nombre. <br>';
-        }
+    if (obj.nombre == '') {
+        msj_error += 'Ingrese nombre. <br>';
+    }
 
-        if (obj.apellido_paterno == '') {
-            msj_error += 'Ingrese apellido paterno. <br>';
-        }
+    if (obj.apellido_paterno == '') {
+        msj_error += 'Ingrese apellido paterno. <br>';
+    }
 
-        // if (obj.apellido_materno == '') {
-        //     msj_error += 'Ingrese apellido materno. <br>';
-        // }
+    // if (obj.apellido_materno == '') {
+    //     msj_error += 'Ingrese apellido materno. <br>';
+    // }
 
-        // if (obj.direccion == '') {
-        //     msj_error += 'Ingrese Dirección. <br>';
-        // }
+    // if (obj.direccion == '') {
+    //     msj_error += 'Ingrese Dirección. <br>';
+    // }
 
-        // if (obj.celular == '') {
-        //     msj_error += 'Ingrese Celular. <br>';
-        // }
+    // if (obj.celular == '') {
+    //     msj_error += 'Ingrese Celular. <br>';
+    // }
 
-        if (obj.tipo_documento == '') {
-            msj_error += 'Ingrese Tipo de documento. <br>';
-        }
+    if (obj.tipo_documento == '') {
+        msj_error += 'Ingrese Tipo de documento. <br>';
+    }
 
-        if (obj.num_documento == '') {
-            msj_error += 'Ingrese Numero de Documento. <br>';
-        }
+    if (obj.num_documento == '') {
+        msj_error += 'Ingrese Numero de Documento. <br>';
+    }
 
-        if (msj_error == '') {
-            ventaJS.agregar_cliente(obj, function(data) {
-                if (data.status == 'success') {
-                    ventasJS.msj.success('Aviso:', data.msg);
-                    $("#modal-cliente").modal('hide');
+    if (msj_error == '') {
+        ventaJS.agregar_cliente(obj, function(data) {
+            if (data.status == 'success') {
+                ventasJS.msj.success('Aviso:', data.msg);
+                $("#modal-cliente").modal('hide');
 
-                    $("#nombres").val('');
-                    $("#apellido_paterno").val('');
-                    $("#apellido_materno").val('');
-                    $("#direccion_cliente").val('');
-                    $("#celular").val('');
-                    $("#tipo_documento").val('1');
-                    $("#num_documento").val('');
+                $("#nombres").val('');
+                $("#apellido_paterno").val('');
+                $("#apellido_materno").val('');
+                $("#direccion_cliente").val('');
+                $("#celular").val('');
+                $("#tipo_documento").val('1');
+                $("#num_documento").val('');
 
-                    ventaJS.listar_cliente();
-
-
-                } else {
-                    ventasJS.msj.warning('Aviso:', data.msg);
-                }
+                ventaJS.listar_cliente();
 
 
-            });
-
-        } else {
-            ventasJS.msj.warning('Aviso:', msj_error);
-        }
+            } else {
+                ventasJS.msj.warning('Aviso:', data.msg);
+            }
 
 
-    });
+        });
+
+    } else {
+        ventasJS.msj.warning('Aviso:', msj_error);
+    }
+
+
+});
 
 
 function eliminar_DetalleVenta(id) {
@@ -600,6 +662,7 @@ function eliminar_DetalleVenta(id) {
         ventaJS.listarDetalleVenta(id_venta_general);
     });
 }
+
 
 
 
@@ -643,8 +706,47 @@ $(".btn-cancelar").click(function() {
 //mmodal pedido
 
 $("#realizar-pedido").click(function() {
-    $("#modal-pedido").modal("show");
-    $(".titulo-modal-cliente").html('<center>Registrar pedido</center>');
+
+    var msj_error = '';
+
+    var slccliente = $("#slccliente").val();
+    var fecha_pedido = $("#fechapedido").val();
+    var fecha_entrega = $("#fechaentrega").val();
+
+    // PRODUCTOS
+
+    if (slccliente == '') {
+        msj_error += 'Selecciona un Cliente. <br>';
+    }
+
+    if (fecha_pedido == '') {
+        msj_error += 'Ingrese una Fecha de Pedido. <br>';
+    }
+
+    if (fecha_entrega == '') {
+        msj_error += 'Ingrese una Fecha de Enetrega. <br>';
+    }
+
+
+    var cliente = {};
+    cliente.id_cliente = slccliente;
+    cliente.fecha_pedido = fecha_pedido;
+    cliente.fecha_entrega = fecha_entrega;
+
+
+    if (msj_error == '') {
+
+        console.log(cliente);
+        console.log(carrito);
+
+
+    } else {
+        ventasJS.msj.warning('Aviso:', msj_error);
+    }
+
+
+    // $("#modal-pedido").modal("show");
+    // $(".titulo-modal-cliente").html('<center>Registrar pedido</center>');
 });
 //
 
@@ -681,7 +783,7 @@ function pago(_tipo) {
                     $("input[name='monto']").val(total);
 
                     $("input[name='monto']").prop("disabled", true);
-                }else {
+                } else {
                     var total = $("#total").val();
                     $("#monto_total").val(total);
                 }

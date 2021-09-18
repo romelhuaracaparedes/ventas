@@ -147,6 +147,9 @@
                                     <button class="btn ripple btn-primary btn-block" id="agregar-producto">
                                         <i class="fe fe-plus mr-2"></i> Agregar
                                     </button>
+                                    <button class="btn ripple btn-danger btn-block" id="vaciar-producto">
+                                        Vaciar Lista de productos 
+                                    </button>
                                 
                             </div>
                             <div class="col-md-12">
@@ -161,7 +164,7 @@
                                                 <th>Importe</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="detalle_venta">
+                                        <tbody id="items">
                                             
                                         </tbody>
                                     </table>
@@ -212,6 +215,17 @@
         </div>
     </div>
 </div>
+
+
+<template id="template-carrito">   
+<tr>
+    <td><button class="badge badge-pill badge-danger eliminar" > <i class="fas fa-trash fa-xs eliminar"></i></button></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td> S/.<span></span></td>
+</tr>
+</template>
 
 
 <!-- cliente Modal -->
